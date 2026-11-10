@@ -1,26 +1,23 @@
 # Scusa, non stasera
 
-> *Scusa, non stasera.* ~~~ **Anzi sì.**
+**~~Scusa, non stasera.~~ ANZI SÌ!** Un sito in stile videogioco retrò per uscire
+senza programmare. I posti sono i 673 della lista Google Maps **“RistoMat”** di
+Matteo.
 
-Sito statico per uscire senza programmare: ti geolocalizzi (o scegli la zona) e
-vedi cosa c’è di buono intorno, a fasce di distanza a piedi. I posti sono i 673
-della lista Google Maps **“RistoMat”** di Matteo, arricchiti con le dritte di
-Matteo, i riassunti delle recensioni di Puntarella Rossa e le guide
-Spacedelicious.
+## Come si gioca
 
-## Come funziona
-
-1. **Dove sei?** “Vicino a me” usa il GPS del telefono (la posizione non esce
-   dal browser), oppure scegli una zona di Roma, una città o un’altra località.
-2. **Che voglia hai?** Come a casa (trattorie e osterie) · A tavola (ristoranti) ·
-   Pizza, ovvio · Un calice · Due drink · Dolce & caffè · Giro del mondo ·
-   Al volo · Sapore di mare · Brace & carne · Spesa golosa · Da scoprire.
-3. I risultati arrivano in fasce: **Sotto casa** (≤ 10 min a piedi),
-   **Due passi** (10–25 min), **Vale il viaggio**.
-4. **Sorprendimi** pesca un posto a caso tra quelli vicini; **Portami lì** apre
-   le indicazioni a piedi su Google Maps.
-5. **Solo con una dritta** mostra i posti con una nota di Matteo, una
-   recensione di Puntarella Rossa o la presenza in una guida Spacedelicious.
+- **PREMI START**: usa il GPS del telefono (la posizione non esce dal browser) e
+  mostra i posti in ordine di distanza, a fasce: *Sotto casa* (EASY, fino a 10
+  minuti a piedi), *Due passi* (NORMAL, 10–25), *Vale il viaggio* (HARD).
+- **SELEZIONA IL MONDO**: Roma, Firenze, Venezia, Milano, Bologna, Fuori porta.
+- **LIVELLI**: a Roma ogni **quartiere** è un livello (38 quartieri in 5 aree:
+  Centro, Sponda ovest, Nord, Est, Sud, più la Periferia). In fondo a ogni
+  livello ci sono i 3 quartieri più vicini (*Prossimo livello*). Fuori porta i
+  livelli sono le località con almeno 3 posti; le altre sono raggruppate per regione.
+- **POWER-UP**: Come a casa · A tavola · Pizza, ovvio · Un calice · Due drink ·
+  Dolce & caffè · Giro del mondo · Al volo · Sapore di mare · Brace & carne ·
+  Spesa golosa · Da scoprire. In più c'è il filtro *Solo i consigli di Matteo*.
+- **GETTONE**: pesca un posto a caso tra quelli vicini o del livello.
 
 ## File
 
@@ -28,12 +25,12 @@ Spacedelicious.
 | --- | --- |
 | `index.html` | La pagina (HTML, CSS, JavaScript) |
 | `locali.js` | Dati **generati**: non modificarli a mano |
-| `recensioni.json` | Riassunti Puntarella Rossa (anno + link) e guide Spacedelicious, per locale |
-| `tipi_osm.json` | Tipo di locale da OpenStreetMap per i posti il cui nome non lo dice |
-| `correzioni.json` | Correzioni manuali (tipo, città, zona, nota): vincono su tutto |
+| `tipi.json` | Tipo di locale per i posti il cui nome non lo dice |
+| `correzioni.json` | Correzioni manuali (tipo `t`, quartiere `q`, città `c`, nota `nt`): vincono su tutto |
 | `strumenti/aggiorna_lista.py` | Scarica la lista da Google Maps e rigenera `locali.js` |
+| `strumenti/quartieri.py` | I quartieri di Roma: centro, area e sponda del Tevere |
 
-Dopo aver aggiunto posti su Google Maps, o modificato uno dei file `.json`:
+Dopo aver aggiunto posti su Google Maps o modificato un file `.json`:
 
 ```bash
 python3 ristomat/strumenti/aggiorna_lista.py
@@ -41,14 +38,10 @@ python3 ristomat/strumenti/aggiorna_lista.py
 
 ## Limiti da sapere
 
-- **Minuti a piedi**: stima in linea d’aria (+30% per le strade reali), non un
-  percorso vero.
-- **Tipo di locale**: dedotto dal nome, poi dalle guide, poi da OpenStreetMap.
-  Restano circa 100 posti “Da scoprire”. Si correggono in `correzioni.json`, es.
-  `"Armando al Pantheon": { "t": "trattoria" }`.
-- **Recensioni**: sono riassunti brevi scritti per questo sito, con anno e link
-  all’articolo originale. Alcune hanno più di dieci anni: il locale può essere
-  cambiato. I posti aggiunti in futuro alla lista non ricevono recensioni in
-  automatico.
-- **Zone di Roma**: ricavate dal CAP, a gruppi larghi.
+- **Quartieri**: ogni posto va al quartiere col centro più vicino, sulla stessa
+  sponda del Tevere. Il metodo è stato verificato sui locali che hanno il
+  quartiere nel nome (50 su 53 coincidono; i 3 diversi citano un quartiere
+  confinante). Ai confini può sbagliare: si corregge con `"q"` in `correzioni.json`.
+- **Minuti a piedi**: stima in linea d’aria (+30% per le strade), non un percorso.
+- **Tipo di locale**: dal nome o da `tipi.json`; 100 posti restano “Da scoprire”.
 - **Niente orari di apertura**: la lista Google Maps non li fornisce.

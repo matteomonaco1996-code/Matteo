@@ -8,7 +8,7 @@ Uso (dalla cartella del sito):
 La lista deve essere condivisa pubblicamente (link "Chiunque abbia il link").
 Il tipo di locale è dedotto dal nome (e dall'eventuale nota): per correggerlo,
 o per cambiare città/zona/nota, aggiungi una voce in correzioni.json.
-Le note delle guide (Puntarella Rossa, Spacedelicious) stanno in recensioni.json.
+Il tipo dei posti con nomi poco chiari sta in tipi.json; i quartieri di Roma in strumenti/quartieri.py.
 Solo libreria standard: nessuna dipendenza da installare.
 """
 import argparse
@@ -29,13 +29,10 @@ API = ("https://www.google.com/maps/preview/entitylist/getlist?authuser=0&hl=it&
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "locali.js"
 CORREZIONI = ROOT / "correzioni.json"
-RECENSIONI = ROOT / "recensioni.json"
-TIPI_OSM = ROOT / "tipi_osm.json"
+TIPI_EXTRA = ROOT / "tipi.json"
 
-# Tipologie usate dalle guide Spacedelicious -> tipi del sito
-TIPI_GUIDA = {"trattoria": "trattoria", "osteria": "trattoria", "pizzeria": "pizza", "enoteca": "vino",
-              "forno": "dolce", "gelateria / caffè": "dolce", "bar/pasticceria": "dolce", "rosticceria": "street",
-              "lampredotto": "street", "contemporaneo": "ristorante", "ristorante": "ristorante"}
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from quartieri import AREE, QUARTIERI, quartiere  # noqa: E402
 
 # --------------------------------------------------------------------------
 # Province -> regione
@@ -59,22 +56,6 @@ REGIONI = {
     "Friuli-Venezia Giulia": "TS UD PN GO",
 }
 PROV2REG = {p: r for r, ps in REGIONI.items() for p in ps.split()}
-
-# Zone di Roma ricavate dal CAP (raggruppamenti volutamente larghi).
-ZONE_ROMA = {
-    "Centro storico": "00186 00187",
-    "Monti · Esquilino · San Lorenzo": "00184 00185",
-    "Trastevere · Testaccio": "00153",
-    "Ostiense · Garbatella · Marconi": "00154 00145 00146 00147",
-    "Pigneto · Prenestino · Centocelle": "00176 00177 00171 00172 00169",
-    "San Giovanni · Appio · Tuscolano": "00182 00183 00181 00179 00174 00175",
-    "Monteverde · Portuense": "00151 00152 00149 00148",
-    "Prati · Aurelio · Trionfale": "00192 00193 00195 00165 00167 00136 00135",
-    "Flaminio · Parioli · Trieste": "00196 00197 00198 00199 00191",
-    "Nomentano · Montesacro · Tiburtino": "00161 00162 00141 00137 00139 00155 00156 00157 00158 00159",
-}
-CAP2ZONA = {c: z for z, cs in ZONE_ROMA.items() for c in cs.split()}
-ZONA_ALTRO = "Altre zone di Roma"
 
 # Tipi di locale: la prima regola che corrisponde vince (l'ordine conta).
 TIPI = [
@@ -171,8 +152,7 @@ def main():
 
     correzioni = json.loads(CORREZIONI.read_text("utf-8")) if CORREZIONI.exists() else {}
     correzioni = {k: v for k, v in correzioni.items() if not k.startswith("_")}
-    recensioni = json.loads(RECENSIONI.read_text("utf-8")) if RECENSIONI.exists() else {}
-    tipi_osm = json.loads(TIPI_OSM.read_text("utf-8")) if TIPI_OSM.exists() else {}
+    tipi_extra = json.loads(TIPI_EXTRA.read_text("utf-8")) if TIPI_EXTRA.exists() else {}
 
     locali = []
     for it in voci:
@@ -204,22 +184,14 @@ def main():
     for x in locali:
         x["r"] = PROV2REG.get(x["p"], "Altro")
         x["c"] = x["c"] or "Altre località"
-        rec = recensioni.get(x["n"], {})
-        if rec.get("pr"):
-            x["pr"] = {k: rec["pr"][k] for k in ("y", "u", "nota")}
-        if rec.get("sd"):
-            x["sd"] = {k: rec["sd"][k] for k in ("g", "u")}
-        if x["t"] == "altro":  # il tipo dedotto dal nome non dice nulla: usa quello delle guide
-            x["t"] = (rec.get("t") or TIPI_GUIDA.get((rec.get("sd") or {}).get("tip", "").lower())
-                      or (tipi_osm.get(x["n"]) or {}).get("t") or "altro")
+        if x["t"] == "altro":  # il nome non dice che locale è
+            x["t"] = tipi_extra.get(x["n"], "altro")
         if x["c"] == "Roma":
-            x["z"] = CAP2ZONA.get(x["cap"], ZONA_ALTRO)
+            x["q"] = quartiere(x["la"], x["lo"])
         fix = correzioni.get(x["n"])
         if fix:
-            x.update({k: v for k, v in fix.items() if k in ("t", "c", "z", "nt", "r")})
+            x.update({k: v for k, v in fix.items() if k in ("t", "c", "q", "nt", "r")})
         del x["cap"]
-        if not x.get("z"):
-            x.pop("z", None)
 
     locali.sort(key=lambda x: -(x["d"] or 0))  # più recenti prima
     righe = ",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in locali)
@@ -231,6 +203,9 @@ def main():
         "fonte": LIST_URL,
         "aggiornato": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "totale": len(locali),
+        "aree": AREE,
+        "quartieri": [{"n": n, "a": a, "la": la, "lo": lo} for n, a, la, lo, _ in QUARTIERI
+                      if any(x.get("q") == n for x in locali)],
     }
     js = ("// Generato da strumenti/aggiorna_lista.py: non modificare a mano (usa correzioni.json).\n"
           f"window.RISTOMAT_META = {json.dumps(meta, ensure_ascii=False)};\n"
@@ -240,7 +215,7 @@ def main():
     print(f"{len(locali)} locali scritti in {OUT.name}")
     print("Tipi:", dict(Counter(x["t"] for x in locali).most_common()))
     print("Città:", dict(Counter(x["c"] for x in locali).most_common(8)))
-    print("Zone Roma:", dict(Counter(x.get("z") for x in locali if x.get("z")).most_common()))
+    print("Quartieri di Roma:", dict(Counter(x.get("q") for x in locali if x.get("q")).most_common()))
 
 
 if __name__ == "__main__":
