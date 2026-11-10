@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Rigenera ristomat/locali.js a partire dalla lista Google Maps "RistoMat".
 
-Uso:
-    python3 ristomat/strumenti/aggiorna_lista.py              # scarica la lista da Google Maps
-    python3 ristomat/strumenti/aggiorna_lista.py --file x.json # usa una risposta già scaricata
+Uso (dalla cartella del sito):
+    python3 strumenti/aggiorna_lista.py              # scarica la lista da Google Maps
+    python3 strumenti/aggiorna_lista.py --file x.json # usa una risposta già scaricata
 
 La lista deve essere condivisa pubblicamente (link "Chiunque abbia il link").
 Il tipo di locale è dedotto dal nome (e dall'eventuale nota): per correggerlo,
-o per cambiare città/zona/nota, aggiungi una voce in ristomat/correzioni.json.
+o per cambiare città/zona/nota, aggiungi una voce in correzioni.json.
 Solo libreria standard: nessuna dipendenza da installare.
 """
 import argparse
@@ -156,6 +156,8 @@ def main():
     raw = raw[raw.index("\n") + 1:] if raw.startswith(")]}'") else raw
     lista = json.loads(raw)[0]
     titolo, attesi, voci = lista[4], lista[12], lista[8] or []
+    if not voci:
+        sys.exit("Errore: la lista è arrivata vuota. locali.js non è stato toccato.")
     if attesi and len(voci) < attesi:
         print(f"Attenzione: ricevuti {len(voci)} locali su {attesi}", file=sys.stderr)
 
@@ -202,6 +204,10 @@ def main():
             x.pop("z", None)
 
     locali.sort(key=lambda x: -(x["d"] or 0))  # più recenti prima
+    righe = ",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in locali)
+    if OUT.exists() and righe in OUT.read_text("utf-8"):
+        print(f"Nessuna novità: {len(locali)} locali, {OUT.name} invariato")
+        return
     meta = {
         "titolo": titolo,
         "fonte": LIST_URL,
@@ -210,12 +216,10 @@ def main():
     }
     js = ("// Generato da strumenti/aggiorna_lista.py: non modificare a mano (usa correzioni.json).\n"
           f"window.RISTOMAT_META = {json.dumps(meta, ensure_ascii=False)};\n"
-          "window.RISTOMAT = [\n"
-          + ",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in locali)
-          + "\n];\n")
+          "window.RISTOMAT = [\n" + righe + "\n];\n")
     OUT.write_text(js, "utf-8")
 
-    print(f"{len(locali)} locali scritti in {OUT.relative_to(ROOT.parent)}")
+    print(f"{len(locali)} locali scritti in {OUT.name}")
     print("Tipi:", dict(Counter(x["t"] for x in locali).most_common()))
     print("Città:", dict(Counter(x["c"] for x in locali).most_common(8)))
     print("Zone Roma:", dict(Counter(x.get("z") for x in locali if x.get("z")).most_common()))
