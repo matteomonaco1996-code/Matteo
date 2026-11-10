@@ -61,7 +61,7 @@ r = await q(`select * from public.profili`); r.length === 0 ? ok("non vede il pr
 r = await q(`select * from public.visite`); r.length === 0 ? ok("non vede le visite di A") : ko("vede visite");
 r = await q(`select * from public.recensioni`); r.length === 0 ? ok("non vede le recensioni di A nella tabella privata") : ko("vede recensioni");
 await expectFail(`select public.fai_checkin('1630696637701112352', 41.91110, 12.45670)`, "check-in senza profilo");
-await db.exec(`insert into public.profili (id, nickname, eta_confermata, termini_versione, privacy_versione) values ('${B}', 'giulia', true, '1.0', '1.0')`);
+await db.exec(`insert into public.profili (id, nickname, eta_confermata, termini_versione, privacy_versione) values ('${B}', 'gaia', true, '1.0', '1.0')`);
 const rid = (await q(`select id from public.recensioni_pubbliche`))[0].id;
 await db.exec(`insert into public.segnalazioni (recensione, segnalante, motivo) values (${rid}, '${B}', 'offensiva')`); ok("può segnalare una recensione");
 await expectFail(`insert into public.segnalazioni (recensione, segnalante, motivo) values (${rid}, '${A}', 'spam')`, "non può segnalare a nome di altri");
