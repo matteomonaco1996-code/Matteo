@@ -68,8 +68,16 @@ database, non dal browser, e non danno premi. Test del database: `strumenti/test
 Dopo aver aggiunto posti su Google Maps o modificato un file `.json`:
 
 ```bash
-python3 ristomat/strumenti/aggiorna_lista.py
+python3 strumenti/aggiorna_lista.py
 ```
+
+## Pubblicazione
+
+Questa cartella è pensata per essere la radice di un repository a sé (`scusa-non-stasera`).
+Il workflow `.github/workflows/pubblica.yml` pubblica su GitHub Pages a ogni push su `main`
+e ogni lunedì riscarica la lista da Google Maps: se è cambiata aggiorna `locali.js` e
+`supabase/luoghi.sql` e ripubblica. Con i segreti `SUPABASE_URL` e `SUPABASE_SERVICE_KEY`
+aggiorna anche i posti nel database. Serve *Settings → Pages → Source: GitHub Actions*.
 
 ## Limiti da sapere
 
