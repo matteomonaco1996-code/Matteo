@@ -1,0 +1,458 @@
+{
+ "_info": "Note dalle guide, una voce per locale (chiave = nome esatto su Google Maps). pr = riassunto di un articolo di Puntarella Rossa (y anno, u link, nota); sd = presenza in una guida Spacedelicious (g guida, u link, tip tipologia); t = tipo di locale secondo la guida, usato solo se il nome non lo dice. Dopo una modifica rilancia strumenti/aggiorna_lista.py.",
+ "180grammi Pizzeria Romana": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Pizzeria"
+  }
+ },
+ "A Cantina cosentina": {
+  "sd": {
+   "g": "Spacedelicious Calabria",
+   "u": "https://spacedelicious.com/pages/calabria",
+   "tip": "Ristorante"
+  }
+ },
+ "Antica Locanda Montin": {
+  "sd": {
+   "g": "Spacedelicious Veneto",
+   "u": "https://spacedelicious.com/pages/veneto",
+   "tip": "Ristorante"
+  }
+ },
+ "Antico Forno Aiello": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Forno"
+  }
+ },
+ "Antico Forno Roscioli": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Forno"
+  }
+ },
+ "Armando al Pantheon": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Baita La Faggeta": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Ristorante"
+  }
+ },
+ "Bar Pasticceria D'Amore": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": ""
+  }
+ },
+ "Bar Trattoria La Vallerana": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Trattoria"
+  }
+ },
+ "Ca' d'oro Alla Vedova": {
+  "sd": {
+   "g": "Spacedelicious Veneto",
+   "u": "https://spacedelicious.com/pages/veneto",
+   "tip": "Ristorante"
+  }
+ },
+ "Checchino Dal 1887": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Checco Er Carettiere": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Circoletto Roma": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Contemporaneo"
+  }
+ },
+ "Da Alfreda": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Trattoria"
+  }
+ },
+ "Da Nerbone": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Lampredotto"
+  }
+ },
+ "Enoteca Il Piccolo": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Enoteca"
+  }
+ },
+ "Estro": {
+  "sd": {
+   "g": "Spacedelicious Veneto",
+   "u": "https://spacedelicious.com/pages/veneto",
+   "tip": ""
+  }
+ },
+ "Gli Attortellati": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Trattoria"
+  }
+ },
+ "Hosteria da Settimio": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Il Latini": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "L'Elementare - Trastevere": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Pizzeria"
+  }
+ },
+ "La Campana": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "La casa del supplì": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Rosticceria"
+  }
+ },
+ "La Giostra": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "La Terrazza di Mimi": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Ristorante"
+  }
+ },
+ "Marzapane": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Contemporaneo"
+  }
+ },
+ "Nuovo Mondo": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Pizzeria"
+  }
+ },
+ "Osteria Ae Forcoe": {
+  "sd": {
+   "g": "Spacedelicious Veneto",
+   "u": "https://spacedelicious.com/pages/veneto",
+   "tip": "Bar"
+  }
+ },
+ "Osteria Bonelli": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Osteria"
+  }
+ },
+ "Osteria da Divo": {
+  "sd": {
+   "g": "Spacedelicious Siena e Val d'Orcia",
+   "u": "https://spacedelicious.com/pages/siena-e-val-dorcia",
+   "tip": "Osteria"
+  }
+ },
+ "Osteria del Fico Vecchio": {
+  "sd": {
+   "g": "Spacedelicious Castelli Romani",
+   "u": "https://spacedelicious.com/pages/castelli-romani",
+   "tip": "Ristorante"
+  }
+ },
+ "Osteria delle Tre Panche - Centro Storico": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Osteria Il Carroccio": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Osteria"
+  }
+ },
+ "Osteria La Zucca": {
+  "sd": {
+   "g": "Spacedelicious Veneto",
+   "u": "https://spacedelicious.com/pages/veneto",
+   "tip": "Osteria"
+  }
+ },
+ "Pastificio San Lorenzo": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Pianostrada": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Piatto Romano": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Pizzeria Ai Marmi - Antico forno a legna dal 1931": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Pizzeria"
+  }
+ },
+ "Pizzeria Da Baffetto": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Pizzeria"
+  }
+ },
+ "RETROBOTTEGA": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante Al Cambio": {
+  "sd": {
+   "g": "Bolognadelicious",
+   "u": "https://spacedelicious.com/pages/bolognadelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante Alla Vecchia Bettola Firenze": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Ristorante Buca Lapi": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante Buca Mario": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante Da Benito": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante da Guido": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante Girarrosto All'Arco": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Trattoria"
+  }
+ },
+ "Ristorante Il Giardino": {
+  "sd": {
+   "g": "Spacedelicious Lazio",
+   "u": "https://spacedelicious.com/pages/lazio",
+   "tip": "Ristorante"
+  }
+ },
+ "Ristorante Macchiascandona": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Trattoria"
+  }
+ },
+ "Ristorante Tullio": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Ristorante"
+  }
+ },
+ "Trattoria 13 Gobbi": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Ristorante"
+  }
+ },
+ "Trattoria Bertozzi": {
+  "sd": {
+   "g": "Bolognadelicious",
+   "u": "https://spacedelicious.com/pages/bolognadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria CocoLezzone": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria Cupi": {
+  "sd": {
+   "g": "Spacedelicious Toscana",
+   "u": "https://spacedelicious.com/pages/toscana",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria Da Cesare al Casaletto": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria Da Danilo": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria da Lucia": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria da Me": {
+  "sd": {
+   "g": "Bolognadelicious",
+   "u": "https://spacedelicious.com/pages/bolognadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria di Via Serra": {
+  "sd": {
+   "g": "Bolognadelicious",
+   "u": "https://spacedelicious.com/pages/bolognadelicious",
+   "tip": ""
+  }
+ },
+ "Trattoria Lilli": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria Perilli": {
+  "sd": {
+   "g": "Romadelicious",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria Sabatino": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trattoria Sergio Gozzi": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Trattoria"
+  }
+ },
+ "Trecca - Roma": {
+  "sd": {
+   "g": "Romadelicious · New School",
+   "u": "https://spacedelicious.com/pages/romadelicious",
+   "tip": "Contemporaneo"
+  }
+ },
+ "Vivoli": {
+  "sd": {
+   "g": "Firenzedelicious",
+   "u": "https://spacedelicious.com/pages/firenzedelicious",
+   "tip": "Gelateria / Caffè"
+  }
+ }
+}

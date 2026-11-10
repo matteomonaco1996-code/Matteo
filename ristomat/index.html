@@ -906,6 +906,21 @@ body::before {
 .where { font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
 .where b { color: var(--ink); font-weight: 600; }
 .card .hand { margin: 2px 0 0; }
+.guide { display: grid; gap: 4px; margin: 0; font-size: 14px; line-height: 1.45; }
+.guide .src {
+  font: 500 11px/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+}
+.guide a.src:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.guide p { margin: 0; }
+.badge-sd {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 12px/1 var(--f-mono); letter-spacing: .02em;
+  padding: 6px 9px; border-radius: 6px;
+  background: var(--saffron-soft); color: var(--ink); text-decoration: none;
+}
+.badge-sd:hover { text-decoration: underline; text-underline-offset: 3px; }
 .card-foot {
   margin-top: auto;
   padding-top: 10px;
@@ -983,7 +998,7 @@ footer p { margin: 0; max-width: 70ch; }
       <h1 class="brand">Risto<span class="mat">Mat</span></h1>
     </div>
     <div>
-      <p class="lede">I posti dove mangiare e bere salvati da Matteo su Google Maps: trattorie romane, pizzerie, enoteche, chioschi al mare. Cerca per zona, tipo o nome, oppure lascia scegliere al caso.</p>
+      <p class="lede">I posti dove mangiare e bere salvati da Matteo su Google Maps: trattorie romane, pizzerie, enoteche, chioschi al mare. Con le note di Matteo e i riassunti delle recensioni di Puntarella Rossa. Cerca per zona, tipo o nome, oppure lascia scegliere al caso.</p>
       <ul class="stats" id="stats"></ul>
       <div class="hero-actions">
         <button class="btn primary" type="button" id="pesca">
@@ -1041,6 +1056,8 @@ footer p { margin: 0; max-width: 70ch; }
     <div class="row-end">
       <div class="chips">
         <button class="chip" type="button" id="solo-note" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Solo con nota di Matteo</button>
+        <button class="chip" type="button" id="solo-pr" aria-pressed="false">Recensiti da Puntarella Rossa <span class="n" id="n-pr"></span></button>
+        <button class="chip" type="button" id="solo-sd" aria-pressed="false">Nelle guide Spacedelicious <span class="n" id="n-sd"></span></button>
         <button class="chip" type="button" id="azzera">Azzera filtri</button>
       </div>
       <span class="msg" id="geo-msg" role="status" hidden></span>
@@ -1075,7 +1092,8 @@ footer p { margin: 0; max-width: 70ch; }
 <footer>
   <div class="wrap">
     <p>Dati dalla lista Google Maps <a id="fonte2" href="#" target="_blank" rel="noopener">“RistoMat”</a> di Matteo, aggiornata il <span id="agg"></span>.</p>
-    <p>Il tipo di locale è dedotto dal nome e può essere impreciso; le zone di Roma sono ricavate dal CAP. Mappa © OpenStreetMap e CARTO.</p>
+    <p>Le righe “Puntarella Rossa” sono brevi riassunti scritti per questo sito a partire dagli articoli di <a href="https://www.puntarellarossa.it" target="_blank" rel="noopener">puntarellarossa.it</a>, con l’anno di pubblicazione e il link all’originale: un locale può essere cambiato nel frattempo. “Nelle guide Spacedelicious” indica i posti presenti nelle guide di <a href="https://spacedelicious.com/pages/tutteguide" target="_blank" rel="noopener">spacedelicious.com</a>.</p>
+    <p>Il tipo di locale è dedotto dal nome o dalle guide e può essere impreciso; le zone di Roma sono ricavate dal CAP. Mappa © OpenStreetMap e CARTO.</p>
   </div>
 </footer>
 
@@ -1116,10 +1134,10 @@ footer p { margin: 0; max-width: 70ch; }
   DATA.forEach((x, i) => {
     x.i = i;
     x.g = CITTA_TOP.includes(x.c) ? x.c : ALTROVE;
-    x.h = norm([x.n, x.a, x.nt, x.c, x.z, TIPI[x.t] && TIPI[x.t][0]].join(" "));
+    x.h = norm([x.n, x.a, x.nt, x.c, x.z, TIPI[x.t] && TIPI[x.t][0], x.pr && x.pr.nota, x.sd && x.sd.g].join(" "));
   });
 
-  const stato = { q: "", dove: "", sub: "", tipo: "", note: false, ordina: "recenti", mostrati: PAGINA, pos: null, vista: "lista" };
+  const stato = { q: "", dove: "", sub: "", tipo: "", note: false, pr: false, sd: false, ordina: "recenti", mostrati: PAGINA, pos: null, vista: "lista" };
 
   // ---------- Link a Google Maps ----------
   const sembraIndirizzo = (x) => !x.a || /^segnaposto/i.test(x.n) || /^(via|viale|piazza|piazzale|largo|vicolo)\b/i.test(x.n);
@@ -1154,6 +1172,8 @@ footer p { margin: 0; max-width: 70ch; }
     }
     if (salta !== "tipo" && stato.tipo && x.t !== stato.tipo) return false;
     if (stato.note && !x.nt) return false;
+    if (salta !== "guide" && stato.pr && !x.pr) return false;
+    if (salta !== "guide" && stato.sd && !x.sd) return false;
     if (stato.q) {
       for (const parola of stato.q.split(/\s+/)) if (parola && !x.h.includes(parola)) return false;
     }
@@ -1201,9 +1221,21 @@ footer p { margin: 0; max-width: 70ch; }
     $("#cosa").innerHTML = th;
 
     $("#solo-note").setAttribute("aria-pressed", stato.note);
+    $("#solo-pr").setAttribute("aria-pressed", stato.pr);
+    $("#solo-sd").setAttribute("aria-pressed", stato.sd);
+    const base = DATA.filter((x) => passa(x, "guide"));
+    $("#n-pr").textContent = base.filter((x) => x.pr).length;
+    $("#n-sd").textContent = base.filter((x) => x.sd).length;
     $("#solo-note-link").textContent = stato.note ? "Mostra tutti i posti" : "Mostra solo i posti con una nota";
   }
 
+  function guide(x) {
+    if (!x.pr && !x.sd) return "";
+    return `<div class="guide">
+      ${x.pr ? `<a class="src" href="${esc(x.pr.u)}" target="_blank" rel="noopener">Puntarella Rossa · ${esc(x.pr.y)} ↗</a><p>${esc(x.pr.nota)}</p>` : ""}
+      ${x.sd ? `<a class="badge-sd" href="${esc(x.sd.u)}" target="_blank" rel="noopener">Nella guida ${esc(x.sd.g)} ↗</a>` : ""}
+    </div>`;
+  }
   function scheda(x) {
     const tipo = TIPI[x.t] && TIPI[x.t][1];
     const dove = luogo(x);
@@ -1216,6 +1248,7 @@ footer p { margin: 0; max-width: 70ch; }
       </div>
       <div class="where">${dove ? `<b>${esc(dove)}</b>` : ""}${x.a ? `${dove ? " · " : ""}${esc(x.a.replace(/,\s*\d{5}.*$/, ""))}` : ""}</div>
       ${x.nt ? `<p class="hand">${esc(x.nt)}</p>` : ""}
+      ${guide(x)}
       <div class="card-foot">
         <div class="links">
           <a href="${linkMaps(x)}" target="_blank" rel="noopener">Apri su Maps ↗</a>
@@ -1363,7 +1396,7 @@ footer p { margin: 0; max-width: 70ch; }
     let idx = ultimi.findIndex((x) => x.i === i);
     if (idx === -1) {
       // il posto è fuori dai filtri: azzera e riprova
-      Object.assign(stato, { q: "", dove: "", sub: "", tipo: "", note: false });
+      Object.assign(stato, { q: "", dove: "", sub: "", tipo: "", note: false, pr: false, sd: false });
       $("#q").value = "";
       aggiorna({ adatta: false });
       idx = ultimi.findIndex((x) => x.i === i);
@@ -1389,13 +1422,14 @@ footer p { margin: 0; max-width: 70ch; }
     const pool = ultimi.length ? ultimi : DATA;
     const x = pool[Math.floor(Math.random() * pool.length)];
     const tipo = TIPI[x.t][1];
-    const filtri = [stato.dove && (stato.sub || stato.dove), stato.tipo && TIPI[stato.tipo][0].toLowerCase(), stato.note && "con nota", stato.q && `“${$("#q").value.trim()}”`].filter(Boolean);
+    const filtri = [stato.dove && (stato.sub || stato.dove), stato.tipo && TIPI[stato.tipo][0].toLowerCase(), stato.note && "con nota", stato.pr && "recensiti", stato.sd && "in guida", stato.q && `“${$("#q").value.trim()}”`].filter(Boolean);
     const box = $("#pick");
     box.innerHTML = `
       <p class="eyebrow">Il caso ha scelto${filtri.length ? ` tra ${pool.length} posti (${esc(filtri.join(", "))})` : ` tra ${pool.length} posti`}</p>
       <h3>${esc(x.n)}</h3>
       <div class="where"><b>${esc(luogo(x))}</b>${tipo ? " · " + esc(tipo) : ""}${x.a ? " · " + esc(x.a.replace(/,\s*\d{5}.*$/, "")) : ""}</div>
       ${x.nt ? `<p class="hand" style="margin:0">${esc(x.nt)}</p>` : ""}
+      ${guide(x)}
       <div class="acts">
         <a class="btn primary" href="${linkMaps(x)}" target="_blank" rel="noopener">Apri su Maps ↗</a>
         <button class="btn" type="button" data-ancora>Pesca di nuovo</button>
@@ -1444,9 +1478,11 @@ footer p { margin: 0; max-width: 70ch; }
   });
   const toggleNote = () => { stato.note = !stato.note; aggiorna(); };
   $("#solo-note").addEventListener("click", toggleNote);
+  $("#solo-pr").addEventListener("click", () => { stato.pr = !stato.pr; aggiorna(); });
+  $("#solo-sd").addEventListener("click", () => { stato.sd = !stato.sd; aggiorna(); });
   $("#solo-note-link").addEventListener("click", () => { toggleNote(); $(".filters").scrollIntoView({ behavior: "smooth" }); });
   $("#azzera").addEventListener("click", () => {
-    Object.assign(stato, { q: "", dove: "", sub: "", tipo: "", note: false });
+    Object.assign(stato, { q: "", dove: "", sub: "", tipo: "", note: false, pr: false, sd: false });
     $("#q").value = ""; $("#pick").hidden = true; aggiorna();
   });
   $("#ordina").addEventListener("change", (e) => {
@@ -1476,7 +1512,8 @@ footer p { margin: 0; max-width: 70ch; }
   $("#stats").innerHTML = [
     `<li><b>${DATA.length}</b> posti</li>`,
     `<li><b>${localita}</b> località</li>`,
-    `<li><b>${conNota.length}</b> note</li>`,
+    `<li><b>${conNota.length}</b> note di Matteo</li>`,
+    `<li><b>${DATA.filter((x) => x.pr).length}</b> recensioni</li>`,
     agg ? `<li>aggiornata il ${esc(agg)}</li>` : "",
   ].join("");
   $("#note-strip").innerHTML = conNota.sort((a, b) => (b.d || 0) - (a.d || 0)).map((x) => `

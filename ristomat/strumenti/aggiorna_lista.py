@@ -8,6 +8,7 @@ Uso (dalla cartella del sito):
 La lista deve essere condivisa pubblicamente (link "Chiunque abbia il link").
 Il tipo di locale è dedotto dal nome (e dall'eventuale nota): per correggerlo,
 o per cambiare città/zona/nota, aggiungi una voce in correzioni.json.
+Le note delle guide (Puntarella Rossa, Spacedelicious) stanno in recensioni.json.
 Solo libreria standard: nessuna dipendenza da installare.
 """
 import argparse
@@ -28,6 +29,12 @@ API = ("https://www.google.com/maps/preview/entitylist/getlist?authuser=0&hl=it&
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "locali.js"
 CORREZIONI = ROOT / "correzioni.json"
+RECENSIONI = ROOT / "recensioni.json"
+
+# Tipologie usate dalle guide Spacedelicious -> tipi del sito
+TIPI_GUIDA = {"trattoria": "trattoria", "osteria": "trattoria", "pizzeria": "pizza", "enoteca": "vino",
+              "forno": "dolce", "gelateria / caffè": "dolce", "bar/pasticceria": "dolce", "rosticceria": "street",
+              "lampredotto": "street", "contemporaneo": "ristorante", "ristorante": "ristorante"}
 
 # --------------------------------------------------------------------------
 # Province -> regione
@@ -163,6 +170,7 @@ def main():
 
     correzioni = json.loads(CORREZIONI.read_text("utf-8")) if CORREZIONI.exists() else {}
     correzioni = {k: v for k, v in correzioni.items() if not k.startswith("_")}
+    recensioni = json.loads(RECENSIONI.read_text("utf-8")) if RECENSIONI.exists() else {}
 
     locali = []
     for it in voci:
@@ -194,6 +202,13 @@ def main():
     for x in locali:
         x["r"] = PROV2REG.get(x["p"], "Altro")
         x["c"] = x["c"] or "Altre località"
+        rec = recensioni.get(x["n"], {})
+        if rec.get("pr"):
+            x["pr"] = {k: rec["pr"][k] for k in ("y", "u", "nota")}
+        if rec.get("sd"):
+            x["sd"] = {k: rec["sd"][k] for k in ("g", "u")}
+        if x["t"] == "altro":  # il tipo dedotto dal nome non dice nulla: usa quello delle guide
+            x["t"] = rec.get("t") or TIPI_GUIDA.get((rec.get("sd") or {}).get("tip", "").lower(), "altro")
         if x["c"] == "Roma":
             x["z"] = CAP2ZONA.get(x["cap"], ZONA_ALTRO)
         fix = correzioni.get(x["n"])
