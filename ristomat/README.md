@@ -1,54 +1,54 @@
-# RistoMat
+# Scusa, non stasera
 
-Sito statico con la lista Google Maps **“RistoMat”** di Matteo: 673 posti dove
-mangiare e bere, cercabili per città, zona di Roma, tipo di locale e nome.
+> *Scusa, non stasera.* ~~~ **Anzi sì.**
 
-## Cosa fa
+Sito statico per uscire senza programmare: ti geolocalizzi (o scegli la zona) e
+vedi cosa c’è di buono intorno, a fasce di distanza a piedi. I posti sono i 673
+della lista Google Maps **“RistoMat”** di Matteo, arricchiti con le dritte di
+Matteo, i riassunti delle recensioni di Puntarella Rossa e le guide
+Spacedelicious.
 
-- **Ricerca** per nome, via, quartiere o testo delle note (senza badare agli accenti).
-- **Dove**: Roma (con 10 zone ricavate dal CAP), Firenze, Venezia, Milano, Bologna, Altrove (con elenco delle località).
-- **Cosa**: trattorie, pizzerie, vino, cucine dal mondo, ecc.
-- **Le note di Matteo** in evidenza, e filtro “Solo con nota”.
-- **Scegli tu per me**: pesca un posto a caso tra quelli filtrati.
-- **Mappa** (Leaflet + OpenStreetMap/CARTO) e ordinamento **Più vicini a me** (chiede la posizione al browser).
-- Ogni scheda apre il posto o le indicazioni su Google Maps.
-- Tema chiaro/scuro automatico, funziona su telefono.
+## Come funziona
+
+1. **Dove sei?** “Vicino a me” usa il GPS del telefono (la posizione non esce
+   dal browser), oppure scegli una zona di Roma, una città o un’altra località.
+2. **Che voglia hai?** Come a casa (trattorie e osterie) · A tavola (ristoranti) ·
+   Pizza, ovvio · Un calice · Due drink · Dolce & caffè · Giro del mondo ·
+   Al volo · Sapore di mare · Brace & carne · Spesa golosa · Da scoprire.
+3. I risultati arrivano in fasce: **Sotto casa** (≤ 10 min a piedi),
+   **Due passi** (10–25 min), **Vale il viaggio**.
+4. **Sorprendimi** pesca un posto a caso tra quelli vicini; **Portami lì** apre
+   le indicazioni a piedi su Google Maps.
+5. **Solo con una dritta** mostra i posti con una nota di Matteo, una
+   recensione di Puntarella Rossa o la presenza in una guida Spacedelicious.
 
 ## File
 
-| File | Cosa contiene |
+| File | Contenuto |
 | --- | --- |
-| `index.html` | La pagina (HTML, CSS e JavaScript in un solo file) |
-| `locali.js` | I dati dei locali, **generati** dallo script qui sotto |
-| `correzioni.json` | Correzioni manuali (tipo, città, zona, nota) per singolo locale |
+| `index.html` | La pagina (HTML, CSS, JavaScript) |
+| `locali.js` | Dati **generati**: non modificarli a mano |
+| `recensioni.json` | Riassunti Puntarella Rossa (anno + link) e guide Spacedelicious, per locale |
+| `tipi_osm.json` | Tipo di locale da OpenStreetMap per i posti il cui nome non lo dice |
+| `correzioni.json` | Correzioni manuali (tipo, città, zona, nota): vincono su tutto |
 | `strumenti/aggiorna_lista.py` | Scarica la lista da Google Maps e rigenera `locali.js` |
 
-Per vederlo in locale basta aprire `index.html` nel browser (serve la connessione
-per mappa e caratteri).
-
-## Aggiornare la lista
-
-Dopo aver aggiunto posti alla lista su Google Maps:
+Dopo aver aggiunto posti su Google Maps, o modificato uno dei file `.json`:
 
 ```bash
 python3 ristomat/strumenti/aggiorna_lista.py
 ```
 
-Lo script usa solo la libreria standard di Python. La lista deve restare
-condivisa con link pubblico. Lo script legge un endpoint non documentato di
-Google Maps: se un giorno smette di funzionare, va adattato.
-
 ## Limiti da sapere
 
-- **Il tipo di locale è dedotto dal nome** (e dalla nota, se c’è). Nomi come
-  “Cosetta” o “Pipero” non dicono che locale sia, quindi circa un terzo dei posti
-  finisce in “Altro”. Si correggono in `correzioni.json`, ad esempio:
-  ```json
-  "Armando al Pantheon": { "t": "trattoria" }
-  ```
-  Tipi validi: `pizza`, `trattoria`, `ristorante`, `pesce`, `carne`, `mondo`,
-  `vino`, `bar`, `dolce`, `street`, `bottega`, `altro`.
-- **Le zone di Roma vengono dal CAP** e sono raggruppamenti larghi (es. 00153 =
-  “Trastevere · Testaccio”). Un locale al confine può finire nella zona accanto.
-- La lista Google Maps non espone categoria, voto o orari dei locali: il sito
-  non li mostra.
+- **Minuti a piedi**: stima in linea d’aria (+30% per le strade reali), non un
+  percorso vero.
+- **Tipo di locale**: dedotto dal nome, poi dalle guide, poi da OpenStreetMap.
+  Restano circa 100 posti “Da scoprire”. Si correggono in `correzioni.json`, es.
+  `"Armando al Pantheon": { "t": "trattoria" }`.
+- **Recensioni**: sono riassunti brevi scritti per questo sito, con anno e link
+  all’articolo originale. Alcune hanno più di dieci anni: il locale può essere
+  cambiato. I posti aggiunti in futuro alla lista non ricevono recensioni in
+  automatico.
+- **Zone di Roma**: ricavate dal CAP, a gruppi larghi.
+- **Niente orari di apertura**: la lista Google Maps non li fornisce.
