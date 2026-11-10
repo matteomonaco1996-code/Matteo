@@ -14,6 +14,14 @@
    "tip": "Ristorante"
   }
  },
+ "Alle Carrette": {
+  "pr": {
+   "y": "2015",
+   "u": "https://www.puntarellarossa.it/2015/04/29/dove-mangiare-allaperto-a-monti-a-roma-dallasino-doro-alle-carrette-fino-alla-fontana-della-piazzetta/",
+   "nota": "Pizzeria economica di Monti con pizze classiche, tanti fritti (baccalà, fiori di zucchina, olive ascolane, anche a domicilio), bruschette e calzoni; dehor piccolo e poco visibile."
+  },
+  "t": "pizza"
+ },
  "Antica Locanda Montin": {
   "sd": {
    "g": "Spacedelicious Veneto",
@@ -36,11 +44,33 @@
   }
  },
  "Armando al Pantheon": {
+  "pr": {
+   "y": "2026",
+   "u": "https://www.puntarellarossa.it/2026/09/30/armando-al-pantheon-roma-trattoria/",
+   "nota": "Storica trattoria della famiglia Gargioli, aperta nel 1961 accanto al Pantheon: cucina romana tradizionale e genuina che convince romani e turisti, nonostante la zona affollata."
+  },
+  "t": "trattoria",
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Ristorante"
   }
+ },
+ "Avanvera": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/05/15/nuove-aperture-a-roma-maggio-2023-arrivano-bianca-trattoria-avanvera-e-il-bis-di-peppo/",
+   "nota": "Enoteca con cucina di Sarah Cicolini e Mattia Bazzurri (SantoPalato) vicino a Furio Camillo: pochi piatti che cambiano spesso, non solo romani, vini naturali e spazio esterno coperto."
+  },
+  "t": "vino"
+ },
+ "BACCANO": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/10/05/intervista-a-nabil-hassen-lo-chef-lascia-roscioli-e-approda-a-baccano-non-solo-carbonara-ecco-la-mia-cucina-mediterranea/",
+   "nota": "Ristorante curato ma non ingessato vicino a Fontana di Trevi, chef Nabil Hassen (ex Roscioli) dal 2021: tanto pesce scelto al peso, tartare preparata al tavolo, piatti sui 23-24 euro."
+  },
+  "t": "ristorante"
  },
  "Baita La Faggeta": {
   "sd": {
@@ -49,12 +79,28 @@
    "tip": "Ristorante"
   }
  },
+ "BANCOVINO": {
+  "pr": {
+   "y": "2013",
+   "u": "https://www.puntarellarossa.it/2013/02/19/roma-apre-bancovino-vineria-gourmet/",
+   "nota": "Vineria senza fornelli e bottega di prodotti in Prati: tartare, carpacci, taglieri, cocotte e crostini (circa 7 euro), oltre 100 vini e birre artigianali. Locale piccolo e accogliente."
+  },
+  "t": "vino"
+ },
  "Bar Pasticceria D'Amore": {
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": ""
   }
+ },
+ "Bar SOTA": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/11/28/bar-sota-a-roma-smash-burger-di-giorno-e-dining-club-di-sera/",
+   "nota": "Due anime in via della Frezza: di giorno smash burger, hot dog, tramezzini e caffè specialty; venerdì e sabato sera dining club con vini e cocktail. Cucina a vista."
+  },
+  "t": "street"
  },
  "Bar Trattoria La Vallerana": {
   "sd": {
@@ -63,6 +109,84 @@
    "tip": "Trattoria"
   }
  },
+ "BARRED": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/04/17/ceibo-eufrosino-e-barred-delivery-roma/",
+   "nota": "Ristorante dei fratelli Palucci a San Giovanni, molti vini naturali; piatto forte la pork belly a bassa temperatura con harissa. Nel 2021 vendeva bolliti sottovuoto da asporto."
+  },
+  "t": "ristorante"
+ },
+ "Barro": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/01/27/barro-roma-monteverde/",
+   "nota": "Piccolo «magazzino alimentare» di Monteverde Vecchio (12 posti) in stile taperia: vini e gastronomia fredda dal banco, da gustare sul posto o portare via, per pranzo, cena o aperitivo."
+  },
+  "t": "vino"
+ },
+ "Betto e Mary": {
+  "pr": {
+   "y": "2014",
+   "u": "https://www.puntarellarossa.it/2014/10/17/carne-di-cavallo-ha-ragione-la-boschi-a-roma-e-introvabile-ma-resistono-i-ravioli-di-betto-e-mary/",
+   "nota": "Trattoria romana verace al Mandrione, fra le ultime a cucinare carne di cavallo: ravioli, bistecca alla griglia, tordo matto, coppiette e sfilacci, ormai solo su ordinazione anticipata."
+  },
+  "t": "trattoria"
+ },
+ "Bixio Roma": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/11/12/bixio-caffe-bistrot-roma/",
+   "nota": "Caffè bistrot di Monteverde Vecchio nell'ex Bar Faustini, aperto tutto il giorno: colazioni con caffè specialty, poi tegamini (10-12 euro), scarpette, paste ripiene e piatti mediterranei di stagione."
+  }
+ },
+ "Blind Pig": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/12/09/il-natale-tattico-di-puntarella-rossa-laperitivo-del-18-dicembre-2023-da-blind-pig-con-amaro-tattico/",
+   "nota": "Cocktail bar con cucina a San Giovanni, attivo dal 2018: ambiente informale e conviviale, proposta dall'aperitivo al dopocena e brunch la domenica."
+  },
+  "t": "bar"
+ },
+ "Boca Burger": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/06/13/boca-burger-a-roma-hamburger-nuggets-e-patatine-fritte-fino-alle-6-del-mattino/",
+   "nota": "Hamburgeria all'americana a piazza Bologna: burger tra 6,50 e 8 euro, hot dog, nuggets e patatine; dal giovedì alla domenica resta aperta fino all'alba (ore 6)."
+  },
+  "t": "street"
+ },
+ "BORDO | La pizzeria del Pigneto": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/03/08/bordo-roma/",
+   "nota": "Pizzeria napoletana contemporanea al Pigneto: cornicione alto, impasto a metà tra Napoli e Roma, pizze da 7,50 a 13 euro e fritti come crocchè e supplì. Veranda e terrazza."
+  },
+  "t": "pizza"
+ },
+ "Borgo Pigneto": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/05/11/borgo-pigneto-roma-una-fuga-in-citta-tra-verde-ristorazione-e-mixology/",
+   "nota": "Spazio multifunzionale nella storica Villa Lauricella con grande giardino e orto: area picnic, aperitivi, cene, cocktail, musica dal vivo e attività culturali."
+  }
+ },
+ "Brado": {
+  "pr": {
+   "y": "2018",
+   "u": "https://www.puntarellarossa.it/2018/11/07/brado-roma-tuscolana/",
+   "nota": "Locale rustico in zona Tuscolana con cucina a vista e birre artigianali: selvaggina (cervo, cinghiale, capriolo), torta al testo, taglieri, pappardelle al cinghiale; tagliata di selvaggina a 24 euro."
+  },
+  "t": "carne"
+ },
+ "BURŌ Cafè - Brunch & Specialty Coffee": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/03/31/buro-cafe-a-bologna-la-caffetteria-per-smart-workers-e-imprenditori-digitali/",
+   "nota": "Caffetteria pensata per chi lavora da remoto: tavolo per smart working a tariffa oraria (3 euro l'ora, bevande calde incluse), angolo con artigianato e design ed eventi."
+  },
+  "t": "dolce"
+ },
  "Ca' d'oro Alla Vedova": {
   "sd": {
    "g": "Spacedelicious Veneto",
@@ -70,7 +194,53 @@
    "tip": "Ristorante"
   }
  },
+ "Caligola Osteria Sincera": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/09/21/caligola-osteria-sincera-a-roma-cucina-di-qualita-che-gioca-con-la-tradizione/",
+   "nota": "Osteria vicino ai Musei Vaticani con cucina romana e qualche rivisitazione: Chupa Chups di lesso (polpette fritte con salsa verde), carciofo alla giudia, amatriciana, carbonara; primi 13-14 euro."
+  },
+  "t": "trattoria"
+ },
+ "Carter Oblio": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/01/27/carter-oblio-a-roma/",
+   "nota": "Ristorante di Prati dall'atmosfera nordica con cucina stagionale dello chef Ciro Alberto Cucciniello; nel 2021 proponeva a pranzo l'asporto «Scarpetteria»: piatti come cacciatora o trippa abbinati a pani diversi."
+  },
+  "t": "ristorante"
+ },
+ "Casa Manfredi": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/03/11/la-colomba-salata-di-casa-manfredi-a-roma-per-pasqua-2024-la-variante-con-pancetta-e-carciofi/",
+   "nota": "Pasticceria con laboratorio guidato dalla pastry chef Giorgia Proia; per le feste prepara lievitati anche salati, come la colomba con pancetta e carciofi (50 euro al chilo)."
+  },
+  "t": "dolce"
+ },
+ "CASALOCA Roma - Comida Contagiosa": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/07/11/casaloca-roma-riccardo-di-giacinto-porta-ibiza-e-la-cucina-spagnola-a-corso-francia/",
+   "nota": "Ristorante di cucina spagnola ispirata a Ibiza dello chef Riccardo Di Giacinto (All'Oro), in un ambiente rilassato di legno, intonaco bianco e piante; circa 150 posti, anche all'aperto."
+  },
+  "t": "mondo"
+ },
+ "Centorti - Osteria Culturale": {
+  "pr": {
+   "y": "2020",
+   "u": "https://www.puntarellarossa.it/2020/05/03/lorto-di-centorti-a-roma/",
+   "nota": "Osteria di Centocelle con cucina semplice e stagionale di Eleonora Marziali, verdure ed erbe coltivate nel proprio terreno a Palestrina e prezzi onesti."
+  },
+  "t": "trattoria"
+ },
  "Checchino Dal 1887": {
+  "pr": {
+   "y": "2014",
+   "u": "https://www.puntarellarossa.it/2014/12/17/dove-mangiare-la-trippa-a-roma-i-migliori-ristoranti-della-guida-osteria-di-monteverde-armando-e-checchino-dal-1887/",
+   "nota": "Storico ristorante di Testaccio, costoso, di cucina romana classica: trippa con pomodoro, menta e pecorino e coda alla vaccinara cotta per ore con sedano, pinoli, uvetta e cioccolato amaro."
+  },
+  "t": "ristorante",
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
@@ -85,11 +255,63 @@
   }
  },
  "Circoletto Roma": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/07/02/circoletto-roma-e-il-nuovo-progetto-di-trecca-al-circo-massimo-tra-gastronomia-vintage-e-vini-naturali/",
+   "nota": "Locale serale informale dei fratelli Trecastelli (Trecca) al Circo Massimo: vini e birre artigianali, lunghe tavolate di legno, pochi piatti romani in versione street a rotazione (panini, fritti, tramezzini)."
+  },
+  "t": "vino",
   "sd": {
    "g": "Romadelicious · New School",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Contemporaneo"
   }
+ },
+ "Collettivo Gastronomico Testaccio": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/03/05/collettivo-gastronomico-testaccio-a-roma-menabo-e-food-box-sbarcano-alla-citta-dellaltra-economia/",
+   "nota": "Hub gastronomico all'ex Mattatoio di Testaccio promosso da Menabò e Food Box: ristoranti temporanei, corsi, eventi e vendita di vino, con spazi all'aperto e al coperto."
+  }
+ },
+ "CONCIABOCCA": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/07/13/conciabocca-roma-cucina-romana-e-divertenti-rivisitazioni-nella-trattoria-moderna-di-testaccio/",
+   "nota": "Trattoria moderna e informale a Testaccio: cucina romana con tocchi creativi (carbonara 11 euro, spaghettoni ostriche e asparagi, anatra laccata), vini e birre artigianali; aperitivo da 15 euro dalle 17."
+  },
+  "t": "trattoria"
+ },
+ "Coromandel": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/02/23/donne-chef-a-roma-ornella-de-felice-coromandel/",
+   "nota": "Piccolo ristorante del centro con arredi retrò e luce soffusa, aperto da mattina a sera; i punti forti sono colazione e brunch, con pancake e cornetti."
+  },
+  "t": "ristorante"
+ },
+ "Cresci": {
+  "pr": {
+   "y": "2019",
+   "u": "https://www.puntarellarossa.it/2019/10/31/migliori-tapas-e-cicchetti-a-roma-dai-pinchos-di-malandros-ai-cicchetti-gourmet-di-cresci/",
+   "nota": "Locale in zona Vaticano aperto tutto il giorno, di Saverio Crescente (Grano): cocktail all'aperitivo, cicchetti (5 per 8 euro) e menu con pizza in teglia, carbonara e pesce."
+  }
+ },
+ "Cugino": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/04/26/cugino-roma-caffetteria/",
+   "nota": "Caffetteria della microbakery Marigold dentro l'hotel The Hoxton, aperta da mattina a sera: caffè specialty, lievitati e dolci come brioche all'arancia e carrot cake di zucchine, aperitivo e cocktail."
+  },
+  "t": "dolce"
+ },
+ "Da Adriana - Trattoria -": {
+  "pr": {
+   "y": "2026",
+   "u": "https://www.puntarellarossa.it/2026/03/16/da-adriana-roma-trattoria-pigneto/",
+   "nota": "Trattoria romana di Simone Rosati al Pigneto, con tovaglie a quadri e foto di famiglia; prezzi contenuti (primi 11 euro, secondi 13-16). Circa 30 posti interni, pranzo solo nel weekend."
+  },
+  "t": "trattoria"
  },
  "Da Alfreda": {
   "sd": {
@@ -98,12 +320,60 @@
    "tip": "Trattoria"
   }
  },
+ "Da Benito e Gilberto": {
+  "pr": {
+   "y": "2014",
+   "u": "https://www.puntarellarossa.it/2014/07/24/da-benito-e-gilberto-al-falco-ostriche-e-gamberi-in-vaticano/",
+   "nota": "Ristorante di pesce vicino al Vaticano, attivo dal 1976, con saletta raccolta e muri tappezzati di foto di celebrità; ambiente vivace e personale professionale. Tra le proposte ostriche e gamberi."
+  },
+  "t": "pesce"
+ },
+ "da Etta": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/07/10/da-etta-roma-laboratorio-pasticceria-trastevere/",
+   "nota": "Locale all day in piazza in Piscinula: caffetteria di mattina, osteria moderna ai pasti, grande spazio esterno, oltre 5.000 vini e lievitati e dolci del proprio laboratorio di pasticceria."
+  },
+  "t": "ristorante"
+ },
  "Da Nerbone": {
   "sd": {
    "g": "Firenzedelicious",
    "u": "https://spacedelicious.com/pages/firenzedelicious",
    "tip": "Lampredotto"
   }
+ },
+ "Damplings": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/05/23/damplings-roma-lo-street-food-asiatico-tra-bao-noodle-e-bento-box/",
+   "nota": "Ravioleria di street food asiatico con sala e dehors coperto: piatti classici e fusion, gua bao fatti a mano e Guo Tie, ravioli a bastoncino (3,60-4,50 €)."
+  },
+  "t": "mondo"
+ },
+ "Dar Bruttone": {
+  "pr": {
+   "y": "2012",
+   "u": "https://www.puntarellarossa.it/2012/10/31/low-cost-roma-dar-bruttone-in-metro/",
+   "nota": "Trattoria di quartiere con cucina romana, piccola e spesso piena nel weekend: carbonara al tartufo, padellaccio di quaglie, abbacchio scottadito. Circa 25 € a testa; meglio prenotare."
+  },
+  "t": "trattoria"
+ },
+ "Enofficina": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/11/07/enofficina-a-roma-lenoteca-gastronomica-in-zona-prati-trionfale/",
+   "nota": "Enoteca di quartiere informale: vini, birre artigianali e cocktail con taglieri, torte al testo e croissant salati (8-9 €); una sera a settimana jazz dal vivo."
+  },
+  "t": "vino"
+ },
+ "Enoteca Cavour 313": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/02/26/cavour-313-roma-enoteca-rione-monti/",
+   "nota": "Storica enoteca di Monti, attiva dagli anni Settanta (qui nacque Arcigola, poi Slow Food); dal tardo 2024 ha un'impronta italo-francese e punta sui vini artigianali."
+  },
+  "t": "vino"
  },
  "Enoteca Il Piccolo": {
   "sd": {
@@ -112,11 +382,74 @@
    "tip": "Enoteca"
   }
  },
+ "Enoteca L’antidoto": {
+  "pr": {
+   "y": "2020",
+   "u": "https://www.puntarellarossa.it/2020/12/04/enoteca-lantidoto-roma-vini-naturali-e-un-apprendista-stregone-tra-i-vicoli-di-trastevere/",
+   "nota": "Enoteca di vini naturali a Trastevere con circa 200 etichette su grandi scaffali in ferro e legno; ambiente sobrio e rustico, dall'atmosfera conviviale."
+  },
+  "t": "vino"
+ },
+ "Enoteca Spiriti": {
+  "pr": {
+   "y": "2013",
+   "u": "https://www.puntarellarossa.it/2013/03/12/roma-spiriti-raddoppia-e-va-a-piazza-di-pietra/",
+   "nota": "Enoteca con cucina affacciata su piazza di Pietra, in tre sale con molto legno: crostini, salumi, bufala, tartare, primi semplici e carne; dolci a 7 €, prezzi intermedi."
+  },
+  "t": "vino"
+ },
  "Estro": {
   "sd": {
    "g": "Spacedelicious Veneto",
    "u": "https://spacedelicious.com/pages/veneto",
    "tip": ""
+  }
+ },
+ "Felice a Testaccio": {
+  "pr": {
+   "y": "2013",
+   "u": "https://www.puntarellarossa.it/2013/10/24/la-vera-cacio-e-pepe-della-tradizione-romana-quella-di-felice-a-testaccio/",
+   "nota": "Trattoria testaccina aperta nel 1936, frequentata da romani e turisti, nota soprattutto per la cacio e pepe tradizionale, servita in porzioni abbondanti."
+  },
+  "t": "trattoria"
+ },
+ "Frumentario": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/03/08/frumentario-a-roma-dove-la-pizza-in-teglia-si-ultima-direttamente-al-bancone/",
+   "nota": "Piccola pizzeria al taglio dove i condimenti della teglia vengono completati al banco davanti al cliente, con spiegazione degli ingredienti; pochi posti a sedere, la sera anche pizza tonda."
+  },
+  "t": "pizza"
+ },
+ "Futura Ristorante": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/04/18/futura-ristorante-roma-rione-monti/",
+   "nota": "Ristorante raccolto e luminoso, qualche gradino sotto il livello della strada, con soli 18 coperti tra chef's table in marmo e tavoli alti; in cucina la chef Anastasia Paris."
+  },
+  "t": "ristorante"
+ },
+ "Galbi": {
+  "pr": {
+   "y": "2015",
+   "u": "https://www.puntarellarossa.it/2015/11/20/galbi-roma-il-korean-bbq-restaurant-celebra-il-kimchi-piatto-tipico-della-corea/",
+   "nota": "Barbecue coreano cotto su carbone di quercia, con banconi, tavolo sociale e cucina a vista; a pranzo lunch box, a cena piatti come japchae e pajeon (8 €)."
+  },
+  "t": "mondo"
+ },
+ "Gastromario": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/05/21/nuove-aperture-a-roma-giugno-2021-si-riparte-con-gastromario-carnale-horti-ed-enoteca-la-torre-in-prati/",
+   "nota": "Presentata all'apertura come bottega-bistrot di tre amici (pasticciera, cuoco, sommelier): pasticceria, forno, enoteca e pasta fresca, aperta tutto il giorno, con laboratorio a vista e 25-30 posti."
+  },
+  "t": "bottega"
+ },
+ "Gatsby Cafè": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/10/29/gatsby-cafe-roma-piazza-vittorio-prova-a-risorgere-con-un-bistrot-su-tre-piani/",
+   "nota": "Bistrot retrò su tre piani in un'ex cappelleria sotto i portici; all'apertura proponeva colazioni, panini e bagel a pranzo, aperitivo con tapas e brunch nel weekend."
   }
  },
  "Gli Attortellati": {
@@ -126,12 +459,44 @@
    "tip": "Trattoria"
   }
  },
+ "Gli Esploratori": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/03/13/gli-esploratori-roma-mangiare-in-una-libreria-tra-romanzi-vino-e-piatti-regionali/",
+   "nota": "Ristorante-libreria con enoteca e circa 5000 volumi: ogni due mesi cambia regione protagonista, con piatti tipici talvolta alleggeriti, vini del territorio e incontri con autori."
+  },
+  "t": "ristorante"
+ },
  "Hosteria da Settimio": {
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Trattoria"
   }
+ },
+ "Hosteria Grappolo D'Oro": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/10/11/hosteria-grappolo-doro-roma-centro-cucina-romana/",
+   "nota": "Osteria romana tra Navona e Campo de' Fiori, con tavoli in piazza; oltre alla carta, degustazione «Percorso romano» da 34 € (antipasti, primo, secondo, dolce) per l'intero tavolo."
+  },
+  "t": "trattoria"
+ },
+ "I Massimi - Pizzeria": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/04/18/i-massimi-pizzeria-roma-riserva-naturale/",
+   "nota": "Pizzeria all'interno della riserva Tenuta dei Massimi, con grande giardino (circa 200 coperti): tonda romana bassa e croccante di Alessio Muscas, fritti, pizze sui 12-13 €."
+  },
+  "t": "pizza"
+ },
+ "Il Belli al Trionfale": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/02/05/nuove-aperture-roma-febbraio-2016-belli-al-trionfale-banco-a-trastevere-mammo/",
+   "nota": "Versione più rilassata ed economica del Belli di Prati: cucina mediterranea con molta carne, polpette e tartare di chianina, picanha e fiorentina, più piatti romani; ambiente un po' freddo."
+  },
+  "t": "ristorante"
  },
  "Il Latini": {
   "sd": {
@@ -140,12 +505,58 @@
    "tip": "Trattoria"
   }
  },
+ "Il Marchese - Osteria Mercato Liquori": {
+  "pr": {
+   "y": "2018",
+   "u": "https://www.puntarellarossa.it/2018/05/06/il-marchese-osteria-mercato-liquori-roma/",
+   "nota": "Osteria romana con pasta fatta in casa e la «scarpetta del Marchese» (tre sughi con rosetta, 8 €), affiancata da un amaro bar con oltre 500 etichette italiane."
+  },
+  "t": "trattoria"
+ },
+ "Il Patio": {
+  "pr": {
+   "y": "2019",
+   "u": "https://www.puntarellarossa.it/2019/09/06/il-patio-fregene-ristorante-di-pesce-sul-litorale-romano/",
+   "nota": "Ristorante di pesce dello storico stabilimento gestito dalla pasticceria Mondi: paccheri con spigola, arancia e bottarga (16 €), fritture, crudi; a pranzo anche in inverno."
+  },
+  "t": "pesce"
+ },
+ "Impact Food": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/02/29/impact-food-a-roma-qui-abbiamo-assaggiato-la-carne-vegetale-e-stampata-in-3d-ecco-come/",
+   "nota": "Locale plant based con burger, polpette, nuggets e costolette di carne vegetale; una settantina di coperti, ordine e ritiro al banco di giorno, servizio al tavolo la sera."
+  }
+ },
+ "Isolotto Beach Club": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/07/29/isolotto-beach-club-porto-ercole-argentario/",
+   "nota": "Beach club dell'hotel La Roqqa, accessibile anche a chi non vi alloggia: bistrot informale per pranzi veloci e ristorante Isolotto Privé con crudi, calamarata ai gamberi e brace."
+  }
+ },
+ "Jacopa": {
+  "pr": {
+   "y": "2019",
+   "u": "https://www.puntarellarossa.it/2019/11/06/anatra-arrosto-jacopa/",
+   "nota": "Cucina contemporanea di Jacopo Ricci e Piero Drago, nota per l'anatra arrosto servita in più preparazioni con tutte le parti dell'animale, testa e foie gras inclusi (38 €)."
+  },
+  "t": "ristorante"
+ },
  "L'Elementare - Trastevere": {
   "sd": {
    "g": "Romadelicious · New School",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Pizzeria"
   }
+ },
+ "La Baia di Fregene": {
+  "pr": {
+   "y": "2019",
+   "u": "https://www.puntarellarossa.it/2019/06/19/la-baia-di-fregene-posti-splendidi-che-non-sempre-ci-meritiamo/",
+   "nota": "Locale ampio a Fregene con cucina curata e varia, di taglio gourmet ma senza eccessi creativi, ambiente semplice e servizio gentile; a volte molto affollato, meglio in settimana."
+  },
+  "t": "ristorante"
  },
  "La Campana": {
   "sd": {
@@ -155,11 +566,25 @@
   }
  },
  "La casa del supplì": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/04/09/la-casa-del-suppli-a-roma-apre-la-quarta-sede-suppli-e-pizza-in-teglia-dal-1979/",
+   "nota": "Insegna di supplì e pizza al taglio nata a Trastevere nel 1979, con sede a Re di Roma dal 1986; impasto a lunga lievitazione (24-48 ore) con poco lievito."
+  },
+  "t": "pizza",
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Rosticceria"
   }
+ },
+ "La Differenza Roma": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/05/06/la-differenza-bistrot-a-roma-la-storica-gastronomia-di-san-giovanni-diventa-anche-bistrot/",
+   "nota": "Gastronomia e pizzicheria con annesso bistrot da 24 coperti: niente menu classico, ma sfizi e piatti dai prodotti del banco, come burro e alici o polpo e peperoni."
+  },
+  "t": "bottega"
  },
  "La Giostra": {
   "sd": {
@@ -168,6 +593,14 @@
    "tip": "Ristorante"
   }
  },
+ "La Scialuppa da Salvatore": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/07/15/scialuppa-da-salvatore-ristorante-fregene/",
+   "nota": "Ristorante di pesce con stabilimento, aperto tutto l'anno: cucina di mare semplice e saporita, tavoli anche sulla sabbia o in veranda. Circa 200 coperti; d'estate può esserci qualche attesa."
+  },
+  "t": "pesce"
+ },
  "La Terrazza di Mimi": {
   "sd": {
    "g": "Spacedelicious Lazio",
@@ -175,11 +608,55 @@
    "tip": "Ristorante"
   }
  },
+ "Locanda Leone": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/07/17/la-novita-che-ci-voleva-nel-quartiere-trieste-a-roma-apre-locanda-leone/",
+   "nota": "Locanda informale nel quartiere Trieste, con cucina dello chef Marco Bravin e carta dei vini curata da Valentina Di Placido; 42 coperti in due sale, servizio rilassato."
+  }
+ },
+ "Luppolo Station": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/01/09/brunch-roma-gennaio-2016-migliori-ristoranti-prunch-luppolo-station/",
+   "nota": "Pub con birre artigianali che la domenica proponeva un brunch a vassoio, classico o vegetariano (pane fritto al pecorino, lasagna, ratatouille, dolci), a 19 €."
+  },
+  "t": "bar"
+ },
  "Marzapane": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/02/02/marzapane-a-roma/",
+   "nota": "Ristorante con cucina a vista, bancone per la degustazione, sala e terrazza; brace a legna, menu che cambia spesso e pranzo più economico (piatti 9-14 €)."
+  },
+  "t": "ristorante",
   "sd": {
    "g": "Romadelicious · New School",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Contemporaneo"
+  }
+ },
+ "Matricianella": {
+  "pr": {
+   "y": "2015",
+   "u": "https://www.puntarellarossa.it/2015/04/24/dove-mangiare-allaperto-nel-centro-storico-di-roma-dai-fritti-di-matricianella-fino-alla-pizza-di-emma/",
+   "nota": "Trattoria romana tradizionale, attiva dal 1957, con piccolo dehor: tanti fritti (cervella, animelle, alici, carciofo alla romana), matriciana sugli 11 euro e rigatoni con pajata."
+  },
+  "t": "trattoria"
+ },
+ "MENSANA Masseria Urbana": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/09/12/nuove-aperture-a-roma-settembre-2022-arrivano-mensana-masseria-urbana-meh-naos-e-la-pizza-di-50-kalo/",
+   "nota": "Cucina pugliese in un ambiente che ricrea una masseria, tra muri bianchi e verde: fresella con burrata, bombette di pescespada, capocollo di Martina Franca, orecchiette alle cime di rapa."
+  },
+  "t": "ristorante"
+ },
+ "Necci dal 1924": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/09/17/necci-al-pigneto-roma-100-anni/",
+   "nota": "Locale storico del Pigneto nato nel 1924 come bar-latteria e frequentato da Pasolini; ora bistrot aperto dalla mattina alla sera, con cantina di vini pregiati in un ipogeo romano."
   }
  },
  "Nuovo Mondo": {
@@ -217,12 +694,28 @@
    "tip": "Ristorante"
   }
  },
+ "Osteria del Velodromo Vecchio": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/04/11/osteria-del-velodromo-vecchio-una-trattoria-da-non-dimenticare/",
+   "nota": "Trattoria di cucina romana genuina, lontana dai giri più noti: piccola veranda e due sale spartane con foto di ciclisti alle pareti. A cena solo da giovedì a sabato."
+  },
+  "t": "trattoria"
+ },
  "Osteria delle Tre Panche - Centro Storico": {
   "sd": {
    "g": "Firenzedelicious",
    "u": "https://spacedelicious.com/pages/firenzedelicious",
    "tip": "Ristorante"
   }
+ },
+ "Osteria Fernanda": {
+  "pr": {
+   "y": "2020",
+   "u": "https://www.puntarellarossa.it/2020/09/29/osteria-fernanda-a-roma-tre-piatti-da-provare-a-partire-dal-calamaro-ripieno/",
+   "nota": "Osteria dalla cucina creativa e gourmet vicino a Porta Portese, con carta stagionale che cambia spesso; tra i piatti forti calamaro ripieno (18 euro), tagliolino tiepido e Pane Sotto."
+  },
+  "t": "ristorante"
  },
  "Osteria Il Carroccio": {
   "sd": {
@@ -231,6 +724,14 @@
    "tip": "Osteria"
   }
  },
+ "Osteria La Quercia": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/12/23/osteria-la-quercia-monteforte-roma-campo-de-fiori/",
+   "nota": "Osteria vicino a Campo de' Fiori: lo chef Luigi Ubertini propone ricette regionali da tutta Italia, con un occhio a Campania e Lazio, talvolta in chiave moderna."
+  },
+  "t": "trattoria"
+ },
  "Osteria La Zucca": {
   "sd": {
    "g": "Spacedelicious Veneto",
@@ -238,12 +739,42 @@
    "tip": "Osteria"
   }
  },
+ "Osteria Palmira": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/04/23/osteria-palmira-roma-tradizione-e-vini-laziali-nella-trattoria-di-monteverde/",
+   "nota": "Trattoria di famiglia a Monteverde, con radici ad Amatrice: cucina romana e amatriciana senza pesce né piatti turistici, salumi e formaggi amatriciani, vini laziali e veranda esterna."
+  },
+  "t": "trattoria"
+ },
  "Pastificio San Lorenzo": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/05/07/pastificio-san-lorenzo-roma-la-nuova-drink-list-che-si-ispira-alla-cucina/",
+   "nota": "Osteria contemporanea con piatti da condividere dello chef Gianfranco Pecchioli, cantina orientata al vino naturale e cocktail costruiti su preparazioni della cucina; aperta fino a tarda notte."
+  },
+  "t": "ristorante",
   "sd": {
    "g": "Romadelicious · New School",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Ristorante"
   }
+ },
+ "Pastorie": {
+  "pr": {
+   "y": "2019",
+   "u": "https://www.puntarellarossa.it/recensioni/pastorie-roma-mangiare-al-pigneto-in-una-stalla-abruzzese-tra-pecore-e-arristicini/",
+   "nota": "Trattoria abruzzese al Pigneto arredata come una stalla, con tavoli sociali: il meglio sono gli arrosticini (anche di fegato), poi pallotte cacio e ova; porzioni contenute, carta vini disomogenea."
+  },
+  "t": "trattoria"
+ },
+ "Petra": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/06/30/petra-roma-cocktail-bar-con-cucina-e-musica-in-un-grande-giardino-urbano/",
+   "nota": "Cocktail bar con grande giardino (circa 90 posti) vicino a San Pietro e sala interna in stile orientale; aperto dall'aperitivo a notte, con musica dal vivo in estate."
+  },
+  "t": "bar"
  },
  "Pianostrada": {
   "sd": {
@@ -253,18 +784,54 @@
   }
  },
  "Piatto Romano": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/02/24/piatto-romano-a-roma-letica-dei-radicchietti-e-tante-cose-buonissime/",
+   "nota": "Trattoria romana a Testaccio, legata alla famiglia della vicina Torricella: classici come coratella e rigatoni con la pajata, alici arraganate e piatti più di ricerca."
+  },
+  "t": "trattoria",
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Trattoria"
   }
  },
+ "Pipero": {
+  "pr": {
+   "y": "2017",
+   "u": "https://www.puntarellarossa.it/recensioni/pipero-roma-menu-corso-vittorio-emanuele/",
+   "nota": "Ristorante stellato ed elegante davanti alla Chiesa Nuova: cucina contemporanea di Luciano Monosilio, sala guidata da Alessandro Pipero; carbonara solo nel degustazione, secondi intorno ai 40 euro."
+  },
+  "t": "ristorante"
+ },
+ "Pizza Chef Roma": {
+  "pr": {
+   "y": "2026",
+   "u": "https://www.puntarellarossa.it/2026/05/21/pizza-chef-roma/",
+   "nota": "Pizzeria in teglia a Furio Camillo gestita dal 2017 da Mario Panatta (impasti) e Sara Longo: sulla pizza finiscono piatti di cucina, su un impasto pensato per essere leggero."
+  },
+  "t": "pizza"
+ },
  "Pizzeria Ai Marmi - Antico forno a legna dal 1931": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/04/20/pizzeria-ai-marmi-roma-la-storia-dellobitorio-che-sforna-pizze-romane-da-90-anni/",
+   "nota": "Pizzeria storica detta 'l'Obitorio' per i tavoli in marmo: pizza romana bassa e scrocchiarella dal forno a legna, supplì e filetti di baccalà; sale ampie e spesso affollate."
+  },
+  "t": "pizza",
   "sd": {
    "g": "Romadelicious",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Pizzeria"
   }
+ },
+ "Pizzeria Clementina": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/04/22/clementina-a-fiumicino-una-pizza-che-racconta-il-territorio-e-una-carta-dei-vini-incredibile/",
+   "nota": "Pizzeria di Luca Pezzetta: quattro impasti a lievitazione naturale, lievitati salati del vicino Micro Forno (pain suisse al vitello tonnato), ingredienti stagionali del territorio e grande carta dei vini."
+  },
+  "t": "pizza"
  },
  "Pizzeria Da Baffetto": {
   "sd": {
@@ -272,6 +839,38 @@
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Pizzeria"
   }
+ },
+ "Pizzeria Sancho Dal 1969": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/05/14/sancho-a-roma-la-mitica-pizzeria-di-fiumicino-raddoppia-e-apre-a-prati/",
+   "nota": "Pizzeria al taglio storica di Fiumicino, della famiglia Di Lelio: oltre a rossa e margherita, pizze di mare come polpo e patate o seppie e piselli, gusti stagionali e supplì."
+  },
+  "t": "pizza"
+ },
+ "Proloco Centocelle": {
+  "pr": {
+   "y": "2026",
+   "u": "https://www.puntarellarossa.it/2026/03/24/proloco-centocelle-roma-dol/",
+   "nota": "Osteria con bottega a Centocelle centrata sui prodotti di piccoli produttori laziali: tartare della casa, amatriciana a 13 euro, carbonara a 14; al banco anche verdure fresche."
+  },
+  "t": "trattoria"
+ },
+ "RADICI Pizzicheria Salentina": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/01/26/radici-pizzicheria-salentina-a-roma/",
+   "nota": "Bottega salentina all'Esquilino con qualche tavolino fuori: prodotti della provincia di Lecce, pasticciotti, friselle, taralli e caffè leccese con latte di mandorla."
+  },
+  "t": "bottega"
+ },
+ "Ramen Bar Akira": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/07/18/ramen-bar-akira-roma-ristorante-giapponese-ostiense/",
+   "nota": "Ramen bar giapponese a Ostiense specializzato nello stile Iekei di Yokohama (brodo tonkotsu alleggerito con pollo, futomen); in carta anche gyoza, alette di pollo teriyaki e sake."
+  },
+  "t": "mondo"
  },
  "RETROBOTTEGA": {
   "sd": {
@@ -308,6 +907,14 @@
    "tip": "Ristorante"
   }
  },
+ "Ristorante Controluce": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/11/10/controluce-a-roma-losteria-intima-che-non-ti-aspetti-a-trastevere/",
+   "nota": "Osteria raccolta e moderna in una via tranquilla di Trastevere, gestita da due amiche: ricette regionali italiane e alcuni piatti più moderni dello chef Edoardo Bellucci; c'è un dehor."
+  },
+  "t": "trattoria"
+ },
  "Ristorante Da Benito": {
   "sd": {
    "g": "Spacedelicious Lazio",
@@ -321,6 +928,14 @@
    "u": "https://spacedelicious.com/pages/toscana",
    "tip": "Ristorante"
   }
+ },
+ "Ristorante Dumpling Bar Roma": {
+  "pr": {
+   "y": "2020",
+   "u": "https://www.puntarellarossa.it/2020/05/21/dumpling-bar-a-roma-delivery-e-take-away-i-ravioli-cinesi-da-cuocere-a-casa/",
+   "nota": "Ravioleria cinese in zona Marconi fondata da Gianni Catani: ravioli freschi del giorno, come maiale e verza, agnello e verza, gamberi maiale e funghi (5-6 euro per cinque pezzi)."
+  },
+  "t": "mondo"
  },
  "Ristorante Girarrosto All'Arco": {
   "sd": {
@@ -343,12 +958,204 @@
    "tip": "Trattoria"
   }
  },
+ "Ristorante Mamma Orso": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/04/11/nuove-aperture-a-roma-aprile-2022-il-pesce-alla-brace-di-dogma-e-la-cucina-familiare-di-mamma-orso/",
+   "nota": "Cucina italiana con brigata under 35 vicino a piazza Bologna, aperta solo a cena; ambiente vintage da casa della nonna, una trentina di posti più dehors."
+  },
+  "t": "ristorante"
+ },
+ "Ristorante Riccioli d'Oro": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/01/23/riccioli-doro-a-roma/",
+   "nota": "Ristorante a Montesacro con arredi da salotto della nonna: cucina moderna e stagionale, per il 60% vegetale, menu che cambia ogni mese e anche mezze porzioni; aperto la sera."
+  },
+  "t": "ristorante"
+ },
  "Ristorante Tullio": {
   "sd": {
    "g": "Spacedelicious Toscana",
    "u": "https://spacedelicious.com/pages/toscana",
    "tip": "Ristorante"
   }
+ },
+ "Ristoro degli Angeli": {
+  "pr": {
+   "y": "2015",
+   "u": "https://www.puntarellarossa.it/2015/06/12/dove-mangiare-allaperto-a-garbatella-a-roma-dal-ristoro-degli-angeli-fino-alla-nuova-apertura-di-prelibato/",
+   "nota": "Ristorante informale a Garbatella, davanti al Palladium, con dehor: spesa al mercato del quartiere, attenzione ai vegetariani, fettuccine degli angeli e ravioli di baccalà; primi intorno ai 10-14 euro."
+  },
+  "t": "ristorante"
+ },
+ "Romanè": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/08/23/romane-a-roma-il-primo-ristorante-di-stefano-callegari/",
+   "nota": "Stefano Callegari (Trapizzino) al suo primo ristorante: grandi classici italiani di casa, con tecniche tradizionali, in una sala che espone piatti del Buon Ricordo; circa 40 coperti più dehors."
+  },
+  "t": "ristorante"
+ },
+ "Romolo al Porto": {
+  "pr": {
+   "y": "2013",
+   "u": "https://www.puntarellarossa.it/2013/06/06/romolo-al-porto-ad-anzio-tempo-di-hamburger-di-maccarello-e-di-scampetti-al-vapore-alla-liquirizia/",
+   "nota": "Ristorante di pesce a gestione familiare ad Anzio: i piatti del giorno, crudi e cotti, si scelgono a voce col sommelier; clima informale e veranda, spesso pieno in alta stagione."
+  },
+  "t": "pesce"
+ },
+ "Rosina Cucina di Casa": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/05/29/roma-rosina-cucina-di-casa-campo-de-fiori-trattoria/",
+   "nota": "Trattoria vicino a Campo de' Fiori, nei locali dell'ex Da Sergio alle Grotte: cucina casalinga ispirata alle ricette delle nonne di tutta Italia, firmata dallo chef Gianmarco Iorio."
+  },
+  "t": "trattoria"
+ },
+ "RUVER Teglia Frazionata": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/09/24/ruver-teglia-frazionata-roma-pizza/",
+   "nota": "Pizzeria al taglio in teglia di Alessandro Ruver, allievo di Bonci a Pizzarium e tra i pizzaioli italiani più apprezzati; aperta nel 2022 vicino al Circo Massimo."
+  },
+  "t": "pizza"
+ },
+ "Ruvido": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/07/24/ruvido-roma-lenoteca-orange-allappio-latino/",
+   "nota": "Wine bar dal look brutalista con oltre 300 etichette, quasi tutte orange, e musica new wave. Piccolo: una ventina di posti, perlopiù al tavolo condiviso."
+  },
+  "t": "vino"
+ },
+ "Salotto Caronte": {
+  "pr": {
+   "y": "2012",
+   "u": "https://www.puntarellarossa.it/2012/11/03/brunch-roma-arriva-salotto-caronte/",
+   "nota": "Locale tra salotto e ristorante con brunch a buffet di ispirazione veneta (15 euro) e aperitivo con cicchetti come baccalà mantecato e sarde in saor."
+  },
+  "t": "ristorante"
+ },
+ "Salotto Stadlin": {
+  "pr": {
+   "y": "2022",
+   "u": "https://www.puntarellarossa.it/2022/03/27/salotto-stadlin-roma-lo-spin-off-del-locale-di-ostiense-con-cucina-e-cocktail-in-abbinamento/",
+   "nota": "Cocktail bar con cucina dall'atmosfera rétro Belle Époque, sotto il livello stradale: drink sui 10-12 euro e menu breve, rinnovato ogni trimestre, pensato per l'abbinamento."
+  },
+  "t": "bar"
+ },
+ "Santa Lucia Maccarese": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/07/01/santa-lucia-maccarese/",
+   "nota": "Residenza agricola in campagna con ristorante, orto bio, spa e camere: cucina con molto spazio alle verdure dell'orto (piatti sui 15-16 euro) e ampia cantina di vini laziali."
+  },
+  "t": "ristorante"
+ },
+ "Santa Romana - Pizzeria di Quartiere MAGLIANA": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/01/10/santa-romana-due-fratelli-aprono-una-pizzeria-di-quartiere-in-zona-magliana/",
+   "nota": "Pizzeria di quartiere dei fratelli Rotundo dedicata alla pizza romana sottile e croccante, in una sala dall'aria di vecchia osteria con forno a vista; una sessantina di coperti."
+  },
+  "t": "pizza"
+ },
+ "Santi Sebastiano e Valentino": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/03/01/santi-sebastiano-e-valentino-roma-nuova-panetteria-con-ristorante-quartiere-pariolitrieste/",
+   "nota": "Panetteria che usa lievito madre e farine bio (pane, pizza bianca, dolci) che è anche ristorante, con menu tra tradizione e spunti internazionali, come il daikon alla piastra (8 euro)."
+  },
+  "t": "dolce"
+ },
+ "Semi di Vino": {
+  "pr": {
+   "y": "2026",
+   "u": "https://www.puntarellarossa.it/2026/10/16/enoteca-semi-di-vino-roma/",
+   "nota": "Enoteca con etichette di piccole cantine di Italia, Francia e Spagna e cucina casalinga di ricette di famiglia, ispirata dal mercato e dalla stagione; due sale."
+  },
+  "t": "vino"
+ },
+ "Seu Pizza Illuminati": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/03/04/seu-pizza-illuminati-apre-a-ostia/",
+   "nota": "Tra le pizzerie romane più apprezzate, quella di Pier Daniele Seu e Valeria Zuppardo punta su condimenti fantasiosi; cavalli di battaglia la Cosacca 2.Seu e la Fiordicotto."
+  },
+  "t": "pizza"
+ },
+ "Smash Tag": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/04/30/smash-tag-roma-la-nuova-generazione-di-burger-smash-in-un-unico-morso/",
+   "nota": "Hamburgeria specializzata in smash burger all'americana, ispirati a White Castle: panini bassi e compatti da mangiare con una mano; packaging compostabile e area esterna."
+  },
+  "t": "street"
+ },
+ "SOLOVINO – Enoteca Naturale & Wine Bar a Roma": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/04/22/solovino-enoteca-naturale-a-roma-un-luogo-del-vino-con-degustazioni-bistrot-e-1-500-etichette/",
+   "nota": "Enoteca di vini naturali con bistrot, vicino alla metro Cipro: circa 1.500 referenze tra vecchie annate e rarità, dalla Borgogna e dal Jura a Radikon e Gravner."
+  },
+  "t": "vino"
+ },
+ "Sora Maria e Arcangelo": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/06/03/sora-maria-e-arcangelo-a-olevano-romano-lincontro-tra-contemporaneo-e-tradizione-contadina/",
+   "nota": "Trattoria storica di famiglia, oltre cent'anni e tre generazioni, con cucina contadina basata su prodotti locali; tra i piatti il baccalà all'olevanese (19 euro), con uvetta e peperone crusco."
+  },
+  "t": "trattoria"
+ },
+ "Spaccio Grosso": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/11/19/spaccio-grosso-roma-porta-pia-enoteca-vini-naturali-cucina/",
+   "nota": "Bottega con mescita focalizzata sui vini naturali: piatti dal pranzo alla sera, salumi e formaggi da tutta Italia e conserve da portare a casa. Ambiente piccolo, con dehors."
+  },
+  "t": "vino"
+ },
+ "Spiazzo - Pizzeria - Roma": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/11/08/spiazzo-roma-pizza-gourmet-ex-mulini-biondi-ostiense/",
+   "nota": "Pizzeria con tonda né romana né napoletana, croccante e friabile: classiche a 6-9 euro e farcite 'spiazzanti' a 13-15; cocktail in abbinamento, birre artigianali e qualche primo e secondo."
+  },
+  "t": "pizza"
+ },
+ "Städlin": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/01/30/dieci-anni-di-stadlin-a-roma-non-solo-un-cocktail-bar/",
+   "nota": "Locale di mixology con cucina sotto il Ponte dell'Industria, spazioso e adatto a feste: coworking di giorno, poi aperitivo con taglieri, cena (piatti 8-14 euro) e serate musicali."
+  },
+  "t": "bar"
+ },
+ "Sushi e Noodles - Aventino": {
+  "pr": {
+   "y": "2013",
+   "u": "https://www.puntarellarossa.it/2013/08/21/rosso-un-nuovo-ristorante-allaventino-e-con-papageno-e-sushi-e-noodles-il-viale-esce-dagli-anni-bui-del-deserto-urbano/",
+   "nota": "Ristorante giapponese e cinese che dichiara apertamente la doppia anima: piatti originali e fusion a base di pesce molto fresco."
+  },
+  "t": "mondo"
+ },
+ "THE APPUNTAMENTO": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/02/05/the-appuntamento-a-roma-fiori-e-ceramiche-per-il-nuovo-bistrot-di-prati/",
+   "nota": "Bistrot dal gusto tra vintage e pop, con fiori rinnovati ogni settimana e piatti in ceramica fatti a mano; in tavola comfort food italiano, dalla mattina a notte fonda."
+  },
+  "t": "ristorante"
+ },
+ "Tischi Toschi Roma": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/recensioni/tischi-toschi-a-roma-trattoria-siciliana-in-arrivo-da-taormina/",
+   "nota": "Costola romana della trattoria siciliana di Taormina: locale piccolo e rumoroso, cucina messinese come involtini alla messinese e busiata al ragù di tonno; piatti sui 13-16 euro."
+  },
+  "t": "trattoria"
  },
  "Trattoria 13 Gobbi": {
   "sd": {
@@ -392,6 +1199,14 @@
    "tip": "Trattoria"
   }
  },
+ "Trattoria Da Enzo al 29": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/04/22/da-enzo-al-29-roma-trattoria-tipica/",
+   "nota": "Trattoria di famiglia con cucina tradizionale e materie prime scelte da piccoli produttori (olio di Viterbo, pollo di Acquapendente), buona cantina; locale minuscolo e sempre affollato."
+  },
+  "t": "trattoria"
+ },
  "Trattoria da Lucia": {
   "sd": {
    "g": "Romadelicious",
@@ -400,11 +1215,25 @@
   }
  },
  "Trattoria da Me": {
+  "pr": {
+   "y": "2016",
+   "u": "https://www.puntarellarossa.it/2016/03/07/trattoria-da-me-bologna-ristorante-da-danio-rinasce-via-san-felice/",
+   "nota": "Trattoria bolognese tradizionale con tocchi moderni e tutto fatto in casa, pane compreso: crescentine con salumi, tortellini in brodo, tagliatelle al ragù e lasagne (9-11 euro)."
+  },
+  "t": "trattoria",
   "sd": {
    "g": "Bolognadelicious",
    "u": "https://spacedelicious.com/pages/bolognadelicious",
    "tip": "Trattoria"
   }
+ },
+ "Trattoria del Pesce": {
+  "pr": {
+   "y": "2012",
+   "u": "https://www.puntarellarossa.it/2012/03/01/gran-novita-la-trattoria-del-pesce/",
+   "nota": "Trattoria di pesce in stile romano, con servizio molto premuroso: da provare il carrello dei crudi (25 euro) e la calamarata all'ombrina; vini naturali, spesso sotto i 20 euro."
+  },
+  "t": "pesce"
  },
  "Trattoria di Via Serra": {
   "sd": {
@@ -419,6 +1248,14 @@
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Trattoria"
   }
+ },
+ "Trattoria Monti Roma": {
+  "pr": {
+   "y": "2009",
+   "u": "https://www.puntarellarossa.it/2009/04/15/trattoria-monti/",
+   "nota": "Trattoria di cucina marchigiana gestita da una famiglia dagli anni '70: coniglio in porchetta, tortelli al rosso d'uovo, vincisgrassi, fritti. Prezzi medi; prenotare con largo anticipo."
+  },
+  "t": "trattoria"
  },
  "Trattoria Perilli": {
   "sd": {
@@ -441,12 +1278,66 @@
    "tip": "Trattoria"
   }
  },
+ "Trattoria Sincera": {
+  "pr": {
+   "y": "2023",
+   "u": "https://www.puntarellarossa.it/2023/05/08/trattoria-sincera-a-milano-cucina-lombarda-a-lambrate/",
+   "nota": "Trattoria moderna di cucina lombarda tradizionale a Lambrate, con angolo salumeria (Marco d'Oggiono) e prezzi onesti; da provare i mondeghili con salsa alla senape."
+  },
+  "t": "trattoria"
+ },
+ "Tre de Tutto": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/06/04/tre-de-tutto-roma-a-garbatella-un-locale-all-day-long-con-birre-artigianali-gin-tonic-da-comporre-e-vinili/",
+   "nota": "Locale all day che apre alle 7.30: birre artigianali, gin tonic personalizzabili e vinili, in un arredo di design tra industriale e anni '50; circa 60 posti più dehors."
+  },
+  "t": "bar"
+ },
  "Trecca - Roma": {
+  "pr": {
+   "y": "2021",
+   "u": "https://www.puntarellarossa.it/2021/05/13/trecca-a-roma-cucina-verace-e-lirica-delle-frattaglie-la-formalita-eccessiva-ci-ha-stancato/",
+   "nota": "Trattoria romana di famiglia votata al quinto quarto: padellotto di rigaje e patate, spiedino di pajata alla griglia; vini naturali. Antipasti e primi 10-12 euro, secondi 14-17."
+  },
+  "t": "trattoria",
   "sd": {
    "g": "Romadelicious · New School",
    "u": "https://spacedelicious.com/pages/romadelicious",
    "tip": "Contemporaneo"
   }
+ },
+ "Tuk Tuk Ride - Thai Vibes": {
+  "pr": {
+   "y": "2018",
+   "u": "https://www.puntarellarossa.it/2018/09/25/tuk-tuk-ride-a-roma-ristorante-thailandese-san-paolo/",
+   "nota": "Ristorante thailandese con piatti tradizionali adattati al gusto italiano: miang lao, zuppa d'anatra, pad thai terra e mare, sticky rice al mango; abbinamenti con cocktail."
+  },
+  "t": "mondo"
+ },
+ "Vecio": {
+  "pr": {
+   "y": "2024",
+   "u": "https://www.puntarellarossa.it/2024/03/22/vecio-a-roma-cicchetti-vini-naturali-e-vermouth-nel-nuovo-bacaro-in-via-dei-banchi-vecchi/",
+   "nota": "Bacaro all'uso veneziano con cicchetti dal gusto romano e tocchi internazionali, piattini da condividere, vini naturali e vermouth; ambiente raccolto, circa 35 coperti."
+  },
+  "t": "vino"
+ },
+ "Vineria Risorgimento": {
+  "pr": {
+   "y": "2026",
+   "u": "https://www.puntarellarossa.it/2026/03/24/vineria-risorgimento-roma-vaticano/",
+   "nota": "Piccola vineria vicino al Vaticano: circa 400 etichette, calici da 7 a 10 euro con rotazioni frequenti e qualcosa di laziale; cucina essenziale con taglieri di salumi e formaggi."
+  },
+  "t": "vino"
+ },
+ "Vinificio": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/02/17/cena-agricola-vinificio-roma-orto-2-0/",
+   "nota": "Locale votato al vino naturale che va oltre l'enoteca classica, tra musica, arte e cucina fresca e contemporanea; periodiche cene a tema con i prodotti di piccole aziende agricole."
+  },
+  "t": "vino"
  },
  "Vivoli": {
   "sd": {
@@ -454,5 +1345,21 @@
    "u": "https://spacedelicious.com/pages/firenzedelicious",
    "tip": "Gelateria / Caffè"
   }
+ },
+ "Waraku": {
+  "pr": {
+   "y": "2017",
+   "u": "https://www.puntarellarossa.it/2017/02/13/waraku-roma-via-prenestina/",
+   "nota": "Trattoria giapponese in stile ramen-ya, informale e gestita con gentilezza: ramen tradizionali (12-15 euro), gyoza e buta kimchi; circa cinquanta posti tra sala e spazio esterno."
+  },
+  "t": "mondo"
+ },
+ "Zampa Forno Etico": {
+  "pr": {
+   "y": "2025",
+   "u": "https://www.puntarellarossa.it/2025/10/29/zampa-forno-etico-roma-fare-il-pane/",
+   "nota": "Forno di quartiere al Tuscolano, tra i più apprezzati di Roma: pane simbolo è l'Urbano, grossa pagnotta multicereale che dura tutta la settimana, un po' più cara."
+  },
+  "t": "dolce"
  }
 }

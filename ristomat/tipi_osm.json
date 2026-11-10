@@ -1,0 +1,335 @@
+{
+ "_info": "Tipo di locale ricavato da OpenStreetMap (© OpenStreetMap contributors, ODbL) per i posti il cui nome non dice che locale sia. Usato solo se nome e guide non bastano; correzioni.json ha sempre la precedenza.",
+ "568": {
+  "t": "bar",
+  "osm": "568 · amenity=pub"
+ },
+ "A un Passo da": {
+  "t": "ristorante",
+  "osm": "A un Passo da · amenity=restaurant"
+ },
+ "Accasadì": {
+  "t": "pizza",
+  "osm": "Accasadì · amenity=restaurant;cuisine=pizza;regional"
+ },
+ "Agustarello A Testaccio": {
+  "t": "ristorante",
+  "osm": "Agustarello a Testaccio · amenity=restaurant;cuisine=italian;regional"
+ },
+ "Ai Do Archi Venezia": {
+  "t": "ristorante",
+  "osm": "Osteria Ai do Archi · amenity=restaurant"
+ },
+ "Al Biondo Tevere": {
+  "t": "pizza",
+  "osm": "Al Biondo Tevere · amenity=restaurant;cuisine=pizza;regional"
+ },
+ "Al Cartello": {
+  "t": "ristorante",
+  "osm": "Al Cartello · amenity=restaurant"
+ },
+ "Al Settantasette": {
+  "t": "bar",
+  "osm": "Al Settantasette · amenity=pub"
+ },
+ "Alfredo e Ada": {
+  "t": "ristorante",
+  "osm": "Alfredo e Ada · amenity=restaurant"
+ },
+ "Alle Logge di Piazza": {
+  "t": "ristorante",
+  "osm": "Alle Logge di Piazza · amenity=restaurant"
+ },
+ "Allegra": {
+  "t": "dolce",
+  "osm": "Allegra · amenity=cafe"
+ },
+ "Antico Noè": {
+  "t": "street",
+  "osm": "Antico Noè · amenity=restaurant;cuisine=regional;sandwich"
+ },
+ "Ar Grottino der Traslocatore": {
+  "t": "ristorante",
+  "osm": "Ar Grottino der Traslocatore · amenity=restaurant;cuisine=italian;regional"
+ },
+ "Artisan": {
+  "t": "bar",
+  "osm": "Artisan · amenity=pub"
+ },
+ "BIFFI": {
+  "t": "dolce",
+  "osm": "Biffi · amenity=cafe"
+ },
+ "Borgo Pigneto": {
+  "t": "ristorante",
+  "osm": "Borgo Pigneto · amenity=restaurant"
+ },
+ "Burgez": {
+  "t": "street",
+  "osm": "Burgez · amenity=fast_food;cuisine=burger"
+ },
+ "Cabullo": {
+  "t": "street",
+  "osm": "Cabullo · amenity=fast_food"
+ },
+ "Cala Piatti": {
+  "t": "ristorante",
+  "osm": "Cala Piatti · amenity=restaurant"
+ },
+ "Callimaco": {
+  "t": "dolce",
+  "osm": "Callimaco · amenity=cafe"
+ },
+ "Casa Imperiale": {
+  "t": "mondo",
+  "osm": "Casa Imperiale · amenity=restaurant;cuisine=chinese"
+ },
+ "casadante": {
+  "t": "ristorante",
+  "osm": "Casa Dante · amenity=restaurant"
+ },
+ "CECCHINI IN CITTÀ": {
+  "t": "carne",
+  "osm": "Cecchini in città · amenity=restaurant;cuisine=steak_house"
+ },
+ "Collettivo Gastronomico Testaccio": {
+  "t": "ristorante",
+  "osm": "Collettivo Gastronomico Testaccio · amenity=restaurant"
+ },
+ "Coropuna": {
+  "t": "mondo",
+  "osm": "Coropuna · amenity=restaurant;cuisine=peruvian;asian;japanese"
+ },
+ "Corsetti": {
+  "t": "dolce",
+  "osm": "Corsetti · amenity=cafe"
+ },
+ "Cresci": {
+  "t": "ristorante",
+  "osm": "Cresci · amenity=restaurant"
+ },
+ "Dar Moschino": {
+  "t": "ristorante",
+  "osm": "Dar Moschino · amenity=restaurant;cuisine=regional"
+ },
+ "Dino Express": {
+  "t": "ristorante",
+  "osm": "Dino Express · amenity=restaurant"
+ },
+ "Donts": {
+  "t": "street",
+  "osm": "Donts · amenity=fast_food;cuisine=burger"
+ },
+ "Estro": {
+  "t": "vino",
+  "osm": "Estro - Vino e Cucina · amenity=restaurant;shop=wine"
+ },
+ "Fermenti": {
+  "t": "ristorante",
+  "osm": "Fermenti · amenity=restaurant;cuisine=italian"
+ },
+ "Fischio": {
+  "t": "dolce",
+  "osm": "Fischio · amenity=cafe"
+ },
+ "Fratelli Briganti": {
+  "t": "pizza",
+  "osm": "Fratelli Briganti · amenity=restaurant;cuisine=italian;regional;pizza"
+ },
+ "Giulio, passami l'olio - Roma": {
+  "t": "ristorante",
+  "osm": "Giulio Passami l’Olio · amenity=restaurant"
+ },
+ "Il Cavallino Rosso": {
+  "t": "ristorante",
+  "osm": "Ristorante Bar Cavallino Rosso · amenity=restaurant"
+ },
+ "Il Gianfornaio - Testaccio": {
+  "t": "dolce",
+  "osm": "Il Gianfornaio · amenity=cafe;cuisine=pizza"
+ },
+ "Il Ragioniere": {
+  "t": "ristorante",
+  "osm": "Il Ragioniere · amenity=restaurant"
+ },
+ "Il Treppio": {
+  "t": "bar",
+  "osm": "Il Treppio · amenity=pub"
+ },
+ "Impact Food": {
+  "t": "street",
+  "osm": "Impact Food · amenity=fast_food;cuisine=burger;chicken;sandwich"
+ },
+ "Impiccetta": {
+  "t": "ristorante",
+  "osm": "Impiccetta · amenity=restaurant"
+ },
+ "Interno 92": {
+  "t": "carne",
+  "osm": "Interno 92 · amenity=restaurant;cuisine=grill"
+ },
+ "Ivo a Trastevere": {
+  "t": "ristorante",
+  "osm": "Ivo a Trastevere · amenity=restaurant;cuisine=regional"
+ },
+ "La capannuccia": {
+  "t": "ristorante",
+  "osm": "La Capannuccia · amenity=restaurant"
+ },
+ "La Cucaracha": {
+  "t": "mondo",
+  "osm": "La Cucaracha · amenity=restaurant;cuisine=mexican"
+ },
+ "La Gattabuia": {
+  "t": "pizza",
+  "osm": "La Gattabuia · amenity=restaurant;cuisine=italian;pizza"
+ },
+ "La Ménagère": {
+  "t": "ristorante",
+  "osm": "La Menagere · amenity=restaurant;cuisine=international"
+ },
+ "La Torre di Lavello": {
+  "t": "ristorante",
+  "osm": "Torre di Lavello · amenity=restaurant"
+ },
+ "La Valle del Sacco": {
+  "t": "ristorante",
+  "osm": "La Valle Del Sacco · amenity=restaurant"
+ },
+ "La Zagara": {
+  "t": "dolce",
+  "osm": "La Zagara · amenity=cafe;cuisine=italian;pasta;pizza;sandwich"
+ },
+ "La Zdaura": {
+  "t": "ristorante",
+  "osm": "La Zdaura · amenity=restaurant"
+ },
+ "Le Volpi e l'Uva": {
+  "t": "vino",
+  "osm": "Le Volpi e L'uva · amenity=pub;shop=wine"
+ },
+ "Lo Scopettaro": {
+  "t": "ristorante",
+  "osm": "Lo Scopettaro · amenity=restaurant;cuisine=regional"
+ },
+ "Lumie di Sicilia": {
+  "t": "ristorante",
+  "osm": "Lumie di Sicilia · amenity=restaurant;cuisine=italian"
+ },
+ "L’Apulia": {
+  "t": "ristorante",
+  "osm": "Apulia · amenity=restaurant;cuisine=italian;regional;apulian"
+ },
+ "Mastico": {
+  "t": "street",
+  "osm": "Mastico · amenity=restaurant;cuisine=coffee_shop;italian;dessert;sandwich;breakfast"
+ },
+ "Necci dal 1924": {
+  "t": "ristorante",
+  "osm": "Necci dal 1924 · amenity=restaurant;cuisine=regional"
+ },
+ "PAPANOSTRO": {
+  "t": "pizza",
+  "osm": "Papanostro · amenity=restaurant;cuisine=pizza"
+ },
+ "PER ME - Giulio Terrinoni": {
+  "t": "ristorante",
+  "osm": "Per me · amenity=restaurant"
+ },
+ "Plebiscito": {
+  "t": "dolce",
+  "osm": "Plebiscito Roma · amenity=cafe"
+ },
+ "Pompa Malatesta": {
+  "t": "bar",
+  "osm": "Pompa Malatesta · amenity=bar"
+ },
+ "Poste Vecie": {
+  "t": "ristorante",
+  "osm": "Poste Vechie · amenity=restaurant"
+ },
+ "Procacci": {
+  "t": "bottega",
+  "osm": "Procacci · amenity=bar;shop=deli"
+ },
+ "Proloco Trastevere": {
+  "t": "ristorante",
+  "osm": "Proloco Trastevere · amenity=restaurant;cuisine=italian"
+ },
+ "Raimondo": {
+  "t": "ristorante",
+  "osm": "Raimondo · amenity=restaurant;cuisine=regional"
+ },
+ "Rimessa Roscioli": {
+  "t": "ristorante",
+  "osm": "Rimessa Roscioli · amenity=restaurant"
+ },
+ "Røst": {
+  "t": "ristorante",
+  "osm": "Røst · amenity=restaurant"
+ },
+ "Sacco Segreto": {
+  "t": "mondo",
+  "osm": "Sacco segreto · amenity=restaurant;cuisine=chinese"
+ },
+ "SAID dal 1923 - Roma": {
+  "t": "dolce",
+  "osm": "SAID dal 1923 · amenity=cafe"
+ },
+ "Settimio All'Arancio": {
+  "t": "ristorante",
+  "osm": "Settimio al'Arancio · amenity=restaurant;cuisine=italian"
+ },
+ "Sgarbato": {
+  "t": "bar",
+  "osm": "Sgarbato · amenity=bar;cuisine=beer"
+ },
+ "Sora Margherita": {
+  "t": "ristorante",
+  "osm": "Sora Margherita · amenity=restaurant;cuisine=italian;local"
+ },
+ "Stecca": {
+  "t": "ristorante",
+  "osm": "Stecca Ristorante · amenity=restaurant"
+ },
+ "The Court": {
+  "t": "bar",
+  "osm": "The Court · amenity=bar"
+ },
+ "Tram Depot Testaccio": {
+  "t": "dolce",
+  "osm": "Tram Depot · amenity=cafe"
+ },
+ "Tram Tram": {
+  "t": "ristorante",
+  "osm": "Tram Tram · amenity=restaurant;cuisine=local"
+ },
+ "Tribuna Campitelli": {
+  "t": "ristorante",
+  "osm": "Tribuna Campitelli · amenity=restaurant"
+ },
+ "Tulipane": {
+  "t": "dolce",
+  "osm": "Tulipane · amenity=cafe"
+ },
+ "Ultramarino": {
+  "t": "bar",
+  "osm": "Ultramarino · amenity=bar;cuisine=tapas"
+ },
+ "Urbana 47": {
+  "t": "ristorante",
+  "osm": "Urbana 47 · amenity=restaurant"
+ },
+ "Vecchio Frac": {
+  "t": "vino",
+  "osm": "Vecchio Frack · shop=wine"
+ },
+ "YaLùz": {
+  "t": "street",
+  "osm": "Yalùz · amenity=fast_food;cuisine=ethnic"
+ },
+ "Zic!": {
+  "t": "bar",
+  "osm": "Zic! · amenity=bar"
+ }
+}

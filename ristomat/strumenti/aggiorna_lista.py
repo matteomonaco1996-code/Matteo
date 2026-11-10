@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "locali.js"
 CORREZIONI = ROOT / "correzioni.json"
 RECENSIONI = ROOT / "recensioni.json"
+TIPI_OSM = ROOT / "tipi_osm.json"
 
 # Tipologie usate dalle guide Spacedelicious -> tipi del sito
 TIPI_GUIDA = {"trattoria": "trattoria", "osteria": "trattoria", "pizzeria": "pizza", "enoteca": "vino",
@@ -171,6 +172,7 @@ def main():
     correzioni = json.loads(CORREZIONI.read_text("utf-8")) if CORREZIONI.exists() else {}
     correzioni = {k: v for k, v in correzioni.items() if not k.startswith("_")}
     recensioni = json.loads(RECENSIONI.read_text("utf-8")) if RECENSIONI.exists() else {}
+    tipi_osm = json.loads(TIPI_OSM.read_text("utf-8")) if TIPI_OSM.exists() else {}
 
     locali = []
     for it in voci:
@@ -208,7 +210,8 @@ def main():
         if rec.get("sd"):
             x["sd"] = {k: rec["sd"][k] for k in ("g", "u")}
         if x["t"] == "altro":  # il tipo dedotto dal nome non dice nulla: usa quello delle guide
-            x["t"] = rec.get("t") or TIPI_GUIDA.get((rec.get("sd") or {}).get("tip", "").lower(), "altro")
+            x["t"] = (rec.get("t") or TIPI_GUIDA.get((rec.get("sd") or {}).get("tip", "").lower())
+                      or (tipi_osm.get(x["n"]) or {}).get("t") or "altro")
         if x["c"] == "Roma":
             x["z"] = CAP2ZONA.get(x["cap"], ZONA_ALTRO)
         fix = correzioni.get(x["n"])
