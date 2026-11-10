@@ -349,15 +349,56 @@
   const mappa = (() => {
     const el = $("#mappa");
     if (!window.L) { el.innerHTML = `<div class="map-gate"><b>Mappa non disponibile</b>La lista funziona lo stesso.</div>`; return { aggiorna() {}, vai() {}, posizione() {}, mostra() {}, ridisegna() {} }; }
-    const m = L.map(el, { zoomControl: true }).setView([41.9, 12.49], 12);
+    const nascostaSubito = () => el.offsetParent === null || !el.clientWidth;
+    const m = L.map(el, { zoomControl: true, attributionControl: true }).setView([41.9, 12.49], 12);
+    m.attributionControl.setPrefix(false);
+    m.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>');
+    // Mappa ospitata sul sito (mappa/roma.js, dati OpenStreetMap): strade, Tevere, parchi. Sempre visibile, nessun server esterno.
+    const tela = L.canvas({ padding: 0.4 });
+    const dec = (a) => { const out = []; let la = 0, lo = 0; for (let i = 0; i < a.length; i += 2) { la += a[i]; lo += a[i + 1]; out.push([la / 1e5, lo / 1e5]); } return out; };
+    let vie = null, disegnata = false;
+    function disegnaBase() {
+      const D = window.SNS_MAPPA && window.SNS_MAPPA.roma;
+      if (!D || disegnata) return;
+      disegnata = true;
+      const op = { renderer: tela, interactive: false, smoothFactor: 1.2 };
+      if (D.parchi.length) L.polygon(D.parchi.map(dec), { ...op, stroke: false, fillColor: "#2F3F24", fillOpacity: 1 }).addTo(m);
+      strati.fiume = L.polyline(D.fiumi.map(dec), { ...op, color: "#3E6A8C", lineCap: "round" }).addTo(m);
+      vie = L.polyline(D.vie.map(dec), { ...op, color: "#4F3A29" });
+      strati.medie = L.polyline(D.medie.map(dec), { ...op, color: "#6E4D33" }).addTo(m);
+      strati.grandi = L.polyline(D.grandi.map(dec), { ...op, color: "#8E6840" }).addTo(m);
+      mostraVie();
+      if (fiumeDisegnato) { m.removeLayer(fiumeDisegnato); fiumeDisegnato = null; }
+      base.forEach((l) => l.bringToFront && l.bringToFront());
+    }
+    // Spessori in base allo zoom: da lontano poche linee sottili, da vicino tutte le vie
+    const strati = {};
+    const SPESSORI = { fiume: [2.5, 4, 6, 9, 12], grandi: [.8, 1.4, 2.4, 3.6, 4.6], medie: [0, .7, 1.5, 2.4, 3.2], vie: [0, 0, .9, 1.6, 2.2] };
+    const livello = () => Math.max(0, Math.min(4, m.getZoom() - 11));
+    const mostraVie = () => {
+      const k = livello();
+      Object.entries(strati).forEach(([n, l]) => l.setStyle({ weight: SPESSORI[n][k], opacity: SPESSORI[n][k] ? 1 : 0 }));
+      if (vie) { if (SPESSORI.vie[k]) { vie.setStyle({ weight: SPESSORI.vie[k] }); vie.addTo(m); } else m.removeLayer(vie); }
+      el.classList.toggle("zoom-lontano", m.getZoom() < 13);
+    };
+    m.on("zoomend", mostraVie);
+    let caricando = false;
+    function caricaBase() {
+      if (window.SNS_MAPPA && window.SNS_MAPPA.roma) return disegnaBase();
+      if (caricando) return;
+      caricando = true;
+      const sc = document.createElement("script");
+      sc.src = "mappa/roma.js"; sc.onload = disegnaBase;
+      document.body.appendChild(sc);
+    }
     let tiles = null;
     const gate = document.createElement("div");
     gate.className = "map-gate";
-    gate.innerHTML = `<span><b>Mappa semplificata.</b> Lo sfondo con le strade arriva da CARTO, che riceve il tuo IP. <a href="privacy.html#mappa">Dettagli</a></span><button class="btn mini" type="button" data-sfondo>Accendi le strade</button>`;
+    gate.innerHTML = `<button class="btn mini alt" type="button" data-sfondo title="Carica lo sfondo con i nomi delle vie da CARTO: riceverà il tuo indirizzo IP (vedi Privacy)" aria-label="Carica i nomi delle vie da CARTO, che riceverà il tuo indirizzo IP">Nomi vie · CARTO</button>`;
     function accendi(ricorda) {
       if (tiles) return;
       tiles = L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> © <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a>',
+        attribution: '© <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a>',
         subdomains: "abcd", maxZoom: 20, referrerPolicy: "no-referrer",
       }).addTo(m);
       gate.remove();
@@ -374,12 +415,14 @@
     $("#spegni-mappa").addEventListener("click", spegni);
     if (memoria.get("sns-sfondo-mappa") === "si") accendi(false); else el.appendChild(gate);
 
-    // Base disegnata da noi (sempre visibile, nessuna richiesta esterna): Tevere e nomi dei quartieri
-    L.polyline(TEVERE, { className: "base-fiume", interactive: false }).addTo(m);
-    (META.quartieri || []).forEach((q) => L.marker([q.la, q.lo], {
+    // Finché la mappa vera non è caricata: Tevere disegnato. Sempre: nomi dei quartieri.
+    let fiumeDisegnato = L.polyline(TEVERE, { className: "base-fiume", interactive: false }).addTo(m);
+    const base = [];
+    (META.quartieri || []).forEach((q) => base.push(L.marker([q.la, q.lo], {
       icon: L.divIcon({ className: "", html: `<span class="base-quartiere">${esc(q.n.split(" · ")[0])}</span>`, iconSize: [0, 0] }),
       interactive: false, keyboard: false,
-    }).addTo(m));
+    }).addTo(m)));
+    if (!nascostaSubito()) caricaBase();
     const strato = L.layerGroup().addTo(m);
     const punti = new Map();
     let io = null, ultima = [], daAdattare = false;
@@ -408,8 +451,9 @@
       if (!adatta) return;
       if (nascosta()) daAdattare = true; else { daAdattare = false; adattaA(lista); }
     }
-    function mostra() { m.invalidateSize(); if (daAdattare) { adattaA(ultima); daAdattare = false; } }
+    function mostra() { caricaBase(); m.invalidateSize(); if (daAdattare) { adattaA(ultima); daAdattare = false; } }
     function vai(i) {
+      caricaBase();
       const x = DATA[i]; daAdattare = false; m.invalidateSize();
       m.setView([x.la, x.lo], Math.max(m.getZoom(), 16), { animate: false });
       const mk = punti.get(i);

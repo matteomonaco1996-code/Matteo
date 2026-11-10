@@ -23,6 +23,9 @@ Matteo. Chi si registra fa punti con check-in e recensioni.
 - **GETTONE**: pesca un posto a caso tra quelli vicini o del livello.
 - **MAPPA DEL MONDO**: Roma disegnata come la mappa dei livelli di un videogioco (Tevere a pixel,
   quartieri come caselle cliccabili, verdi quelli già visitati), senza servizi esterni.
+- **MAPPA DEI RISULTATI**: strade, Tevere e Aniene di Roma con dati OpenStreetMap ospitati sul sito
+  (`mappa/roma.js`, generato da `strumenti/mappa_osm.py`): si vede sempre, senza chiamare server esterni.
+  I nomi delle vie (CARTO) sono un’aggiunta facoltativa.
 - **PLAYER 1** (con account): accesso con codice via email, check-in entro 150 m dal posto,
   missioni, livelli con titolo, classifica facoltativa, esportazione e cancellazione dei dati.
 - **Il percorso**: check-in → schermata premio con il dettaglio dei punti, missioni compiute e
@@ -55,6 +58,7 @@ database, non dal browser, e non danno premi. Test del database: `strumenti/test
 | `supabase/schema.sql` | Tabelle, regole di sicurezza e funzioni del database |
 | `supabase/luoghi.sql` | Posti da caricare nel database (generato) |
 | `vendor/`, `fonts/` | Leaflet, supabase-js e caratteri ospitati sul sito, con licenze |
+| `mappa/roma.js` | Strade e fiumi di Roma (© OpenStreetMap, ODbL), generati da `strumenti/mappa_osm.py` |
 | `locali.js` | Dati **generati**: non modificarli a mano |
 | `tipi.json` | Tipo di locale per i posti il cui nome non lo dice |
 | `correzioni.json` | Correzioni manuali (tipo `t`, quartiere `q`, città `c`, nota `nt`): vincono su tutto |
