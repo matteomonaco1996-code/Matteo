@@ -28,3 +28,17 @@ Tutto è in un unico file `index.html`. Per cambiare date, luogo o testi, cerca
 la sezione `<div id="win-screen">` nell'HTML e modifica i contenuti dell'invito.
 
 Buona festa! 🍻
+
+---
+
+# Tenuta La Radicale — Guida per gli ospiti
+
+Sito per gli ospiti nella cartella [`la-radicale/`](la-radicale/), indipendente dal gioco.
+
+- `la-radicale/index.html`: tutta la guida (italiano e inglese). Testi, orari, telefoni e link
+  sono negli elenchi all'inizio dello `<script>` (`EAT`, `BARS`, `SHOPS`, `SOS`, ...).
+- `la-radicale/img/`: foto della tenuta.
+- `la-radicale/sw.js`: copia locale per consultare la guida anche con poca rete. Dopo una modifica
+  ai contenuti, cambiare `la-radicale-v1` in `v2`, `v3`, ... per forzare l'aggiornamento.
+
+La cartella è autonoma: si può spostare così com'è in un repository o dominio dedicato.

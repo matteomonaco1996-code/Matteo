@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tenuta La Radicale · Guida per gli ospiti</title>
+<meta name="description" content="Guida di benvenuto per gli ospiti di Tenuta La Radicale, Subiaco.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1c3a30">
+<meta property="og:title" content="Tenuta La Radicale · Guida per gli ospiti">
+<meta property="og:description" content="Wi-Fi, check-in, regole, come arrivare e i nostri consigli su Subiaco.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: schermata iniziale a riquadri come un'app, ogni sezione è una scheda a colonna singola (max 680px). */
+:root{
+  --bosco:#1c3a30;      /* verde dei boschi dei Simbruini: testate, testo forte */
+  --ink:#22302a;
+  --muted:#5d6b64;
+  --pietra:#eef0ea;     /* fondo pagina */
+  --card:#ffffff;
+  --line:#d9ddd3;
+  --acqua:#0f6e7c;      /* turchese della piscina: azioni */
+  --acqua-soft:#e1f0f1;
+  --allarme:#a8321f;    /* solo emergenze */
+  --allarme-soft:#fbe9e5;
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--pietra);color:var(--ink);font:400 1rem/1.55 var(--body)}
+a{color:var(--acqua)}
+h1,h2,h3{font-family:var(--display);color:var(--bosco);line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--acqua);outline-offset:2px}
+.wrap{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* barra superiore */
+.bar{position:sticky;top:0;z-index:5;background:var(--bosco);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.bar .wrap{display:flex;align-items:center;gap:12px;min-height:56px}
+.bar .brand{font:700 1.05rem var(--display);color:#fff;text-decoration:none;margin-right:auto}
+.back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:999px;padding:8px 14px 8px 10px;font-weight:600;text-decoration:none}
+.lang{display:flex;border:1px solid rgba(255,255,255,.4);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;color:#fff;padding:7px 12px;font-weight:600;font-size:.85rem;letter-spacing:.04em}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--bosco)}
+
+/* home */
+.hero{position:relative;color:#fff;background:var(--bosco) url(img/panorama.jpg) center/cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,58,48,.15),rgba(28,58,48,.82))}
+.hero .wrap{position:relative;padding-block:120px 22px}
+.hero h1{color:#fff;font-size:clamp(2rem,8vw,2.9rem);font-weight:700}
+.hero p{margin-top:6px;font-size:1.05rem;opacity:.95}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;margin-top:16px}
+.facts div{background:var(--card);padding:12px 10px;text-align:center}
+.facts dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.facts dd{margin:2px 0 0;font:700 1.05rem var(--display);color:var(--bosco);font-variant-numeric:tabular-nums}
+.facts small{display:block;font:400 .78rem var(--body);color:var(--muted)}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-block:22px 8px}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:104px;padding:12px 6px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--bosco);font-weight:600;font-size:.9rem;text-align:center;line-height:1.2}
+.tile svg{width:30px;height:30px;color:var(--acqua)}
+
+.tile.sos{grid-column:1/-1;flex-direction:row;min-height:60px;background:var(--allarme-soft);border-color:#eec6bd;color:var(--allarme)}
+.tile.sos svg{color:var(--allarme)}
+.tile:active{transform:scale(.98)}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;width:20px;height:20px;flex:none}
+
+/* sezioni */
+main section{padding-block:22px 40px}
+.title{font-size:clamp(1.7rem,6.5vw,2.2rem);font-weight:700;margin-bottom:6px}
+.lead{color:var(--muted);margin-bottom:18px;max-width:60ch}
+h2{font-size:1.2rem;font-weight:700;margin:26px 0 10px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.card h3{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.card p+p{margin-top:6px}
+.meta{color:var(--muted);font-size:.93rem}
+.big{font:700 2.4rem/1 var(--display);color:var(--bosco);font-variant-numeric:tabular-nums}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 16px;border-radius:999px;border:1px solid var(--acqua);background:var(--card);color:var(--acqua);font-weight:600;text-decoration:none;font-size:.95rem}
+.btn.fill{background:var(--acqua);color:#fff}
+.btn.red{background:var(--allarme);border-color:var(--allarme);color:#fff}
+.btn.wide{width:100%}
+.photo{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r);display:block;margin-bottom:16px}
+.rooms{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.rooms figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.rooms img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.rooms figcaption{padding:10px 12px 12px;font-size:.92rem}
+.rooms b{display:block;font-family:var(--display);color:var(--bosco)}
+.kv{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px}
+.kv span{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);grid-column:1/-1}
+.kv code{font:600 1.25rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--bosco);grid-column:1/3;overflow-wrap:anywhere;user-select:all}
+ul.plain{margin:0;padding-left:1.1em}
+ul.plain li+li{margin-top:6px}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.chips div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-weight:600;font-size:.93rem}
+.chips small{display:block;font-weight:400;color:var(--muted)}
+.sosrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sosrow a{flex-direction:column;gap:0;padding:12px 6px;border-radius:var(--r);min-height:76px;font-size:.8rem;line-height:1.2;text-align:center}
+.sosrow b{font:700 1.7rem/1.1 var(--display)}
+.check{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer}
+.check input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--acqua);flex:none}
+.check b{display:block;color:var(--bosco)}
+.check:has(input:checked){background:var(--acqua-soft);border-color:#b9dadd}
+.note{background:var(--acqua-soft);border-radius:var(--r);padding:14px 16px}
+footer{border-top:1px solid var(--line);padding-block:20px 32px;color:var(--muted);font-size:.82rem}
+footer p+p{margin-top:4px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--bosco);color:#fff;padding:10px 18px;border-radius:999px;font-weight:600;z-index:9}
+@media (min-width:560px){.tiles{grid-template-columns:repeat(4,1fr)}.chips{grid-template-columns:repeat(3,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a class="back" id="back" href="#" hidden></a>
+  <a class="brand" id="brand" href="#">Tenuta La Radicale</a>
+  <div class="lang" role="group" aria-label="Lingua / Language">
+    <button type="button" data-lang="it">IT</button><button type="button" data-lang="en">EN</button>
+  </div>
+</div></header>
+<div id="app"></div>
+<noscript><div class="wrap" style="padding-block:24px">Per vedere la guida attivate JavaScript, oppure scriveteci su WhatsApp al +39 345 983 8543.</div></noscript>
+<footer><div class="wrap" id="foot"></div></footer>
+
+<script>
+(function(){
+"use strict";
+var HOST={name:"Mattia",tel:"+39 345 983 8543",wa:"393459838543",mail:"tenutalaradicale@gmail.com",ig:"tenutalaradicale"};
+var G="https://maps.app.goo.gl/";
+var MAP_HOME=G+"3eqXJcuJQMWH48LC9";
+function q(s){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s)}
+
+var ICON={
+ home:"M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z",
+ key:"M15 3a6 6 0 1 0 0 12 6 6 0 0 0 0-12zM10.5 13.5L3 21M6 18l2.5 2.5M15.5 8.5h.01",
+ wifi:"M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01",
+ rules:"M9 4h6v3H9zM9 5H5v16h14V5h-4M9 14l2 2 4-4",
+ pin:"M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11zM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
+ sofa:"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3M2 13a2 2 0 0 1 4 0v3h12v-3a2 2 0 0 1 4 0v5H2zM6 18v2M18 18v2",
+ peak:"M2 20l7-12 4 6 2.5-3.5L22 20zM17 6h.01",
+ fork:"M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 3c-2 2-3 5-3 8h3v10",
+ glass:"M6 3h12l-1 7a5 5 0 0 1-10 0zM12 15v6M8 21h8",
+ cart:"M3 4h2l2.5 11h10L20 7H6.5M9 20h.01M17 20h.01",
+ sos:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8v8M8 12h8",
+ bag:"M4 8h16v12H4zM9 8V5h6v3M9 12v4M15 12v4",
+ phone:"M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z",
+ chat:"M4 5h16v11H9l-5 4z",
+ mail:"M3 6h18v12H3zM3 7l9 6 9-6",
+ copy:"M9 9h11v11H9zM5 15H4V4h11v1",
+ left:"M15 5l-7 7 7 7",
+ star:"M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"
+};
+function ic(n){return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="'+ICON[n]+'"/></svg>'}
+
+/* ---------- contenuti ---------- */
+var SECTIONS=[
+ ["benvenuto","home",{it:"Benvenuti",en:"Welcome"}],
+ ["check-in","key",{it:"Check-in",en:"Check-in"}],
+ ["wifi","wifi",{it:"Wi-Fi",en:"Wi-Fi"}],
+ ["regole","rules",{it:"Regole",en:"House rules"}],
+ ["arrivare","pin",{it:"Come arrivare",en:"Getting here"}],
+ ["dotazioni","sofa",{it:"Dotazioni",en:"Amenities"}],
+ ["attivita","peak",{it:"Cosa vedere",en:"Things to do"}],
+ ["ristoranti","fork",{it:"Ristoranti",en:"Restaurants"}],
+ ["bar","glass",{it:"Bar e locali",en:"Bars"}],
+ ["spesa","cart",{it:"Spesa e servizi",en:"Shops & services"}],
+ ["check-out","bag",{it:"Check-out",en:"Check-out"}],
+ ["contatti","chat",{it:"Contatti",en:"Contact"}],
+ ["emergenza","sos",{it:"Emergenza",en:"Emergency"}]
+];
+
+var T={
+ tagline:{it:"La vostra guida al soggiorno, a Subiaco.",en:"Your guide to the stay, in Subiaco."},
+ menu:{it:"Menu",en:"Menu"},
+ pool:{it:"Piscina",en:"Pool"},
+ call:{it:"Chiama",en:"Call"},
+ map:{it:"Mappa",en:"Map"},
+ copy:{it:"Copia",en:"Copy"},
+ copied:{it:"Copiato",en:"Copied"},
+ callHost:{it:"Chiama "+HOST.name,en:"Call "+HOST.name},
+ wa:{it:"WhatsApp",en:"WhatsApp"},
+ directions:{it:"Apri in Google Maps",en:"Open in Google Maps"}
+};
+
+var ROOMS=[
+ ["soggiorno.jpg",{it:"Soggiorno",en:"Living room"},{it:"Doppio salone con camino in marmo, per ritrovarsi tutti insieme dopo una giornata all'aperto.",en:"Double living room with a marble fireplace, where everyone can gather after a day outdoors."}],
+ ["camera.jpg",{it:"Camere",en:"Bedrooms"},{it:"Tre camere matrimoniali con tre bagni nella Casa Padronale e cinque monolocali indipendenti, ciascuno con bagno privato.",en:"Three double bedrooms with three bathrooms in the main house, plus five independent studios, each with a private bathroom."}],
+ ["cucina.jpg",{it:"Cucina",en:"Kitchen"},{it:"Cucina attrezzata con lavastoviglie e lavatrice, più un salone comune con angolo cottura al servizio delle casette.",en:"Fully equipped kitchen with dishwasher and washing machine, plus a shared lounge with kitchenette for the studios."}],
+ ["veranda.jpg",{it:"Giardino",en:"Garden"},{it:"Parco, veranda coperta con barbecue e piscina di 112 mq.",en:"Park, covered veranda with barbecue and a 112 m² pool."}]
+];
+
+var RULES=[
+ [{it:"Numero di ospiti",en:"Number of guests"},{it:"Non può superare quello indicato in prenotazione.",en:"It cannot exceed the number stated in your booking."}],
+ [{it:"Visitatori",en:"Visitors"},{it:"Non è consentito ospitare persone non indicate in prenotazione, nemmeno per poche ore.",en:"People not included in the booking may not be hosted, not even for a few hours."}],
+ [{it:"Piscina",en:"Pool"},{it:"Aperta 9:30–13:00 e 15:30–19:00, sempre in presenza del bagnino.",en:"Open 9:30–13:00 and 15:30–19:00, only when the lifeguard is present."}],
+ [{it:"Fumo",en:"Smoking"},{it:"Non è consentito fumare all'interno della casa.",en:"Smoking is not allowed inside the house."}],
+ [{it:"Tranquillità",en:"Quiet"},{it:"Attenzione al rumore, soprattutto nelle ore serali e notturne.",en:"Please keep noise down, especially in the evening and at night."}],
+ [{it:"Cura della casa",en:"Care of the house"},{it:"Mantenete la casa ordinata e lasciate pulite le aree comuni.",en:"Keep the house tidy and leave shared areas clean."}],
+ [{it:"Problemi e guasti",en:"Problems and damage"},{it:"Se qualcosa è danneggiato o non funziona, ditecelo subito.",en:"If anything is damaged or not working, tell us straight away."}]
+];
+
+var AMEN=[
+ [{it:"Letto matrimoniale",en:"Double bed"},{it:"180×200 cm, biancheria fornita",en:"180×200 cm, linen provided"}],
+ [{it:"Letto singolo",en:"Single bed"},{it:"80×200 cm, biancheria fornita",en:"80×200 cm, linen provided"}],
+ [{it:"Aria condizionata",en:"Air conditioning"}],[{it:"Wi-Fi",en:"Wi-Fi"}],[{it:"Televisione",en:"TV"}],[{it:"Scrivania",en:"Desk"}],
+ [{it:"Tavolo",en:"Dining table"},{it:"6 persone",en:"Seats 6"}],
+ [{it:"Cucina",en:"Kitchen"},{it:"Forno e piano cottura",en:"Oven and hob"}],
+ [{it:"Frigorifero",en:"Fridge"},{it:"Con congelatore",en:"With freezer"}],
+ [{it:"Lavastoviglie",en:"Dishwasher"}],[{it:"Lavatrice",en:"Washing machine"}],[{it:"Microonde",en:"Microwave"}],
+ [{it:"Macchina da caffè",en:"Coffee machine"},{it:"Nespresso",en:"Nespresso"}],
+ [{it:"Bollitore e tostapane",en:"Kettle and toaster"}],
+ [{it:"Stoviglie",en:"Tableware"},{it:"Posate, piatti, bicchieri",en:"Cutlery, plates, glasses"}]
+];
+
+/* luogo: n nome, d descrizione, a indirizzo, h orari, p telefono, m mappa */
+var SEE=[
+ {n:"Sacro Speco",d:{it:"Il monastero di San Benedetto, scavato nella roccia e affrescato dal Duecento. Da non perdere.",en:"The monastery of St Benedict, carved into the rock and frescoed since the 13th century. Not to be missed."},a:"Via dei Monasteri, Subiaco",h:"9:00–12:30 / 15:00–17:00",m:G+"qyeUxgBymPrb9eLW6"},
+ {n:"Santa Scolastica",d:{it:"L'unico sopravvissuto dei dodici monasteri fondati da San Benedetto nella valle, con tre chiostri di epoche diverse.",en:"The only survivor of the twelve monasteries founded by St Benedict in the valley, with three cloisters from different periods."},a:"Via dei Monasteri, Subiaco",h:"9:30–12:15 / 15:30–18:00",m:G+"9Pi51hBssBf4iggw9"},
+ {n:"Rocca Abbaziale",d:{it:"Vista sulla valle e sale affrescate.",en:"Views over the valley and frescoed halls."},a:"Piazza S. Maria della Valle, Subiaco",h:{it:"Solo sabato e domenica, 10:00–19:00",en:"Saturday and Sunday only, 10:00–19:00"},m:q("Rocca Abbaziale Subiaco")},
+ {n:{it:"Rafting sull'Aniene",en:"Rafting on the Aniene"},d:{it:"Discese guidate e canyoning con Vivere l'Aniene.",en:"Guided descents and canyoning with Vivere l'Aniene."},p:"320 968 1006",m:q("Vivere l'Aniene Subiaco")},
+ {n:"Cervara di Roma",d:{it:"Il borgo degli artisti, con la scalinata scolpita nella roccia.",en:"The artists' village, with its staircase carved into the rock."},a:{it:"Circa 9 km, 20 minuti in auto",en:"About 9 km, 20 minutes by car"},m:q("Cervara di Roma")},
+ {n:"Tivoli",d:{it:"Villa d'Este e Villa Adriana, patrimonio UNESCO.",en:"Villa d'Este and Hadrian's Villa, UNESCO World Heritage sites."},a:{it:"Circa 35 km, 45 minuti in auto",en:"About 35 km, 45 minutes by car"},m:q("Villa d'Este Tivoli")}
+];
+var EAT=[
+ {n:"Il Cantuccio",a:"Via Fabio Filzi, 38",h:"12:30–14:30 / 19:30–22:00",c:{it:"Chiuso il martedì",en:"Closed on Tuesdays"},p:"0774 83414",m:G+"uSW9PFxLyAQKEdbW6"},
+ {n:"La Parata",a:"Via dei Monasteri, 40",h:"12:00–15:00 / 19:00–22:00",c:{it:"Aperto solo venerdì, sabato e domenica",en:"Open Friday, Saturday and Sunday only"},p:"0774 822748",m:G+"A63VcSjFz55Pwd4U9"},
+ {n:"A Quel Paese",a:"Via Papa Braschi, 6",h:"12:30–14:30 / 19:30–21:30",c:{it:"Chiuso il mercoledì",en:"Closed on Wednesdays"},p:"388 645 4334",m:G+"1YZ95P7Ko2j4UkFK8"}
+];
+var PIZZA=[
+ {n:"La Stella Alpina",a:"Contrada Camarde, 5",p:"0774 613171",m:q("La Stella Alpina Contrada Camarde 5 Subiaco")},
+ {n:"GDP Pizza & Sport",a:"Corso Cesare Battisti, 39",p:"351 637 9120",m:q("GDP Pizza & Sport Corso Cesare Battisti 39 Subiaco")},
+ {n:"Da Anna",a:"Contrada V. Chiappante, 8",p:"0774 166 1601",m:q("Pizzeria Da Anna Subiaco")}
+];
+var BARS=[
+ {n:"Ranieri Bar",a:"Via Cavour, 86",h:{it:"7:00–23:00, venerdì e sabato fino alle 2:00",en:"7:00–23:00, Friday and Saturday until 2:00"},c:{it:"Chiuso il mercoledì",en:"Closed on Wednesdays"},p:"0774 85550",m:G+"5gwL17Rjx1ZP8dcL8"},
+ {n:"La Stoccia",d:{it:"Birreria con dehors.",en:"Pub with outdoor seating."},a:"Via degli Opifici",h:"11:30–24:00",c:{it:"Aperta tutti i giorni",en:"Open every day"},p:"379 119 4693",m:G+"T1q4j9MkUknepc6P8"},
+ {n:"Il Cristallo",d:{it:"Enoteca e ristorante.",en:"Wine bar and restaurant."},a:"Piazza S. Maria della Valle, 30",h:"12:00–22:00",c:{it:"Domenica solo a pranzo",en:"Sunday lunch only"},p:"339 843 4903",m:G+"kLtRaJs8C74xSHwP6"},
+ {n:"Ariston Cafè",d:{it:"Per un buon caffè.",en:"For a good coffee."},a:"Via Luigi Cadorna, 3",p:"0774 84360",m:G+"E2QFFsSEitSLzhko7"}
+];
+var FARMACIA={n:"Farmacia Passerini",a:"Via Luigi Cadorna, 31",h:{it:"Tutti i giorni, domenica compresa: 8:30–13:00 e 16:00–20:00",en:"Every day including Sunday: 8:30–13:00 and 16:00–20:00"},c:{it:"Fuori orario è attiva la farmacia di turno, indicata sulla porta.",en:"Out of hours, the duty pharmacy is posted on the door."},p:"0774 85189",m:G+"6qQZYZmQ2yuU5JXUA"};
+var SHOPS=[
+ {n:"Conad Superstore",d:{it:"Il più grande e fornito.",en:"The largest, with the widest choice."},a:"Corso Cesare Battisti, 47",h:{it:"Lun–sab 8:00–20:00, domenica 8:30–13:20",en:"Mon–Sat 8:00–20:00, Sunday 8:30–13:20"},m:G+"t6TqX5eh8q7dG4Hy7"},
+ {n:"Supermercato Coal",d:{it:"In centro, con parcheggio davanti.",en:"In the town centre, with parking in front."},a:"Piazza Resistenza, 5",h:{it:"Lun–sab 7:00–20:00, domenica 7:30–13:00",en:"Mon–Sat 7:00–20:00, Sunday 7:30–13:00"},m:G+"j72iSXju6K55tEji7"},
+ {n:"Todis",d:{it:"Sulla strada verso Roma.",en:"On the road towards Rome."},a:"SR Sublacense km 11,6",h:{it:"Lun–sab 8:00–20:00, domenica 8:00–13:00",en:"Mon–Sat 8:00–20:00, Sunday 8:00–13:00"},m:G+"rXkdLJ4DUkCDf3xF8"}
+];
+var SERVICES=[
+ FARMACIA,
+ {n:{it:"Bancomat · Banca Centro Lazio",en:"ATM · Banca Centro Lazio"},a:"Viale G. Matteotti, 19",h:{it:"Bancomat sempre disponibile. Sportello 8:15–13:30, chiuso il weekend.",en:"ATM always available. Counter 8:15–13:30, closed at weekends."},m:G+"P4rMJ7GPQXcZTe2D9"},
+ {n:{it:"Distributore · Enilive",en:"Petrol station · Enilive"},d:{it:"Il più comodo, sulla strada verso Roma.",en:"The most convenient, on the road towards Rome."},a:"Corso Cesare Battisti",m:G+"bDQbxDaJZ3e7tq5L7"},
+ {n:{it:"Ufficio postale",en:"Post office"},a:"Viale della Repubblica, 24",p:"0774 86021",m:G+"7hqdUnr3EjUdZi819"},
+ {n:{it:"Chiesa di Sant'Andrea Apostolo",en:"Church of Sant'Andrea Apostolo"},a:"Piazza S. Andrea, 1",p:"0774 85136",m:G+"jAreELSWc8sHZfEc8"}
+];
+var SOS=[
+ {n:{it:"Ospedale Angelucci",en:"Angelucci Hospital"},d:{it:"Pronto soccorso aperto 24 ore.",en:"Emergency department open 24 hours."},a:"Contrada Colle Cisterna",p:"0774 8111",m:G+"AjSgv2f5NUbA8hVq9"},
+ {n:"Carabinieri",d:{it:"Attivi 24 ore.",en:"Open 24 hours."},a:"Viale A. Fogazzaro, 7",p:"0774 824960",m:G+"qkCpG8idCXZzCtsg7"},
+ {n:{it:"Casa della Comunità",en:"Community health centre"},a:"Largo G. Mazzini",h:{it:"Lun–ven 8:30–12:00",en:"Mon–Fri 8:30–12:00"},p:"0774 84450",m:G+"WTxesYs3VyyNdYYW9"},
+ FARMACIA
+];
+var OUT=[
+ [{it:"Oggetti personali",en:"Personal belongings"},{it:"Ricontrollate armadi, cassetti e bagno per non lasciare nulla.",en:"Check wardrobes, drawers and bathroom so nothing is left behind."}],
+ [{it:"Luci ed elettrodomestici",en:"Lights and appliances"},{it:"Spegnete luci, riscaldamento o aria condizionata e dispositivi elettrici.",en:"Switch off lights, heating or air conditioning and electrical devices."}],
+ [{it:"Rifiuti",en:"Rubbish"},{it:"Svuotate i cestini e portate fuori tutti i rifiuti.",en:"Empty the bins and take all rubbish out."}],
+ [{it:"Porte e finestre",en:"Doors and windows"},{it:"Chiudete tutto, comprese le porte esterne.",en:"Close everything, including outside doors."}],
+ [{it:"Biancheria usata",en:"Used linen"},{it:"Lasciate asciugamani e lenzuola usati in un unico posto.",en:"Leave used towels and sheets together in one place."}],
+ [{it:"Ordine",en:"Tidiness"},{it:"Lasciate la struttura in ordine, pronta per i prossimi ospiti.",en:"Leave the property tidy, ready for the next guests."}],
+ [{it:"Chiavi",en:"Keys"},{it:"Consegnate le chiavi al nostro incaricato al momento della partenza.",en:"Hand the keys to our staff member when you leave."}]
+];
+
+/* ---------- utilità ---------- */
+var lang="it";
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function L(o){return o==null?"":(typeof o==="string"?o:(o[lang]||o.it))}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function tel(n){var d=n.replace(/[^\d+]/g,"");if(d.charAt(0)!=="+"&&d.length>3)d="+39"+d;return "tel:"+d}
+function btnCall(n,label,cls){return '<a class="btn '+(cls||"")+'" href="'+tel(n)+'">'+ic("phone")+esc(label||n)+'</a>'}
+function btnMap(u,label){return '<a class="btn" href="'+u+'" target="_blank" rel="noopener">'+ic("pin")+esc(label||L(T.map))+'</a>'}
+function place(p){
+  var h='<article class="card"><h3>'+esc(L(p.n))+'</h3>';
+  if(p.d)h+='<p>'+esc(L(p.d))+'</p>';
+  var meta=[L(p.a),L(p.h),L(p.c)].filter(Boolean);
+  if(meta.length)h+='<p class="meta">'+meta.map(esc).join('<br>')+'</p>';
+  h+='<div class="actions">'+(p.p?btnCall(p.p):"")+(p.m?btnMap(p.m):"")+'</div></article>';
+  return h;
+}
+function list(a){return '<div class="stack">'+a.map(place).join("")+'</div>'}
+function head(id,lead){var s=SECTIONS.filter(function(x){return x[0]===id})[0];return '<h1 class="title">'+esc(L(s[2]))+'</h1>'+(lead?'<p class="lead">'+esc(L(lead))+'</p>':'')}
+function hostActions(){return '<div class="actions"><a class="btn fill" href="https://wa.me/'+HOST.wa+'" target="_blank" rel="noopener">'+ic("chat")+'WhatsApp</a>'+btnCall(HOST.tel,L(T.callHost))+'</div>'}
+function kv(label,val){return '<div class="kv"><span>'+esc(label)+'</span><code>'+esc(val)+'</code><button type="button" class="btn" data-copy="'+esc(val)+'">'+ic("copy")+L(T.copy)+'</button></div>'}
+
+/* ---------- viste ---------- */
+var V={};
+V.home=function(){
+  var it=lang==="it";
+  return '<div class="hero"><div class="wrap"><h1>Tenuta La Radicale</h1><p>'+L(T.tagline)+'</p></div></div><div class="wrap">'+
+  '<dl class="facts"><div><dt>Check-in</dt><dd>15:00</dd></div><div><dt>Check-out</dt><dd>10:00</dd></div><div><dt>'+L(T.pool)+'</dt><dd>9:30–13<small>15:30–19</small></dd></div></dl>'+
+  '<div class="quick"><a class="btn fill" href="https://wa.me/'+HOST.wa+'" target="_blank" rel="noopener">'+ic("chat")+'WhatsApp</a>'+btnMap(MAP_HOME,it?"Indicazioni":"Directions")+'</div>'+
+  '<nav class="tiles" aria-label="Menu">'+SECTIONS.map(function(s){return '<a class="tile'+(s[0]==="emergenza"?" sos":"")+'" href="#'+s[0]+'">'+ic(s[1])+'<span>'+esc(L(s[2]))+'</span></a>'}).join("")+'</nav></div>';
+};
+V.benvenuto=function(){
+  return '<img class="photo" src="img/casa.jpg" alt="Tenuta La Radicale" width="800" height="600">'+
+  head("benvenuto",{it:"Siamo lieti di avervi nella nostra tenuta e vi auguriamo un soggiorno memorabile. Godetevi la nostra splendida regione: non vediamo l'ora di accogliervi di nuovo.",en:"We are delighted to have you at our estate and wish you a memorable stay. Enjoy our beautiful region: we look forward to welcoming you back."})+
+  '<div class="rooms">'+ROOMS.map(function(r){return '<figure><img src="img/'+r[0]+'" alt="'+esc(L(r[1]))+'" loading="lazy" width="640" height="427"><figcaption><b>'+esc(L(r[1]))+'</b>'+esc(L(r[2]))+'</figcaption></figure>'}).join("")+'</div>';
+};
+V["check-in"]=function(){
+  var it=lang==="it";
+  return head("check-in")+'<div class="stack">'+
+  '<div class="card"><p class="big">15:00</p><p style="margin-top:8px">'+(it?"Vi chiediamo di rispettare l'orario di check-in. Se prevedete di arrivare prima, fatecelo sapere: faremo del nostro meglio per accogliervi, in base alla disponibilità.":"Please respect the check-in time. If you expect to arrive earlier, let us know: we will do our best to welcome you, subject to availability.")+'</p></div>'+
+  '<div class="card"><h3>'+(it?"Accoglienza di persona":"Welcome in person")+'</h3><p>'+(it?"Non è previsto il self check-in. Un nostro incaricato vi attende all'ingresso all'orario concordato per accogliervi, consegnarvi le chiavi e mostrarvi la struttura.":"There is no self check-in. A member of our staff will meet you at the entrance at the agreed time to welcome you, hand over the keys and show you around.")+'</p></div>'+
+  '<div class="card"><h3>'+(it?"Codice del cancello":"Gate code")+'</h3><p>'+(it?"Ve lo inviamo via WhatsApp il giorno dell'arrivo.":"We send it by WhatsApp on the day you arrive.")+'</p></div>'+
+  '<div class="card"><h3>'+(it?"Documenti":"Documents")+'</h3><p>'+(it?"Un documento d'identità valido per ogni ospite.":"A valid ID document for every guest.")+'</p></div>'+
+  '<div class="card"><h3>'+(it?"Parcheggio":"Parking")+'</h3><p>'+(it?"Gratuito all'interno della proprietà, a pochi passi dagli alloggi. L'ultimo tratto è una strada privata di 900 m: vi chiediamo di procedere a passo d'uomo.":"Free inside the property, a few steps from the accommodation. The last stretch is a 900 m private road: please drive at walking pace.")+'</p></div>'+
+  '</div><div class="actions">'+btnMap(MAP_HOME,L(T.directions))+'</div>';
+};
+V.wifi=function(){
+  var it=lang==="it";
+  return head("wifi",{it:"La connessione è disponibile in tutta la tenuta.",en:"Wi-Fi is available throughout the estate."})+
+  '<div class="card stack" style="gap:18px">'+kv(it?"Rete":"Network","LaRadicale")+kv("Password","Radicale2026!")+'</div>'+
+  '<h2>'+(it?"Internet non funziona?":"Internet not working?")+'</h2><div class="card"><ul class="plain"><li>'+(it?"Controllate che tutti i cavi siano collegati correttamente al modem.":"Check that all cables are properly connected to the modem.")+'</li><li>'+(it?"Spegnete il modem, attendete qualche secondo e riaccendetelo.":"Switch the modem off, wait a few seconds and switch it back on.")+'</li><li>'+(it?"Se il problema continua, scriveteci.":"If the problem continues, message us.")+'</li></ul>'+hostActions()+'</div>';
+};
+V.regole=function(){
+  return head("regole",{it:"Poche regole semplici, per il bene di tutti. Grazie per la collaborazione.",en:"A few simple rules, for everyone's benefit. Thank you for your cooperation."})+
+  '<div class="stack">'+RULES.map(function(r){return '<div class="card"><h3>'+esc(L(r[0]))+'</h3><p>'+esc(L(r[1]))+'</p></div>'}).join("")+'</div>';
+};
+V.arrivare=function(){
+  var it=lang==="it";
+  return head("arrivare")+
+  '<div class="card"><h3>Tenuta La Radicale</h3><p>Contrada Colle Affamato, 00028 Subiaco (RM)</p><div class="actions"><a class="btn fill wide" href="'+MAP_HOME+'" target="_blank" rel="noopener">'+ic("pin")+L(T.directions)+'</a></div></div>'+
+  '<h2>'+(it?"In auto":"By car")+'</h2><div class="stack">'+
+  '<div class="card"><h3>'+(it?"Da Roma":"From Rome")+'</h3><p>'+(it?"Autostrada A24, uscita Vicovaro-Mandela, poi direzione Subiaco. Circa 70 km, 1 ora.":"A24 motorway, exit Vicovaro-Mandela, then follow signs for Subiaco. About 70 km, 1 hour.")+'</p></div>'+
+  '<div class="card"><h3>'+(it?"Dagli aeroporti":"From the airports")+'</h3><p>'+(it?"Fiumicino 100 km (1h30), Ciampino 75 km (1h10). Consigliamo l'auto a noleggio.":"Fiumicino 100 km (1h30), Ciampino 75 km (1h10). We recommend hiring a car.")+'</p></div>'+
+  '<div class="card"><h3>'+(it?"Ultimo tratto":"Last stretch")+'</h3><p>'+(it?"Dal punto indicato su Google Maps inizia la strada privata: 900 m di asfalto, con i cartelli in legno «La Radicale», fino al cancello nero. Procedete a passo d'uomo.":"The private road starts from the point shown on Google Maps: 900 m of tarmac, with wooden “La Radicale” signs, up to the black gate. Please drive at walking pace.")+'</p></div></div>'+
+  '<h2>'+(it?"Senza auto":"Without a car")+'</h2><div class="card"><p>'+(it?"Subiaco non ha una stazione ferroviaria. I bus Cotral partono da Roma Ponte Mammolo (metro B) e arrivano a Subiaco. La tenuta è fuori dal centro: scriveteci prima di partire per organizzare l'ultimo tratto.":"Subiaco has no railway station. Cotral buses run from Roma Ponte Mammolo (metro line B) to Subiaco. The estate is outside the town centre: message us before you travel to arrange the last stretch.")+'</p><div class="actions"><a class="btn" href="https://www.cotralspa.it/" target="_blank" rel="noopener">'+(it?"Orari Cotral":"Cotral timetables")+'</a></div></div>'+
+  '<p class="note" style="margin-top:16px">'+(it?"Il codice del cancello vi arriva via WhatsApp il giorno dell'arrivo. All'ingresso vi accoglie un nostro incaricato.":"The gate code reaches you by WhatsApp on the day of arrival. A member of our staff will meet you at the entrance.")+'</p>';
+};
+V.dotazioni=function(){
+  return '<img class="photo" src="img/cucina.jpg" alt="" width="640" height="427">'+head("dotazioni")+
+  '<div class="chips">'+AMEN.map(function(a){return '<div>'+esc(L(a[0]))+(a[1]?'<small>'+esc(L(a[1]))+'</small>':'')+'</div>'}).join("")+'</div>';
+};
+V.attivita=function(){
+  var it=lang==="it";
+  return head("attivita",{it:"Monasteri, borghi e fiume: il meglio a pochi minuti dalla tenuta. Gli orari possono cambiare, verificateli prima di partire.",en:"Monasteries, villages and the river: the best within minutes of the estate. Opening hours can change, so check before you go."})+
+  '<h2 style="margin-top:0">'+(it?"A Subiaco":"In Subiaco")+'</h2>'+list(SEE.slice(0,4))+'<h2>'+(it?"Nei dintorni":"Nearby")+'</h2>'+list(SEE.slice(4));
+};
+V.ristoranti=function(){
+  var it=lang==="it";
+  return head("ristoranti",{it:"I nostri posti consigliati a Subiaco. Meglio prenotare.",en:"Our recommended places in Subiaco. Booking is advisable."})+list(EAT)+
+  '<h2>'+(it?"Pizza d'asporto":"Takeaway pizza")+'</h2>'+list(PIZZA);
+};
+V.bar=function(){return head("bar",{it:"I nostri posti consigliati a Subiaco.",en:"Our recommended places in Subiaco."})+list(BARS)};
+V.spesa=function(){
+  var it=lang==="it";
+  return head("spesa")+'<h2 style="margin-top:0">'+(it?"Supermercati":"Supermarkets")+'</h2>'+list(SHOPS)+'<h2>'+(it?"Servizi utili":"Useful services")+'</h2>'+list(SERVICES);
+};
+V["check-out"]=function(){
+  var it=lang==="it",done={};
+  try{done=JSON.parse(store("lr-out")||"{}")}catch(e){}
+  return head("check-out")+'<div class="card"><p class="big">10:00</p><p style="margin-top:8px">'+(it?"Se avete bisogno di partire più tardi, ditecelo in anticipo: vi confermeremo in base alla disponibilità.":"If you need a later check-out, tell us in advance: we will confirm subject to availability.")+'</p></div>'+
+  '<h2>'+(it?"Prima di partire":"Before you leave")+'</h2><div class="stack">'+OUT.map(function(o,i){return '<label class="check"><input type="checkbox" id="out'+i+'" data-out="'+i+'"'+(done[i]?" checked":"")+'><span><b>'+esc(L(o[0]))+'</b>'+esc(L(o[1]))+'</span></label>'}).join("")+'</div>'+
+  '<h2>'+(it?"Com'è andata?":"How was it?")+'</h2><div class="card"><p>'+(it?"Il vostro parere ci aiuta a migliorare per i prossimi ospiti. Se potete dedicarci un minuto per una recensione, ve ne saremo molto grati.":"Your feedback helps us improve for future guests. If you can spare a minute for a review, we would be very grateful.")+'</p><div class="actions"><a class="btn" href="'+MAP_HOME+'" target="_blank" rel="noopener">'+ic("star")+(it?"Recensione su Google":"Review on Google")+'</a></div></div>';
+};
+V.contatti=function(){
+  var it=lang==="it";
+  return head("contatti",{it:"Siamo a vostra disposizione per qualsiasi necessità: domande, imprevisti o un consiglio sulla zona.",en:"We are here for anything you need: questions, unexpected problems or a tip about the area."})+
+  '<div class="card"><h3>'+HOST.name+'</h3><p class="meta">'+(it?"Il vostro referente alla tenuta":"Your contact at the estate")+'</p>'+
+  '<div class="stack" style="margin-top:14px"><a class="btn fill wide" href="https://wa.me/'+HOST.wa+'" target="_blank" rel="noopener">'+ic("chat")+'WhatsApp · '+HOST.tel+'</a>'+
+  '<a class="btn wide" href="'+tel(HOST.tel)+'">'+ic("phone")+(it?"Telefono":"Phone")+' · '+HOST.tel+'</a>'+
+  '<a class="btn wide" href="mailto:'+HOST.mail+'">'+ic("mail")+HOST.mail+'</a>'+
+  '<a class="btn wide" href="https://www.instagram.com/'+HOST.ig+'/" target="_blank" rel="noopener">Instagram · @'+HOST.ig+'</a></div></div>';
+};
+V.emergenza=function(){
+  var it=lang==="it";
+  return head("emergenza",{it:"In caso di pericolo chiamate subito il 112, attivo 24 ore su 24.",en:"In case of danger call 112 immediately, available 24 hours a day."})+
+  '<div class="sosrow"><a class="btn red" href="tel:112"><b>112</b>'+(it?"Numero unico emergenze":"All emergencies")+'</a><a class="btn red" href="tel:118"><b>118</b>'+(it?"Emergenza sanitaria":"Ambulance")+'</a><a class="btn red" href="tel:115"><b>115</b>'+(it?"Vigili del fuoco":"Fire brigade")+'</a></div>'+
+  '<h2>'+(it?"Dove siete":"Where you are")+'</h2><div class="card"><p>'+(it?"Da comunicare ai soccorsi:":"Tell the emergency services:")+'</p><p><b>Tenuta La Radicale, Contrada Colle Affamato, Subiaco (RM)</b></p><p class="meta">'+(it?"Strada privata di 900 m, cancello nero.":"900 m private road, black gate.")+'</p></div>'+
+  '<h2>'+(it?"Assistenza alla tenuta":"Help at the estate")+'</h2><div class="card"><p>'+(it?HOST.name+" è disponibile per qualsiasi urgenza.":HOST.name+" is available for any urgent need.")+'</p>'+hostActions()+'</div>'+
+  '<h2>'+(it?"A Subiaco":"In Subiaco")+'</h2>'+list(SOS);
+};
+
+/* ---------- router ---------- */
+var app=document.getElementById("app"),back=document.getElementById("back");
+function render(){
+  var id=decodeURIComponent(location.hash.slice(1));
+  if(!V[id]||id==="home")id="home";
+  document.documentElement.lang=lang;
+  app.innerHTML=id==="home"?V.home():'<main class="wrap"><section>'+V[id]()+'</section></main>';
+  back.hidden=id==="home";
+  back.innerHTML=ic("left")+L(T.menu);
+  document.getElementById("brand").hidden=id!=="home"&&window.innerWidth<420;
+  [].forEach.call(document.querySelectorAll(".lang button"),function(b){b.setAttribute("aria-pressed",b.dataset.lang===lang)});
+  document.getElementById("foot").innerHTML='<p>Tenuta La Radicale · Contrada Colle Affamato, 00028 Subiaco (RM)</p><p>'+(lang==="it"?"Codici identificativi":"Identification codes")+': Casa Padronale CIN IT058103B4IAYF9E7F · Casette Indipendenti CIN IT058103B4XYXHJV5S</p>';
+}
+var lastId=null;
+window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-lang]");
+  if(b){lang=b.dataset.lang;store("lr-lang",lang);render();return}
+  var c=e.target.closest("[data-copy]");
+  if(c){
+    var v=c.dataset.copy,ok=function(){toast(L(T.copied))};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(ok,function(){fallback(v);ok()})}else{fallback(v);ok()}
+  }
+});
+document.addEventListener("change",function(e){
+  if(e.target.dataset&&e.target.dataset.out!==undefined){
+    var d={};[].forEach.call(document.querySelectorAll("[data-out]"),function(x){if(x.checked)d[x.dataset.out]=1});
+    store("lr-out",JSON.stringify(d));
+  }
+});
+function fallback(v){var t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();try{document.execCommand("copy")}catch(e){}t.remove()}
+function toast(m){var t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},1600)}
+
+lang=store("lr-lang")||((navigator.language||"it").toLowerCase().indexOf("it")===0?"it":"en");
+render();
+if("serviceWorker" in navigator&&location.protocol==="https:"){navigator.serviceWorker.register("sw.js").catch(function(){})}
+})();
+</script>
+</body>
+</html>

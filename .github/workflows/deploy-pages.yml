@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - claude/mario-game-flavio-bachelor-5v98uk
+      - claude/brave-cori-c2o2oz
   workflow_dispatch:
 
 permissions:
