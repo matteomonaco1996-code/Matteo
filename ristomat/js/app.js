@@ -103,6 +103,14 @@
     return arr.length ? { la: arr.reduce((s, x) => s + x.la, 0) / arr.length, lo: arr.reduce((s, x) => s + x.lo, 0) / arr.length } : null;
   };
 
+  // Tevere stilizzato (da nord a sud), solo per disegnare: non è un tracciato esatto
+  const TEVERE = [[41.9620, 12.4960], [41.9540, 12.4860], [41.9445, 12.4762], [41.9395, 12.4700], [41.9355, 12.4670],
+    [41.9300, 12.4655], [41.9230, 12.4672], [41.9180, 12.4695], [41.9125, 12.4705], [41.9105, 12.4722], [41.9045, 12.4728],
+    [41.9025, 12.4715], [41.9017, 12.4665], [41.8995, 12.4650], [41.8963, 12.4653], [41.8922, 12.4706], [41.8907, 12.4745],
+    [41.8902, 12.4775], [41.8886, 12.4796], [41.8840, 12.4777], [41.8810, 12.4749], [41.8780, 12.4706], [41.8745, 12.4675],
+    [41.8700, 12.4700], [41.8660, 12.4735], [41.8600, 12.4760], [41.8560, 12.4745], [41.8500, 12.4720], [41.8460, 12.4650],
+    [41.8440, 12.4560], [41.8430, 12.4470], [41.8390, 12.4390], [41.8320, 12.4330]];
+
   const stato = { mondo: "roma", livello: "", vicino: false, pos: null, posLv: "", voglia: "", consigli: false, q: "", mostrati: PAGINA, vista: "lista", pescato: null };
 
   // ---------- Distanze e link ----------
@@ -158,6 +166,85 @@
     $("#sott-mondi").textContent = stato.mondo === "roma" ? "Roma è divisa in quartieri: ogni quartiere è un livello."
       : stato.mondo === "fuori" ? "Gite, mare e borghi: ogni località è un livello." : "Un mondo, un livello: tutta la città.";
   }
+  // ---------- Mappa del mondo (Roma): disegnata qui, senza servizi esterni ----------
+  function disegnaOverworld() {
+    const fig = $("#overworld");
+    if (stato.mondo !== "roma" || !(META.quartieri || []).length) { fig.hidden = true; return; }
+    fig.hidden = false;
+    const C0 = { la: 41.892, lo: 12.488 }, kx = 111.32 * Math.cos(C0.la * Math.PI / 180), ky = 110.57;
+    const proietta = (la, lo) => {           // lente: allarga il centro, comprime la periferia
+      const dx = (lo - C0.lo) * kx, dy = (C0.la - la) * ky, r = Math.hypot(dx, dy);
+      if (!r) return [0, 0];
+      const f = Math.pow(r, 0.68) / r;
+      return [dx * f, dy * f];
+    };
+    const livelli = tuttiLivelli("roma").filter((z) => z.n !== "Periferia").map((z) => ({ ...z, ...(META.quartieri.find((q) => q.n === z.n) || {}) }));
+    const pts = livelli.map((z) => proietta(z.la, z.lo));
+    const fiume = TEVERE.map(([la, lo]) => proietta(la, lo));
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    const minX = Math.min(...xs) - .55, maxX = Math.max(...xs) + .55, minY = Math.min(...ys) - .45, maxY = Math.max(...ys) + .45;
+    const W = 600, s = W / (maxX - minX), H = Math.round((maxY - minY) * s), G = 6;
+    const xy = ([x, y]) => [(x - minX) * s, (y - minY) * s];
+    const snap = (v) => Math.round(v / G) * G;
+    // Fiume a quadretti (Bresenham sulla griglia)
+    const celle = new Set();
+    const fp = fiume.map(xy).map(([x, y]) => [Math.round(x / G), Math.round(y / G)]);
+    for (let i = 1; i < fp.length; i++) {
+      let [x0, y0] = fp[i - 1]; const [x1, y1] = fp[i];
+      const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1; let e = dx + dy;
+      for (;;) { celle.add(`${x0},${y0}`); celle.add(`${x0 + 1},${y0}`); if (x0 === x1 && y0 === y1) break; const e2 = 2 * e; if (e2 >= dy) { e += dy; x0 += sx; } if (e2 <= dx) { e += dx; y0 += sy; } }
+    }
+    let d = "";
+    celle.forEach((c) => { const [cx, cy] = c.split(",").map(Number); if (cx * G >= 0 && cx * G < W && cy * G >= 0 && cy * G < H) d += `M${cx * G} ${cy * G}h${G}v${G}h-${G}z`; });
+    // Caselle dei livelli, allontanate se si sovrappongono
+    const nodi = livelli.map((z, i) => ({ z, p: xy(pts[i]) }));
+    for (let it = 0; it < 120; it++) for (let i = 0; i < nodi.length; i++) for (let j = i + 1; j < nodi.length; j++) {
+      const a = nodi[i].p, b = nodi[j].p, dx = b[0] - a[0], dy = b[1] - a[1], dist = Math.hypot(dx, dy) || .01;
+      if (dist < 38) { const k = (38 - dist) / 2 / dist; a[0] -= dx * k; a[1] -= dy * k; b[0] += dx * k; b[1] += dy * k; }
+    }
+    // Nomi: per ogni casella prova destra, sinistra, sotto, sopra e prende il primo lato libero
+    const ostacoli = nodi.map(({ p }) => [snap(p[0]) - 13, snap(p[1]) - 13, 26, 26]);
+    const urta = (r) => ostacoli.some((o) => r[0] < o[0] + o[2] && r[0] + r[2] > o[0] && r[1] < o[1] + o[3] && r[1] + r[3] > o[1]);
+    nodi.forEach((n) => {
+      const nome = n.z.n.split(" · ")[0], w = nome.length * 7.4 + 4, x = snap(n.p[0]) - 12, y = snap(n.p[1]) - 12;
+      const lati = [
+        { r: [x + 27, y + 4, w, 16], tx: x + 28, ty: y + 16, a: "start" },
+        { r: [x - 3 - w, y + 4, w, 16], tx: x - 4, ty: y + 16, a: "end" },
+        { r: [x + 12 - w / 2, y + 27, w, 16], tx: x + 12, ty: y + 39, a: "middle" },
+        { r: [x + 12 - w / 2, y - 19, w, 16], tx: x + 12, ty: y - 6, a: "middle" },
+      ].filter((l) => l.r[0] >= 0 && l.r[0] + l.r[2] <= W && l.r[1] >= 0 && l.r[1] + l.r[3] <= H);
+      const scelto = lati.find((l) => !urta(l.r)) || lati[0];
+      n.nome = { testo: nome, ...scelto };
+      if (scelto) ostacoli.push(scelto.r);
+    });
+    const visti = new Set([...(SNS.visitati || [])].map((id) => perId.get(id)).filter(Boolean).map((x) => x.l));
+    let io = "";
+    if (stato.pos && stato.posLv && stato.mondo === "roma") {
+      const [px, py] = xy(proietta(stato.pos.la, stato.pos.lo));
+      if (px > 0 && px < W && py > 0 && py < H) io = `<g class="ow-io" aria-hidden="true"><rect x="${snap(px) - 7}" y="${snap(py) - 7}" width="14" height="14"/></g>`;
+    }
+    $("#ow-svg").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="Mappa dei quartieri di Roma" shape-rendering="crispEdges">
+      <path class="ow-fiume" d="${d}"/>
+      ${nodi.map((n) => { const { z, p } = n;
+        const x = snap(p[0]) - 12, y = snap(p[1]) - 12;
+        const cls = stato.livello === z.n ? "on" : visti.has(z.n) ? "fatto" : "";
+        return `<g class="ow-nodo ${cls}" data-livello="${esc(z.n)}" tabindex="0" role="button" aria-label="Livello ${z.cod}: ${esc(z.n)}, ${z.conta} posti">
+          <title>${esc(z.n)} · ${z.conta} posti</title><rect x="${x}" y="${y}" width="24" height="24"/><text x="${x + 12}" y="${y + 17}" text-anchor="middle">${z.cod.split("-")[1]}</text>
+          ${n.nome && n.nome.tx !== undefined ? `<text class="ow-nome" x="${n.nome.tx}" y="${n.nome.ty}" text-anchor="${n.nome.a}">${esc(n.nome.testo)}</text>` : ""}</g>`;
+      }).join("")}
+      ${io}
+    </svg>`;
+    // Area cliccabile invisibile che copre casella e nome
+    $("#ow-svg").querySelectorAll(".ow-nodo").forEach((g) => {
+      const bb = g.getBBox(), r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      r.setAttribute("class", "ow-hit"); r.setAttribute("x", bb.x - 3); r.setAttribute("y", bb.y - 3);
+      r.setAttribute("width", bb.width + 6); r.setAttribute("height", bb.height + 6);
+      g.insertBefore(r, g.firstChild);
+    });
+    const z = stato.livello && livelli.find((l) => l.n === stato.livello);
+    $("#ow-info").textContent = z ? `Livello ${z.cod}: ${z.n} · ${z.conta} posti` : "Tocca un quartiere per giocare quel livello. Le caselle verdi sono quartieri dove hai già fatto check-in. Mappa disegnata a mano, non in scala.";
+  }
+
   function disegnaPowerup() {
     const base = DATA.filter((x) => passa(x, "voglia"));
     const c = base.reduce((m, x) => (m[x.t] = (m[x.t] || 0) + 1, m), {});
@@ -231,7 +318,7 @@
   }
   function aggiorna({ adatta = true } = {}) {
     stato.mostrati = PAGINA;
-    disegnaMondi(); disegnaPowerup(); disegnaLista();
+    disegnaMondi(); disegnaOverworld(); disegnaPowerup(); disegnaLista();
     mappa.aggiorna(ultimi, adatta);
     rispondi();
   }
@@ -266,7 +353,7 @@
     let tiles = null;
     const gate = document.createElement("div");
     gate.className = "map-gate";
-    gate.innerHTML = `<b>Sfondo della mappa spento</b><span>Per mostrarlo il browser scarica le immagini da CARTO (dati OpenStreetMap): il tuo indirizzo IP arriva a loro. <a href="privacy.html#mappa">Dettagli</a></span><span><button class="btn mini" type="button" data-sfondo>Accendi lo sfondo</button></span>`;
+    gate.innerHTML = `<span><b>Mappa semplificata.</b> Lo sfondo con le strade arriva da CARTO, che riceve il tuo IP. <a href="privacy.html#mappa">Dettagli</a></span><button class="btn mini" type="button" data-sfondo>Accendi le strade</button>`;
     function accendi(ricorda) {
       if (tiles) return;
       tiles = L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
@@ -287,6 +374,12 @@
     $("#spegni-mappa").addEventListener("click", spegni);
     if (memoria.get("sns-sfondo-mappa") === "si") accendi(false); else el.appendChild(gate);
 
+    // Base disegnata da noi (sempre visibile, nessuna richiesta esterna): Tevere e nomi dei quartieri
+    L.polyline(TEVERE, { className: "base-fiume", interactive: false }).addTo(m);
+    (META.quartieri || []).forEach((q) => L.marker([q.la, q.lo], {
+      icon: L.divIcon({ className: "", html: `<span class="base-quartiere">${esc(q.n.split(" · ")[0])}</span>`, iconSize: [0, 0] }),
+      interactive: false, keyboard: false,
+    }).addTo(m));
     const strato = L.layerGroup().addTo(m);
     const punti = new Map();
     let io = null, ultima = [], daAdattare = false;
@@ -409,7 +502,8 @@
     DATA, perId, PW, esc, svg, luogo, toast, memoria,
     visitati: new Set(),
     extraScheda: null,
-    ridisegna() { const m = stato.mostrati; disegnaLista(); if (m > PAGINA) { stato.mostrati = m; disegnaLista(); } mappa.ridisegna(); },
+    ridisegna() { const m = stato.mostrati; disegnaLista(); if (m > PAGINA) { stato.mostrati = m; disegnaLista(); } disegnaOverworld(); mappa.ridisegna(); },
+    start: () => start(),
     mostraScheda: (id) => { const x = perId.get(id); if (x) mostraScheda(x.i); },
   };
 
@@ -419,6 +513,7 @@
   $("#m-gettone").addEventListener("click", gettone);
   $("#gettone").addEventListener("click", gettone);
   $("#mondi").addEventListener("click", (e) => { const b = e.target.closest("[data-mondo]"); if (b) scegliMondo(b.dataset.mondo); });
+  $("#ow-svg").addEventListener("keydown", (e) => { const n = e.target.closest("[data-livello]"); if (n && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); scegliLivello(n.dataset.livello); } });
   document.addEventListener("click", (e) => {
     const lv = e.target.closest("[data-livello]");
     if (lv) return scegliLivello(lv.dataset.livello);
