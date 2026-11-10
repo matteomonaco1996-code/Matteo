@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scusa, non stasera</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https://*.basemaps.cartocdn.com; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Il gioco per uscire senza programmare: premi start o scegli il quartiere, scopri i posti della lista di Matteo e fai punti visitandoli.">
+<meta name="theme-color" content="#22160F">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/stile.css">
+</head>
+<body>
+
+<div class="hud">
+  <div class="wrap">
+    <span>1UP <b id="nick">OSPITE</b></span>
+    <span class="solo-conto">PUNTI <b class="g num" id="punti">000000</b></span>
+    <span class="opz">POSTI <b class="g num" id="hi">000000</b></span>
+    <button class="btn solo-conto" type="button" id="apri-player">ACCEDI</button>
+  </div>
+</div>
+
+<header class="title">
+  <div class="wrap">
+    <div>
+      <h1><span class="scusa">Scusa, non stasera.</span><span class="anzi">Anzi sì!</span></h1>
+      <p class="lede">Il gioco per uscire senza programmare. Premi start o scegli il quartiere: ti dico cosa c’è di buono a pochi passi. Se vuoi, fai punti visitando e recensendo i posti.</p>
+    </div>
+    <div>
+      <div class="dialog px" aria-live="polite">
+        <div class="riga"><span class="chi">GAIA</span><span class="cosa" id="domanda">Usciamo stasera?</span></div>
+        <div class="riga"><span class="chi tu">TU</span><span class="cosa barrato">Scusa, non stasera…</span></div>
+        <div class="riga"><span class="chi tu">TU</span><button type="button" class="cosa" id="bolla">Anzi sì! Premi start e dimmi dove sono.</button></div>
+        <span class="next" aria-hidden="true">▼</span>
+      </div>
+      <nav class="menu" aria-label="Menu principale">
+        <button type="button" class="primo" id="m-start"><span><span class="voce press">PREMI START</span><small>Usa la posizione e trova i posti vicini</small></span></button>
+        <button type="button" id="m-livelli"><span><span class="voce">SELEZIONA LIVELLO</span><small>Scegli tu il quartiere</small></span></button>
+        <button type="button" id="m-gettone"><span><span class="voce">INSERISCI GETTONE</span><small>Un posto a caso, pescato per te</small></span></button>
+        <button type="button" class="solo-conto" id="m-player"><span><span class="voce">PLAYER 1</span><small>Accedi, fai punti, scala la classifica</small></span></button>
+      </nav>
+      <p class="privacy">La posizione resta sul tuo telefono: la inviamo solo quando fai un check-in, e non la salviamo.</p>
+    </div>
+  </div>
+</header>
+
+<section class="zona" id="sez-mondi" aria-labelledby="t-mondi">
+  <div class="wrap">
+    <div class="zona-head"><h2 id="t-mondi">SELEZIONA IL MONDO</h2><p id="sott-mondi">Roma è divisa in quartieri: ogni quartiere è un livello.</p></div>
+    <div class="tabs" id="mondi" role="group" aria-label="Mondi"></div>
+    <figure class="overworld px" id="overworld" hidden>
+      <div id="ow-svg"></div>
+      <figcaption id="ow-info">Tocca un quartiere per giocare quel livello. Mappa disegnata a mano, non in scala.</figcaption>
+    </figure>
+    <div id="livelli"></div>
+  </div>
+</section>
+
+<section class="zona" aria-labelledby="t-pw">
+  <div class="wrap">
+    <div class="zona-head"><h2 id="t-pw">SCEGLI IL POWER-UP</h2><p>Che voglia hai? Uno solo, o tutti.</p></div>
+    <div class="powerups" id="powerups" role="group" aria-label="Tipo di posto"></div>
+    <div class="extra">
+      <button class="pw px" type="button" id="consigli" aria-pressed="false"></button>
+      <label class="campo"><span class="sr">Cerca</span><input id="q" type="search" placeholder="Cerca: carbonara, enoteca, Pigneto…" autocomplete="off" maxlength="60"></label>
+      <span class="msg" id="geo-msg" role="status" hidden></span>
+    </div>
+  </div>
+</section>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="dove-sei"><span class="lv" id="lv">MONDO 1</span><b id="titolo-ris">Tutta Roma</b><span id="conteggio"></span></div>
+    <div class="bar-actions">
+      <button class="btn" type="button" id="gettone" title="Un posto a caso"><svg class="pxi" data-ico="moneta" aria-hidden="true"></svg><span>GETTONE</span></button>
+      <div class="seg" role="group" aria-label="Vista">
+        <button type="button" data-view="lista" aria-pressed="true">LISTA</button>
+        <button type="button" data-view="mappa" aria-pressed="false">MAPPA</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="main" data-view="lista">
+  <div class="wrap">
+    <div class="list-col">
+      <section class="slot px" id="slot" hidden aria-live="polite"></section>
+      <div class="cards" id="cards"></div>
+      <button class="btn alt more" type="button" id="more" hidden></button>
+      <div class="next-lv" id="next-lv" hidden></div>
+    </div>
+    <div class="map-col">
+      <div id="mappa" class="px" role="region" aria-label="Mappa dei posti"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav aria-label="Informazioni legali">
+      <a href="privacy.html">Privacy</a>
+      <a href="termini.html">Termini d’uso</a>
+      <a href="termini.html#segnalazioni">Segnala un contenuto</a>
+      <button class="link" type="button" id="spegni-mappa" hidden>Spegni lo sfondo della mappa</button>
+    </nav>
+    <p>I posti vengono dalla lista Google Maps <a id="fonte" href="#" target="_blank" rel="noopener noreferrer">“RistoMat”</a> di Matteo, aggiornata il <span id="agg"></span>. Le note firmate MATTEO sono sue; le recensioni sono degli utenti che hanno fatto check-in nel posto.</p>
+    <p>Quartieri e minuti a piedi sono stime dalla posizione. Il tipo di locale viene dal nome o, in parte, da © OpenStreetMap. Mappa: dati © OpenStreetMap (ODbL) ospitati sul sito; nomi delle vie © CARTO solo se li accendi. Punti, livelli e badge sono solo un gioco: non danno premi.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<dialog class="finestra" id="player" aria-labelledby="player-t">
+  <div class="testa"><h2 id="player-t">PLAYER 1</h2><button class="btn alt mini" type="button" data-chiudi>CHIUDI</button></div>
+  <div class="corpo" id="player-corpo"></div>
+</dialog>
+
+<dialog class="finestra" id="dlg-recensione" aria-labelledby="rec-t">
+  <div class="testa"><h2 id="rec-t">LA TUA RECENSIONE</h2><button class="btn alt mini" type="button" data-chiudi>CHIUDI</button></div>
+  <div class="corpo" id="rec-corpo"></div>
+</dialog>
+
+<dialog class="finestra premio" id="dlg-premio" aria-labelledby="premio-t">
+  <div class="corpo" id="premio-corpo"></div>
+</dialog>
+
+<dialog class="finestra" id="dlg-segnala" aria-labelledby="seg-t">
+  <div class="testa"><h2 id="seg-t">SEGNALA</h2><button class="btn alt mini" type="button" data-chiudi>CHIUDI</button></div>
+  <div class="corpo" id="seg-corpo"></div>
+</dialog>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/supabase/supabase.js"></script>
+<script src="config.js"></script>
+<script src="locali.js"></script>
+<script src="js/app.js"></script>
+<script src="js/conto.js"></script>
+</body>
+</html>
