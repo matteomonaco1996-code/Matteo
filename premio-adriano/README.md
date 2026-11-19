@@ -52,6 +52,9 @@ Sono tutte cose che non si possono ricavare dai materiali ricevuti. Finché rest
       il file calendario usano 19:30.
 - [ ] **Titolo del convegno.** Nei materiali compare in tre forme («…genera futuro», «…genera Futuro»,
       «…genera il futuro»). La pagina usa ovunque la forma del dossier: «La memoria che genera futuro».
+- [ ] **Nome del Premio.** Il dossier lo chiama «Premio Internazionale Adriano – Città di Tivoli»; il
+      patrocinio del Comune è concesso al «Premio Culturale Internazionale Adriano – Città di Tivoli».
+      La pagina usa il nome del dossier: va deciso quale sia quello ufficiale.
 - [ ] **Riconoscimenti 2026.** Il dossier parla di un Premio speciale a una personalità; la lettera di
       riconoscimenti a più «esponenti». La pagina riporta entrambe le cose senza numeri.
 - [ ] **Contatti.** In questa versione c'è un segnaposto al posto dell'email. Email ed eventuale telefono
