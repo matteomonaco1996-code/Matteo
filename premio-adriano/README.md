@@ -82,9 +82,9 @@ Trovati online e confermati dal referente del progetto il 19 novembre 2026:
 | P.IVA e codice fiscale | 04345721007 |
 | REA | RM-760345 |
 | Email e telefono | tritype@tritype.it · 0774 336714 |
+| Capitale sociale | € 10.710,00 interamente versato |
+| PEC | tritype@pec.it |
 
-- [ ] **Capitale sociale.** La legge chiede di indicarlo sul sito (art. 2250 c.c.). Manca: resta come
-      segnaposto nel piè di pagina e nelle note legali. La PEC è facoltativa e non è indicata.
 - [ ] **Hosting.** Fornitore, Paese dei server e durata di conservazione dei registri vanno scritti nella
       privacy. Da questo dipende anche la frase sul trasferimento dei dati fuori dall'Europa.
 - [ ] **Durata di conservazione dei messaggi** e **data di aggiornamento** nelle due pagine legali.
@@ -104,6 +104,8 @@ Per trovare i segnaposto: cerca `DA INSERIRE` e `DA CONFERMARE` nei file. In pag
 - Il progetto resta in questo repository, che è pubblico. Relatori ed email di contatto entrano qui solo
   dopo la convalida.
 - Il titolare del trattamento è Tritype S.r.l.
+- Il dominio del sito sarà intestato a Tritype S.r.l. Per l'hosting si valuta SiteGround: quando è scelto,
+  vanno scritti nella privacy il fornitore e il Paese dei server.
 - Resta da decidere a quale casella arrivano i messaggi del sito. Oggi il contatto indicato nel dossier
   è di A.G.T. Communications, non di Tritype.
 - La versione inglese si farà in un secondo momento.
