@@ -1,0 +1,10 @@
+/* Caricato solo se JavaScript è disattivato: il menu resta sempre visibile, senza pulsante. */
+.fascia__menu { display: none !important; }
+.fascia__interno { flex-wrap: wrap; padding-block: 6px; }
+.fascia__nav {
+  position: static !important; display: flex !important; flex-direction: row !important;
+  flex-wrap: wrap; align-items: center; gap: 4px 18px;
+  padding: 0 0 8px !important; border: 0 !important; background: transparent !important;
+}
+.fascia__nav a { padding: 6px 0 !important; border-bottom: 0 !important; font-size: .9375rem !important; }
+.fascia__nav a.fascia__evidenza { margin-top: 0 !important; padding: 6px 12px !important; }

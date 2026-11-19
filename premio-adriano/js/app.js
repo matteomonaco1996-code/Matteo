@@ -1,6 +1,6 @@
 /* Premio Internazionale Adriano – Città di Tivoli
-   Tre piccole cose: menu su telefono, comparsa delle sezioni, copia dell'indirizzo email.
-   La pagina funziona anche senza JavaScript. */
+   Due sole funzioni: menu su telefono e copia dell'indirizzo email.
+   La pagina funziona anche senza JavaScript. Nessun cookie, nessun dato salvato sul dispositivo. */
 (function () {
   'use strict';
 
@@ -25,35 +25,15 @@
     });
   }
 
-  // --- Comparsa delle sezioni allo scorrimento ---
-  var blocchi = document.querySelectorAll('[data-entra]');
-  var fermo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (fermo || !('IntersectionObserver' in window)) {
-    blocchi.forEach(function (b) { b.classList.add('visto'); });
-  } else {
-    var osserva = new IntersectionObserver(function (voci) {
-      voci.forEach(function (v) {
-        if (v.isIntersecting) {
-          v.target.classList.add('visto');
-          osserva.unobserve(v.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    blocchi.forEach(function (b) { osserva.observe(b); });
-  }
-
   // --- Copia dell'indirizzo email (per chi non ha un programma di posta configurato) ---
   document.querySelectorAll('[data-copia]').forEach(function (b) {
     var testo = b.textContent;
     b.addEventListener('click', function () {
-      var valore = b.getAttribute('data-copia');
-      var fatto = function () {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+      navigator.clipboard.writeText(b.getAttribute('data-copia')).then(function () {
         b.textContent = 'Copiato';
         setTimeout(function () { b.textContent = testo; }, 1800);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(valore).then(fatto, function () {});
-      }
+      }, function () {});
     });
   });
 })();
