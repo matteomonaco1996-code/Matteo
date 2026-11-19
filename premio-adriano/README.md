@@ -37,9 +37,33 @@ i caratteri tipografici.
 | `img/` | Moneta, logo Tivoli Cantiere Cultura, titolo «Premio Adriano 2026», icone, anteprima social |
 | `fonts/` | Carattere Titillium Web con la sua licenza |
 | `strumenti/anteprima.html` | Modello dell'immagine di anteprima social (1200×628 px) |
+| `strumenti/anteprima-online.py` | Costruisce la pagina unica del link di anteprima per la convalida |
 
 Nella cartella `fonts/` sono rimasti i file della prima versione (Marcellus, Gilda Display, Figtree e le
 loro licenze). Il sito non li usa più: si possono cancellare.
+
+## Come fare una modifica
+
+Per ora il sito vive come anteprima online: un link privato, condiviso con chi deve convalidare. Non ha un
+dominio. Le modifiche si fanno in tre passi e l'indirizzo del link non cambia mai.
+
+1. Si cambia il file nel repository: i testi in `index.html`, l'aspetto in `css/stile.css`.
+2. Si ricostruisce la pagina dell'anteprima, dalla cartella `premio-adriano`:
+
+   ```
+   python3 strumenti/anteprima-online.py . anteprima.html --completa-da pubblicata.html --senza-loghi
+   ```
+
+   `pubblicata.html` è la pagina oggi online, scaricata dal link. Serve perché i relatori e l'email di
+   contatto non sono in questo repository: lo strumento li riprende da lì.
+   `--senza-loghi` nasconde lo spazio dei loghi dei partner e va tolto quando i loghi ci sono tutti.
+3. Si ripubblica `anteprima.html` sullo stesso link.
+
+Chi ha il link vede la nuova versione subito, senza una fase di prova: conviene controllare la pagina in
+locale prima di ripubblicare.
+
+Se il committente vorrà il sito vero, gli stessi file della cartella si caricano sull'hosting di Tritype,
+con il dominio intestato a Tritype. I passi sono nella sezione «Messa online» qui sotto.
 
 ## Prima di pubblicare
 
@@ -104,8 +128,9 @@ Per trovare i segnaposto: cerca `DA INSERIRE` e `DA CONFERMARE` nei file. In pag
 - Il progetto resta in questo repository, che è pubblico. Relatori ed email di contatto entrano qui solo
   dopo la convalida.
 - Il titolare del trattamento è Tritype S.r.l.
-- Il dominio del sito sarà intestato a Tritype S.r.l. Per l'hosting si valuta SiteGround: quando è scelto,
-  vanno scritti nella privacy il fornitore e il Paese dei server.
+- Per ora il progetto resta autonomo, come anteprima online. Dominio e hosting si attivano solo se il
+  committente vorrà il sito: in quel caso sull'hosting di Tritype (si valuta SiteGround), con il dominio
+  intestato a Tritype S.r.l. Allora vanno scritti nella privacy il fornitore e il Paese dei server.
 - Resta da decidere a quale casella arrivano i messaggi del sito. Oggi il contatto indicato nel dossier
   è di A.G.T. Communications, non di Tritype.
 - La versione inglese si farà in un secondo momento.
