@@ -71,18 +71,17 @@ loro licenze). Il sito non li usa più: si possono cancellare.
 
 **Dati di Tritype S.r.l.**
 
-I dati inseriti vengono da ricerche online, non da documenti della società:
+Trovati online e confermati dal referente del progetto il 19 novembre 2026:
 
-| Dato | Valore inserito | Fonte |
-|---|---|---|
-| Indirizzo, email, telefono | via Pietro Nenni 5, 00019 Tivoli (RM) · tritype@tritype.it · 0774 336714 | sito tritype.it |
-| P.IVA e codice fiscale | 04345721007 | elenchi aziendali online |
-| REA | RM-760345 | elenchi aziendali online |
+| Dato | Valore inserito |
+|---|---|
+| Sede | via Pietro Nenni 5, 00019 Tivoli (RM) |
+| P.IVA e codice fiscale | 04345721007 |
+| REA | RM-760345 |
+| Email e telefono | tritype@tritype.it · 0774 336714 |
 
-- [ ] **Sede legale.** Gli elenchi aziendali riportano via dell'Inversata 45 a Tivoli, il sito di Tritype
-      via Pietro Nenni 5. In pagina c'è il secondo indirizzo. Va controllato con la visura camerale quale
-      sia la sede legale.
-- [ ] **Capitale sociale e PEC.** Non trovati in modo affidabile: restano come segnaposto.
+- [ ] **Capitale sociale.** La legge chiede di indicarlo sul sito (art. 2250 c.c.). Manca: resta come
+      segnaposto nel piè di pagina e nelle note legali. La PEC è facoltativa e non è indicata.
 - [ ] **Hosting.** Fornitore, Paese dei server e durata di conservazione dei registri vanno scritti nella
       privacy. Da questo dipende anche la frase sul trasferimento dei dati fuori dall'Europa.
 - [ ] **Durata di conservazione dei messaggi** e **data di aggiornamento** nelle due pagine legali.
@@ -96,6 +95,15 @@ Per trovare i segnaposto: cerca `DA INSERIRE` e `DA CONFERMARE` nei file. In pag
 - [ ] Togliere `<meta name="robots" content="noindex, nofollow">` dalle pagine da indicizzare.
 - [ ] Impostare sul server le intestazioni indicate più sotto.
 - [ ] Far rileggere privacy e note legali a chi segue gli aspetti legali per Tritype.
+
+## Decisioni prese
+
+- Il progetto resta in questo repository, che è pubblico. Relatori ed email di contatto entrano qui solo
+  dopo la convalida.
+- Il titolare del trattamento è Tritype S.r.l.
+- Resta da decidere a quale casella arrivano i messaggi del sito. Oggi il contatto indicato nel dossier
+  è di A.G.T. Communications, non di Tritype.
+- La versione inglese si farà in un secondo momento.
 
 ## Privacy e aspetti tecnici
 
