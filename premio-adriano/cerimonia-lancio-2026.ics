@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Premio Internazionale Adriano//Cerimonia di lancio 2026//IT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:cerimonia-lancio-2026@premio-adriano-tivoli
+DTSTAMP:20261119T120000Z
+DTSTART:20261211T160000Z
+DTEND:20261211T183000Z
+SUMMARY:Premio Internazionale Adriano – Città di Tivoli · Cerimonia di 
+ lancio
+LOCATION:Villa d'Este – Sala della Fontana\, Piazza Trento 5\, 00019 Tivo
+ li (RM)
+DESCRIPTION:Convegno «La memoria che genera futuro»\, assegnazione dei ri
+ conoscimenti e presentazione della prima edizione 2027. Programma di massi
+ ma\, soggetto a variazioni.
+END:VEVENT
+END:VCALENDAR
