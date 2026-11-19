@@ -487,15 +487,33 @@
     </header>
 
     <!--
-      PARTNER: i nomi sono in solo testo. I loghi vanno inseriti quando ogni ente ha fornito il file ufficiale
-      e le regole d'uso. Per aggiungere un partner, copiare una riga <li>.
+      PARTNER: ogni riquadro ha lo spazio per il logo. Quando arriva il file ufficiale di un ente:
+      1. salvarlo in img/partner/ (meglio SVG, oppure PNG con fondo trasparente, alto almeno 200 px);
+      2. sostituire il blocco <div class="partner__logo partner__logo--attesa">…</div> con
+         <div class="partner__logo"><img src="img/partner/nome-file.svg" alt="Logo …" width="…" height="…" loading="lazy"></div>
+      Lo stemma di Tivoli viene dal dossier del Premio ed è a bassa risoluzione: va sostituito con il file ufficiale.
     -->
     <ul class="partner">
-      <li><span>Patrocinio</span><strong>Città di Tivoli</strong></li>
-      <li><span>Contributo</span><strong>Regione Lazio</strong></li>
-      <li><span>Partner</span><strong>Istituto Villa Adriana e Villa d’Este – VILLAE</strong></li>
-      <li><span>Partner</span><strong>Ministero della Cultura</strong></li>
-      <li><span>Partner</span><strong>RAI Radiotelevisione Italiana</strong></li>
+      <li>
+        <div class="partner__logo"><img src="img/partner/citta-di-tivoli.png" alt="Stemma della Città di Tivoli" width="130" height="162" loading="lazy"></div>
+        <span class="partner__ruolo">Patrocinio</span><strong>Città di Tivoli</strong>
+      </li>
+      <li>
+        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
+        <span class="partner__ruolo">Contributo</span><strong>Regione Lazio</strong>
+      </li>
+      <li>
+        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
+        <span class="partner__ruolo">Partner</span><strong>Istituto Villa Adriana e Villa d’Este – VILLAE</strong>
+      </li>
+      <li>
+        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
+        <span class="partner__ruolo">Partner</span><strong>Ministero della Cultura</strong>
+      </li>
+      <li>
+        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
+        <span class="partner__ruolo">Partner</span><strong>RAI Radiotelevisione Italiana</strong>
+      </li>
     </ul>
   </div>
 </section>

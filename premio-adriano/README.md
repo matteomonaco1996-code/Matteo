@@ -47,8 +47,11 @@ loro licenze). Il sito non li usa più: si possono cancellare.
 
 - [ ] **Partner.** Nella sezione «Partner e istituzioni» compaiono Città di Tivoli, Regione Lazio, Istituto
       VILLAE, Ministero della Cultura e RAI. Agli atti c'è solo il patrocinio del Comune. Per gli altri serve
-      una conferma scritta dell'ente, con la dicitura esatta da usare e le regole per nome e logo. I loghi si
-      inseriscono solo dopo aver ricevuto il file ufficiale.
+      una conferma scritta dell'ente, con la dicitura esatta da usare e le regole per nome e logo.
+- [ ] **Loghi dei partner.** Ogni riquadro ha lo spazio per il logo. C'è solo lo stemma di Tivoli, preso dal
+      dossier (130×162 px, da sostituire con il file ufficiale). Mancano Regione Lazio, Istituto VILLAE,
+      Ministero della Cultura e RAI: servono i file ufficiali forniti dagli enti, in SVG o PNG con fondo
+      trasparente. Come inserirli è scritto nel commento della sezione in `index.html`.
 - [ ] **Relatori della tavola rotonda.** In questa versione c'è un segnaposto: i nomi del «programma di
       massima» vanno inseriti solo dopo la conferma di ciascuno.
 - [ ] **Ingresso su invito.** È una deduzione dalla lettera («saranno invitati a partecipare»). Se l'evento
@@ -156,8 +159,8 @@ ricordato per i viaggi, l'architettura e l'apertura verso le altre culture.
 - **Importi delle sponsorizzazioni** e ripartizione del budget: il dossier li definisce «indicativi».
   Pubblicarli fissa un prezzo prima di ogni trattativa. In pagina ci sono solo i nomi dei livelli.
 - **Indicatori di successo (KPI):** documento interno.
-- **Stemma del Comune e loghi di enti e aziende:** la lettera di patrocinio impone una dicitura testuale,
-  non concede l'uso dello stemma. Gli altri marchi richiedono un'autorizzazione.
+- **Loghi presi dal web:** nella sezione partner entrano solo file ufficiali forniti dagli enti. La lettera
+  di patrocinio del Comune impone una dicitura testuale e non parla dello stemma: l'uso va confermato.
 - **Fotografie di Villa d'Este e Villa Adriana:** non ne sono state fornite. Le riproduzioni di beni
   culturali a scopo promozionale richiedono l'autorizzazione dell'ente che li ha in consegna.
 
