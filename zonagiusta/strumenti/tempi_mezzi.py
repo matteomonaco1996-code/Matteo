@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Calcola i tempi con i mezzi dai quartieri alle sedi universitarie e genera dati/zone.js.
+"""Calcola i tempi con i mezzi dai quartieri alle destinazioni e genera dati/zone.js.
+
+Le destinazioni sono le sedi di strumenti/luoghi.py (università, stazioni, ospedali, uffici)
+più i 37 quartieri stessi, per chi lavora in un quartiere qualsiasi.
 
 Uso:
     python3 strumenti/tempi_mezzi.py CARTELLA_GTFS [AAAAMMGG]
@@ -21,7 +24,7 @@ import datetime
 import json
 import math
 import re
-import statistics
+import unicodedata
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -43,6 +46,12 @@ INF = 10 ** 9
 def metri(a, b, c, d):
     k = math.cos(math.radians(a))
     return math.hypot((c - a) * 110570, (d - b) * 111320 * k)
+
+
+def id_quartiere(nome):
+    """Identificativo per l'indirizzo della pagina: solo lettere ASCII, cifre e trattini."""
+    t = unicodedata.normalize("NFKD", nome).encode("ascii", "ignore").decode().lower()
+    return "q-" + re.sub(r"[^a-z0-9]+", "-", t).strip("-")
 
 
 def sec(hms):
@@ -264,15 +273,19 @@ def main():
     cambi = [[(round(d / V_PIEDI) + T_CAMBIO, j) for d, j in gr.vicine(la, lo, R_CAMBIO) if j != i]
              for i, (_, la, lo) in enumerate(fermate)]
     partenze_coll = [c[0] for c in coll]
-    uscite = [[(round(d / V_PIEDI), s) for d, s in gr.vicine(la, lo, R_ACCESSO)] for _, _, la, lo in SEDI]
+    mete = list(SEDI) + [(id_quartiere(n), "Quartieri", n, la, lo) for n, _, la, lo in QUARTIERI]
+    uscite = [[(round(d / V_PIEDI), s) for d, s in gr.vicine(la, lo, R_ACCESSO)] for _, _, _, la, lo in mete]
 
     zone = []
     for nome, area, qla, qlo in QUARTIERI:
         accesso = gr.vicine(qla, qlo, R_ACCESSO)
         prove = [viaggio(t0, accesso, coll, partenze_coll, corse, cambi, len(fermate)) for t0 in PARTENZE]
         tempi = []
-        for j, (sid, _, sla, slo) in enumerate(SEDI):
+        for j, (_, _, _, sla, slo) in enumerate(mete):
             a_piedi = round(metri(qla, qlo, sla, slo) / V_PIEDI)
+            if a_piedi < 120:        # la meta è questo stesso quartiere
+                tempi.append({"m": 0, "l": [], "p": 0})
+                continue
             esiti = []
             for t0, (arr, gen) in zip(PARTENZE, prove):
                 w, s = min(((arr[s] + w, s) for w, s in uscite[j]), default=(INF, None))
@@ -305,12 +318,12 @@ def main():
         zone.append({"n": nome, "a": area, "la": qla, "lo": qlo, "t": tempi,
                      "metro": sorted(metro.values(), key=lambda x: x["m"]),
                      "tram": sorted(tram, key=lambda x: (len(x), x)), "bus": len(bus), "notte": len(notte)})
-        print(f"  {nome}: " + ", ".join("—" if t is None else str(t["m"]) for t in tempi))
+        print(f"  {nome}: " + ", ".join("—" if t is None else str(t["m"]) for t in tempi[:len(SEDI)]))
 
     dati = {
         "meta": {"giorno": data, "partenze": "7:50–8:50", "fonte": "Roma Servizi per la Mobilità, GTFS statico (CC BY 3.0 IT)",
                  "generato": datetime.date.today().isoformat()},
-        "sedi": [{"id": sid, "n": n, "la": la, "lo": lo} for sid, n, la, lo in SEDI],
+        "sedi": [{"id": sid, "g": gr_, "n": n, "la": la, "lo": lo} for sid, gr_, n, la, lo in mete],
         "zone": zone,
         "linee": tracciati,
     }

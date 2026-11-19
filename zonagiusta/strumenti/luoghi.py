@@ -1,4 +1,4 @@
-"""Quartieri e sedi universitarie di Zona Giusta.
+"""Quartieri e destinazioni (università, stazioni, ospedali, uffici) di Zona Giusta.
 
 I quartieri sono gli stessi di RistoMat (ristomat/strumenti/quartieri.py): nome, area e un
 punto centrale approssimato. Le sedi hanno un punto indicativo, controllato sui nomi delle
@@ -46,17 +46,32 @@ QUARTIERI = [
     ("EUR", "Sud", 41.8330, 12.4700),
 ]
 
+# Destinazioni: dove si studia o si lavora. Le coordinate di stazioni, ospedali e uffici sono
+# quelle delle fermate ufficiali con lo stesso nome nel GTFS.
 SEDI = [
-    # id, nome, lat, lon
-    ("sapienza", "Sapienza · Città Universitaria", 41.9034, 12.5146),
-    ("sapienza-ingegneria", "Sapienza · Ingegneria, San Pietro in Vincoli", 41.8938, 12.4929),
-    ("sapienza-architettura", "Sapienza · Architettura, Valle Giulia", 41.9186, 12.4800),
-    ("romatre-ostiense", "Roma Tre · via Ostiense", 41.8630, 12.4792),
-    ("romatre-ingegneria", "Roma Tre · Ingegneria, Vasca Navale", 41.8545, 12.4700),
-    ("torvergata", "Tor Vergata · campus, via Columbia", 41.8535, 12.6225),
-    ("luiss-romania", "Luiss · viale Romania", 41.9243, 12.4933),
-    ("luiss-pola", "Luiss · viale Pola", 41.9172, 12.5143),
-    ("lumsa", "LUMSA · Borgo Sant'Angelo", 41.9032, 12.4635),
-    ("cattolica", "Cattolica · Policlinico Gemelli", 41.9318, 12.4290),
-    ("foroitalico", "Foro Italico · Scienze motorie", 41.9335, 12.4570),
+    # id, gruppo, nome, lat, lon
+    ("sapienza", "Università", "Sapienza · Città Universitaria", 41.9034, 12.5146),
+    ("sapienza-ingegneria", "Università", "Sapienza · Ingegneria, San Pietro in Vincoli", 41.8938, 12.4929),
+    ("sapienza-architettura", "Università", "Sapienza · Architettura, Valle Giulia", 41.9186, 12.4800),
+    ("romatre-ostiense", "Università", "Roma Tre · via Ostiense", 41.8630, 12.4792),
+    ("romatre-ingegneria", "Università", "Roma Tre · Ingegneria, Vasca Navale", 41.8545, 12.4700),
+    ("torvergata", "Università", "Tor Vergata · campus, via Columbia", 41.8535, 12.6225),
+    ("luiss-romania", "Università", "Luiss · viale Romania", 41.9243, 12.4933),
+    ("luiss-pola", "Università", "Luiss · viale Pola", 41.9172, 12.5143),
+    ("lumsa", "Università", "LUMSA · Borgo Sant'Angelo", 41.9032, 12.4635),
+    ("cattolica", "Università", "Cattolica · Policlinico Gemelli", 41.9318, 12.4290),
+    ("foroitalico", "Università", "Foro Italico · Scienze motorie", 41.9335, 12.4570),
+    ("campus-biomedico", "Università", "Campus Bio-Medico · Trigoria", 41.77144, 12.46762),
+    ("termini", "Stazioni, ospedali e uffici", "Stazione Termini", 41.90131, 12.50043),
+    ("tiburtina", "Stazioni, ospedali e uffici", "Stazione Tiburtina", 41.90983, 12.52814),
+    ("ostiense-stazione", "Stazioni, ospedali e uffici", "Stazione Ostiense", 41.87313, 12.48446),
+    ("trastevere-stazione", "Stazioni, ospedali e uffici", "Stazione Trastevere", 41.87298, 12.46617),
+    ("policlinico", "Stazioni, ospedali e uffici", "Policlinico Umberto I", 41.90909, 12.50740),
+    ("san-camillo", "Stazioni, ospedali e uffici", "Ospedale San Camillo", 41.87067, 12.45507),
+    ("pertini", "Stazioni, ospedali e uffici", "Ospedale Pertini", 41.91895, 12.53783),
+    ("san-filippo-neri", "Stazioni, ospedali e uffici", "Ospedale San Filippo Neri", 41.94637, 12.41599),
+    ("sant-andrea", "Stazioni, ospedali e uffici", "Ospedale Sant'Andrea", 41.98131, 12.47082),
+    ("saxa-rubra", "Stazioni, ospedali e uffici", "Saxa Rubra · Rai", 41.97736, 12.49339),
+    ("porta-di-roma", "Stazioni, ospedali e uffici", "Porta di Roma · Bufalotta", 41.97799, 12.53079),
+    ("tecnopolo", "Stazioni, ospedali e uffici", "Tecnopolo Tiburtino", 41.92914, 12.63539),
 ]

@@ -1,13 +1,14 @@
 # Zona Giusta (prova)
 
-Una guida ai quartieri di Roma per chi cerca casa da fuorisede: scegli la sede
-universitaria e vedi, per ognuno dei 37 quartieri, i minuti porta a porta con metro,
-tram e bus. È la prima prova di un progetto più ampio sugli affitti; il nome è provvisorio.
+Una guida ai quartieri di Roma per chi cerca casa, studenti fuorisede e giovani lavoratori:
+scegli dove studi o lavori e vedi, per ognuno dei 37 quartieri, i minuti porta a porta con
+metro, tram e bus. È la prima prova di un progetto più ampio sugli affitti; il nome è provvisorio.
 
 Cosa c'è in questa versione:
 
-- classifica dei quartieri per tempo di viaggio verso 11 sedi (Sapienza, Roma Tre,
-  Tor Vergata, Luiss, LUMSA, Cattolica, Foro Italico);
+- classifica dei quartieri per tempo di viaggio verso 61 destinazioni: 12 sedi universitarie,
+  12 tra stazioni, ospedali e zone di uffici, e i 37 quartieri stessi (per chi lavora in un
+  quartiere qualsiasi);
 - mappa con i quartieri colorati per fascia di tempo e le linee di metro e tram;
 - per ogni quartiere: linee usate, metro e tram vicini, linee di bus e notturne,
   posti consigliati da RistoMat.
@@ -34,7 +35,7 @@ L'indirizzo ricorda la sede scelta: `…/#romatre-ostiense` apre la pagina su Ro
 | `dati/zone.js` | Tempi, mezzi vicini e tracciati: **generato**, non modificare a mano |
 | `dati/posti.js` | Posti di RistoMat per quartiere: **generato** |
 | `mappa/roma.js` | Strade, Tevere e parchi (© OpenStreetMap, ODbL), copiato da RistoMat |
-| `strumenti/luoghi.py` | Quartieri (gli stessi di RistoMat) e sedi universitarie |
+| `strumenti/luoghi.py` | Quartieri (gli stessi di RistoMat) e destinazioni |
 | `strumenti/tempi_mezzi.py` | Calcola i tempi dagli orari ufficiali e genera `dati/zone.js` |
 | `strumenti/posti_ristomat.py` | Conta i posti di RistoMat e genera `dati/posti.js` |
 | `vendor/`, `fonts/` | Leaflet e caratteri ospitati sul sito, con licenze |
@@ -70,7 +71,9 @@ Lo zip pesa circa 48 MB e non va messo nel repository.
 - **Orari incompleti in certe date**: il GTFS copre bene solo alcune settimane. Lo strumento
   sceglie il giorno feriale con più corse e avvisa se sono poche.
 - **RistoMat** è una lista personale: il numero di posti non misura quanto è vivo un quartiere.
-- Le coordinate delle sedi sono indicative, controllate sui nomi delle fermate vicine.
+- Le coordinate delle università sono indicative, controllate sui nomi delle fermate vicine;
+  quelle di stazioni, ospedali e uffici sono le fermate ufficiali con lo stesso nome.
+- Quando la destinazione è un quartiere, il tempo è da centro a centro.
 
 ## Fonti e licenze
 

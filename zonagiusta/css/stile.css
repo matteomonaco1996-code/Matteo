@@ -84,7 +84,7 @@ h1, h2 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
 .testa .wrap { display: grid; gap: 12px; }
 .marchio { margin: 0; font: 800 15px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
 .prova { font: 600 11px/1 var(--f-text); letter-spacing: .06em; padding: 4px 7px; border: 1px solid var(--edge); border-radius: 99px; color: var(--muted); }
-h1 { font-size: clamp(28px, 4.6vw, 46px); font-weight: 800; line-height: 1.04; letter-spacing: -.02em; max-width: 18ch; }
+h1 { font-size: clamp(28px, 4.6vw, 46px); font-weight: 800; line-height: 1.04; letter-spacing: -.02em; max-width: 22ch; }
 .lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 17px; }
 
 .scelta { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: end; margin-top: 10px; }
@@ -111,6 +111,7 @@ select { min-height: 46px; max-width: 100%; padding: 0 38px 0 14px; border: 1.5p
 .riga[aria-expanded="true"] { border-color: var(--ink); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
 .min { display: grid; justify-items: center; align-content: center; height: 54px; border-radius: 7px; font-family: var(--f-display); line-height: 1; }
 .min b { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.min b:only-child { font-size: 19px; letter-spacing: 0; }
 .min small { font: 600 10px/1 var(--f-text); letter-spacing: .08em; text-transform: uppercase; margin-top: 3px; }
 .chi { min-width: 0; display: grid; gap: 5px; }
 .nome { font-weight: 700; font-size: 17px; line-height: 1.2; }

@@ -1,4 +1,4 @@
-// Zona Giusta — classifica dei quartieri per tempo di viaggio verso la sede scelta, con mappa.
+// Zona Giusta — classifica dei quartieri per tempo di viaggio verso dove si studia o si lavora, con mappa.
 // I dati sono generati: dati/zone.js (strumenti/tempi_mezzi.py) e dati/posti.js (strumenti/posti_ristomat.py).
 (() => {
   "use strict";
@@ -18,13 +18,14 @@
   const plurale = (n, uno, tanti) => `${n} ${n === 1 ? uno : tanti}`;
 
   function come(t) {
+    if (!t.m) return "è il quartiere dove devi arrivare";
     if (!t.l.length) return "tutto a piedi";
     return t.l.map(badge).join("") + `<span>+ ${t.p} min a piedi</span>`;
   }
 
   function scheda(z, t) {
     const sede = D.sedi[stato.sede].n;
-    const viaggio = t.l.length
+    const viaggio = !t.m ? "È lo stesso quartiere: ci arrivi a piedi." : t.l.length
       ? `${t.m} minuti in tutto, di cui ${t.p} a piedi${t.l.length > 1 ? `, con ${plurale(t.l.length - 1, "cambio", "cambi")}` : ""}.`
       : `${t.m} minuti a piedi, senza prendere mezzi.`;
 
@@ -65,7 +66,7 @@
       const aperta = stato.aperta === i;
       return `<li>
         <button type="button" class="riga" id="r-${i}" data-i="${i}" aria-expanded="${aperta}" aria-controls="s-${i}">
-          <span class="min b${fascia(t.m)}"><b>${t.m}</b><small>min</small></span>
+          <span class="min b${fascia(t.m)}">${t.m ? `<b>${t.m}</b><small>min</small>` : "<b>qui</b>"}</span>
           <span class="chi"><span class="nome">${esc(z.n)}</span><span class="come">${come(t)}</span></span>
           <span class="area">${esc(z.a)}</span>
         </button>
@@ -133,7 +134,7 @@
         const classi = [t ? "b" + fascia(t.m) : "b5"];
         if (!t || (stato.max && t.m > stato.max)) classi.push("fuori");
         if (stato.aperta === i) classi.push("sel");
-        segni[i].setIcon(icona(t ? t.m : "–", classi.join(" ")));
+        segni[i].setIcon(icona(t ? t.m || "qui" : "–", classi.join(" ")));
         segni[i].setZIndexOffset(stato.aperta === i ? 400 : t ? 200 - t.m : 0);
       });
     }
@@ -151,7 +152,9 @@
 
   // ---------- Comandi ----------
   const sel = $("#sede");
-  sel.innerHTML = D.sedi.map((s, i) => `<option value="${i}">${esc(s.n)}</option>`).join("");
+  const gruppi = [...new Set(D.sedi.map((s) => s.g))];
+  sel.innerHTML = gruppi.map((g) => `<optgroup label="${esc(g)}">` +
+    D.sedi.map((s, i) => (s.g === g ? `<option value="${i}">${esc(s.n)}</option>` : "")).join("") + "</optgroup>").join("");
 
   function scegliSede(i, aggiornaIndirizzo) {
     stato.sede = i;
