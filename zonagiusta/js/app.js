@@ -11,6 +11,9 @@
   const SOGLIE = [15, 25, 35, 45];
   const fascia = (m) => 1 + SOGLIE.filter((x) => m > x).length;       // 1 = vicino … 5 = lontano
   const stato = { sede: 0, max: 0, aperta: -1 };
+  // Conteggi delle richieste per quartiere: li carica js/richiesta.js, se il servizio è attivo.
+  const App = { D, stato, esc, numeri: null };
+  window.ZGApp = App;
 
   // ---------- Testi ----------
   const classeLinea = (l) => (l === "Metro A" ? "la" : l === "Metro B" ? "lb" : l === "Metro C" ? "lc" : l.startsWith("Tram") ? "lt" : "lbus");
@@ -40,10 +43,17 @@
       ? `<p>${plurale(p.n, "posto consigliato", "posti consigliati")} su <a href="https://ristomat.click" target="_blank" rel="noopener">RistoMat</a>${p.tipi.length ? ": " + p.tipi.map(([e, n]) => `${n} ${esc(e)}`).join(", ") : ""}.</p>`
       : `<p class="tenue">Nessun posto su RistoMat, per ora.</p>`;
 
+    const n = App.numeri && App.numeri.zone[z.id];
+    let cerca;
+    if (!App.numeri) cerca = `<p class="tenue">Qui vedrai quante persone cercano casa in questo quartiere.</p>`;
+    else if (!n) cerca = `<p class="tenue">Ancora nessuna richiesta per questo quartiere.</p>`;
+    else cerca = `<p>${plurale(n.richieste, "richiesta attiva include", "richieste attive includono")} questo quartiere${n.budget_tipico ? `. Budget tipico: ${n.budget_tipico} € al mese` : ""}.</p>`;
+
     return `<div><h3>Per arrivare a ${esc(sede)}</h3><p>${viaggio}</p></div>
       <div><h3>Mezzi sotto casa</h3><ul>${mezzi.join("")}</ul></div>
       <div><h3>Dove mangiare e bere</h3>${posti}</div>
-      <div><h3>Stanze</h3><p class="tenue">Prezzi e annunci non ci sono ancora: è il prossimo passo.</p></div>`;
+      <div><h3>Chi cerca casa qui</h3>${cerca}<p><button type="button" class="btn piccolo" data-richiesta>Lascia la tua richiesta</button></p></div>
+      <div><h3>Stanze in affitto</h3><p class="tenue">Le proposte di affitto non sono ancora aperte.</p></div>`;
   }
 
   // ---------- Classifica ----------
@@ -165,6 +175,8 @@
     mappa.aggiorna();
     mappa.inquadra();
   }
+  App.plurale = plurale;
+  App.ridisegna = () => { disegnaLista(); mappa.aggiorna(); };
   const daIndirizzo = () => Math.max(0, D.sedi.findIndex((s) => s.id === location.hash.slice(1)));
 
   sel.addEventListener("change", () => scegliSede(+sel.value, true));

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zona Giusta</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.supabase.co; base-uri 'self'; form-action 'self'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="Per ogni quartiere di Roma, i minuti porta a porta fino a dove studi o lavori, con metro, tram e bus.">
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
@@ -33,6 +33,10 @@
         </div>
       </fieldset>
     </form>
+    <div class="invito">
+      <p><b>Cerchi casa a Roma?</b> Lascia la tua richiesta: dove devi arrivare, in quali quartieri vivresti, quanto puoi spendere. <span id="conta-richieste" hidden></span></p>
+      <button type="button" class="btn" id="apri-richiesta" data-richiesta>Lascia la tua richiesta</button>
+    </div>
   </div>
 </header>
 
@@ -64,16 +68,28 @@
       <li>Si parte dal punto centrale del quartiere tra le 7:50 e le 8:50. Il numero è il tempo tipico su sette partenze, attesa alla fermata compresa.</li>
       <li>A piedi contiamo 4,8 km/h, con un 30% in più per le strade.</li>
       <li>Ci sono metro, tram e bus. Mancano i treni regionali e la Metromare (Roma–Lido).</li>
-      <li>Prezzi delle stanze e annunci non ci sono ancora.</li>
+      <li>Prezzi delle stanze e proposte di affitto non ci sono ancora. Per ora raccogliamo le richieste di chi cerca.</li>
     </ul>
     <p class="fonti">Orari e tracciati: Roma Servizi per la Mobilità, GTFS statico, licenza CC BY 3.0 IT. Mappa: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, licenza ODbL. Posti consigliati: <a href="https://ristomat.click" target="_blank" rel="noopener">RistoMat</a>.</p>
+    <p class="fonti"><a href="privacy.html">Informativa privacy</a> · <a href="termini.html">Termini d’uso</a></p>
   </div>
 </section>
+
+<dialog class="finestra" id="richiesta" aria-labelledby="richiesta-titolo">
+  <div class="finestra-testa">
+    <h2 id="richiesta-titolo">La tua richiesta</h2>
+    <button type="button" class="chiudi" id="richiesta-chiudi" aria-label="Chiudi">✕</button>
+  </div>
+  <div class="finestra-corpo" id="richiesta-corpo"></div>
+</dialog>
 
 <script src="vendor/leaflet/leaflet.js"></script>
 <script src="dati/zone.js"></script>
 <script src="dati/posti.js"></script>
 <script src="mappa/roma.js"></script>
 <script src="js/app.js"></script>
+<script src="vendor/supabase/supabase.js"></script>
+<script src="config.js"></script>
+<script src="js/richiesta.js"></script>
 </body>
 </html>

@@ -11,10 +11,16 @@ Cosa c'è in questa versione:
   quartiere qualsiasi);
 - mappa con i quartieri colorati per fascia di tempo e le linee di metro e tram;
 - per ogni quartiere: linee usate, metro e tram vicini, linee di bus e notturne,
-  posti consigliati da RistoMat.
+  posti consigliati da RistoMat;
+- **richieste di chi cerca casa**: dove devi arrivare, minuti massimi, quartieri, budget, tipo di
+  alloggio, da quando. Si salvano con un codice via email (niente password). In pubblico escono
+  solo i numeri per quartiere.
 
-Cosa **non** c'è ancora: prezzi delle stanze, annunci, account. Nessun dato sui prezzi è
-stato inventato: la pagina dice che mancano.
+Cosa **non** c'è ancora: proposte di affitto, prezzi delle stanze, contatto tra chi cerca e chi
+offre. Nessun dato è stato inventato: dove mancano, la pagina lo dice.
+
+> Prima di aprire le richieste al pubblico leggi **[LEGALE_E_SICUREZZA.md](LEGALE_E_SICUREZZA.md)**:
+> elenca cosa è già fatto per sicurezza e GDPR e i passi che restano a te.
 
 ## Come si apre
 
@@ -31,7 +37,13 @@ L'indirizzo ricorda la sede scelta: `…/#romatre-ostiense` apre la pagina su Ro
 
 | File | Contenuto |
 | --- | --- |
-| `index.html`, `css/stile.css`, `js/app.js` | Pagina, stile, logica |
+| `index.html`, `css/stile.css`, `js/app.js` | Pagina, stile, guida ai quartieri |
+| `js/richiesta.js` | Modulo della richiesta, accesso con codice, riepilogo |
+| `config.js` | Indirizzo e chiave pubblica di Supabase (vuoti = richieste spente) |
+| `privacy.html`, `termini.html` | Informativa privacy e termini d'uso (da completare con i tuoi dati) |
+| `supabase/schema.sql` | Tabelle, regole di sicurezza e funzioni del database |
+| `supabase/luoghi.sql` | Destinazioni e quartieri ammessi: **generato** da `strumenti/luoghi_sql.py` |
+| `strumenti/test_database.mjs` | Test delle regole del database (37 controlli) |
 | `dati/zone.js` | Tempi, mezzi vicini e tracciati: **generato**, non modificare a mano |
 | `dati/posti.js` | Posti di RistoMat per quartiere: **generato** |
 | `mappa/roma.js` | Strade, Tevere e parchi (© OpenStreetMap, ODbL), copiato da RistoMat |
@@ -49,9 +61,24 @@ curl -L -o gtfs.zip https://romamobilita.it/sites/default/files/rome_static_gtfs
 mkdir gtfs && unzip -q gtfs.zip -d gtfs
 python3 strumenti/tempi_mezzi.py gtfs              # sceglie da solo un giorno feriale completo
 python3 strumenti/posti_ristomat.py ../ristomat/locali.js
+python3 strumenti/luoghi_sql.py                    # solo se cambi strumenti/luoghi.py: poi riesegui luoghi.sql su Supabase
 ```
 
 Lo zip pesa circa 48 MB e non va messo nel repository.
+
+## Richieste: come funzionano
+
+- Una richiesta per persona, legata all'email. Il browser non scrive mai nelle tabelle: passa
+  dalla funzione `salva_richiesta()`, che controlla età, date, quartieri e valori ammessi.
+- Ognuno legge solo la propria richiesta. `richieste_per_zona()` dà a tutti i conteggi per
+  quartiere; il budget tipico (mediana) esce solo da 5 richieste in su.
+- Una richiesta conta per 90 giorni dall'ultimo salvataggio.
+- Test delle regole, dalla cartella del sito:
+
+```bash
+npm install --no-save @electric-sql/pglite@0.5.16
+node strumenti/test_database.mjs supabase/schema.sql supabase/luoghi.sql
+```
 
 ## Come sono calcolati i tempi
 

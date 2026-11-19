@@ -315,7 +315,7 @@ def main():
                     tram.add(sigla)
                 elif tipo == "3" and d <= 400:
                     (notte if sigla.lower().startswith("n") else bus).add(sigla)
-        zone.append({"n": nome, "a": area, "la": qla, "lo": qlo, "t": tempi,
+        zone.append({"id": id_quartiere(nome), "n": nome, "a": area, "la": qla, "lo": qlo, "t": tempi,
                      "metro": sorted(metro.values(), key=lambda x: x["m"]),
                      "tram": sorted(tram, key=lambda x: (len(x), x)), "bus": len(bus), "notte": len(notte)})
         print(f"  {nome}: " + ", ".join("—" if t is None else str(t["m"]) for t in tempi[:len(SEDI)]))
