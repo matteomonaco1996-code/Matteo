@@ -133,6 +133,11 @@ h2::after {
   width: 9px; height: 9px; background: var(--ambra);
 }
 
+/* Parole chiave in evidenza nei testi */
+.prosa strong, .apertura__sommario strong, .intestazione p strong,
+.iniziative__testo strong, .organi p strong { font-weight: 700; }
+.intestazione p strong, .iniziative__testo strong, .organi p strong { color: var(--nero); }
+
 .azioni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
 .bottone {
