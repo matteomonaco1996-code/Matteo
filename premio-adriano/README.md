@@ -7,6 +7,9 @@ Sito di presentazione del Premio e della cerimonia di lancio dell'11 dicembre 20
 - Stato: pronto per la pubblicazione su GitHub Pages. Resta fuori dai motori di ricerca (`noindex`) finché
   non ha il dominio definitivo
 
+> Dal 20 novembre 2026 il sito pubblicato vive nel repository `premio-adriano`, sul ramo `main`.
+> Le modifiche si fanno lì: questa cartella resta come copia di lavoro e non viene più aggiornata.
+>
 > I file di questa cartella sono pubblici. Non vanno aggiunti documenti del committente (lettere, dossier,
 > file di stampa) né dati che non devono comparire sul sito.
 
