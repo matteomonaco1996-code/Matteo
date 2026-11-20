@@ -6,7 +6,7 @@
 <title>Premio Internazionale Adriano – Città di Tivoli</title>
 <meta name="description" content="Il Premio Internazionale Adriano – Città di Tivoli sarà presentato l'11 dicembre 2026 a Villa d'Este. Programma della cerimonia, categorie, partner e contatti.">
 
-<!-- BOZZA: togliere questa riga solo quando i contenuti sono approvati (vedi README, "Prima di pubblicare"). -->
+<!-- Il sito resta fuori dai motori di ricerca finché non ha il dominio definitivo: togliere la riga qui sotto solo allora. -->
 <meta name="robots" content="noindex, nofollow">
 
 <!-- Sicurezza: la pagina carica solo file propri. Nessuno script, immagine o carattere da altri siti. -->
@@ -268,16 +268,16 @@
             <div>
               <h4>Tavola rotonda «La memoria che genera futuro»</h4>
               <p class="programma__modera">Modera Massimo Alesii, Associazione Tivoli Cantiere Cultura</p>
-              <!--
-                RELATORI: i nomi del "programma di massima" NON sono in questa versione, perché il repository
-                è pubblico e le partecipazioni non sono ancora confermate. Quando lo saranno, sostituire il
-                segnaposto qui sotto con un elenco fatto così:
-
-                <ul class="relatori">
-                  <li><strong>Titolo Nome Cognome</strong><span>Qualifica, ente</span></li>
-                </ul>
-              -->
-              <p class="programma__attesa"><span class="da-inserire">[DA INSERIRE: relatori della tavola rotonda, dopo la conferma di ciascuno]</span></p>
+              <!-- RELATORI: nomi e qualifiche dal programma di massima. Aggiornare a ogni variazione. -->
+              <ul class="relatori">
+                <li><strong>Prof. Massimo Osanna</strong><span>Ministero della Cultura</span></li>
+                <li><strong>Ing. Marco Mari</strong><span>Ambassador Assorestauro, Comitato scientifico Tivoli Cantiere Cultura</span></li>
+                <li><strong>Dott. Domenico Repetto</strong><span>Responsabile Comunicazione MASE</span></li>
+                <li><strong>Dott. Antonio Capitano</strong><span>Comune di Tivoli, Assessorato alla Cultura</span></li>
+                <li><strong>Dott.ssa Incoronata Boccia</strong><span>Direttore Relazioni Esterne, RAI Radiotelevisione Italiana <em>(in corso di definizione)</em></span></li>
+                <li><strong>Dott. Giuliano Greco</strong><span>Direttore Comunicazione IIT Genova</span></li>
+                <li><strong>Dott. Alberto Samonà</strong><span>Direttore Istituto VILLAE</span></li>
+              </ul>
             </div>
           </li>
           <li>
@@ -487,33 +487,18 @@
     </header>
 
     <!--
-      PARTNER: ogni riquadro ha lo spazio per il logo. Quando arriva il file ufficiale di un ente:
-      1. salvarlo in img/partner/ (meglio SVG, oppure PNG con fondo trasparente, alto almeno 200 px);
-      2. sostituire il blocco <div class="partner__logo partner__logo--attesa">…</div> con
-         <div class="partner__logo"><img src="img/partner/nome-file.svg" alt="Logo …" width="…" height="…" loading="lazy"></div>
-      Lo stemma di Tivoli viene dal dossier del Premio ed è a bassa risoluzione: va sostituito con il file ufficiale.
+      PARTNER: per ora solo i nomi. Per aggiungere il logo ufficiale di un ente:
+      1. salvare il file in img/partner/ (meglio SVG, oppure PNG con fondo trasparente, alto almeno 200 px);
+      2. inserire come prima riga del suo riquadro
+         <div class="partner__logo"><img src="img/partner/NOME-FILE" alt="Logo …" width="…" height="…" loading="lazy"></div>
+      Conviene inserirli tutti insieme, così i riquadri restano uguali.
     -->
     <ul class="partner">
-      <li>
-        <div class="partner__logo"><img src="img/partner/citta-di-tivoli.png" alt="Stemma della Città di Tivoli" width="130" height="162" loading="lazy"></div>
-        <span class="partner__ruolo">Patrocinio</span><strong>Città di Tivoli</strong>
-      </li>
-      <li>
-        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
-        <span class="partner__ruolo">Contributo</span><strong>Regione Lazio</strong>
-      </li>
-      <li>
-        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
-        <span class="partner__ruolo">Partner</span><strong>Istituto Villa Adriana e Villa d’Este – VILLAE</strong>
-      </li>
-      <li>
-        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
-        <span class="partner__ruolo">Partner</span><strong>Ministero della Cultura</strong>
-      </li>
-      <li>
-        <div class="partner__logo partner__logo--attesa"><span class="da-inserire">[DA INSERIRE: logo]</span></div>
-        <span class="partner__ruolo">Partner</span><strong>RAI Radiotelevisione Italiana</strong>
-      </li>
+      <li><span class="partner__ruolo">Patrocinio</span><strong>Città di Tivoli</strong></li>
+      <li><span class="partner__ruolo">Contributo</span><strong>Regione Lazio</strong></li>
+      <li><span class="partner__ruolo">Partner</span><strong>Istituto Villa Adriana e Villa d’Este – VILLAE</strong></li>
+      <li><span class="partner__ruolo">Partner</span><strong>Ministero della Cultura</strong></li>
+      <li><span class="partner__ruolo">Partner</span><strong>RAI Radiotelevisione Italiana</strong></li>
     </ul>
   </div>
 </section>
@@ -531,7 +516,7 @@
         </p>
       </div>
       <div class="azioni">
-        <a class="bottone" href="#contatti">Richiedi il dossier</a>
+        <a class="bottone" href="mailto:tritype@tritype.it?subject=Premio%20Adriano%20%E2%80%93%20richiesta%20dossier%20partner">Richiedi il dossier</a>
       </div>
     </div>
 
@@ -558,18 +543,16 @@
         <p>Associazione Culturale Tivoli Cantiere Cultura<br>Presidente Antonella Giuliani Eletti</p>
       </div>
       <div>
-        <h3>Comunicazione e partnership</h3>
+        <h3>Comunicazione</h3>
         <p>A.G.T. Communications<br>Dott. Massimo Alesii</p>
-        <!--
-          EMAIL DI CONTATTO: non inserita in questa versione (repository pubblico, serve l'assenso
-          dell'interessato). Quando c'è, sostituire il segnaposto con:
-
-          <a href="mailto:indirizzo@esempio.it?subject=Premio%20Adriano%20%E2%80%93%20richiesta%20informazioni">indirizzo@esempio.it</a>
-          <button class="copia" type="button" data-copia="indirizzo@esempio.it">Copia indirizzo</button>
-
-          e puntare allo stesso indirizzo il pulsante "Richiedi il dossier" nella sezione Diventa partner.
-        -->
-        <p class="contatti__email"><span class="da-inserire">[DA INSERIRE: email di contatto]</span></p>
+      </div>
+      <div>
+        <h3>Informazioni e partnership</h3>
+        <p class="contatti__email">
+          <a href="mailto:tritype@tritype.it?subject=Premio%20Adriano%20%E2%80%93%20richiesta%20informazioni">tritype@tritype.it</a>
+          <button class="copia" type="button" data-copia="tritype@tritype.it">Copia indirizzo</button>
+        </p>
+        <p class="contatti__nota">Le richieste sono raccolte da Tritype S.r.l., che gestisce il sito, e inoltrate all’organizzazione del Premio.</p>
       </div>
     </div>
   </div>

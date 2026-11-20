@@ -447,6 +447,7 @@ h2::after {
   letter-spacing: .1em; text-transform: uppercase;
 }
 .partner strong { font-size: 1.15rem; line-height: 1.25; }
+.partner--senza-loghi .partner__logo { display: none; }
 
 /* ----------------------------- Diventa partner ----------------------------- */
 
@@ -466,10 +467,11 @@ h2::after {
 /* ----------------------------- Contatti ----------------------------- */
 
 .contatti__logo { width: 190px; margin-top: 28px; }
-.contatti { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); }
+.contatti { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: clamp(24px, 3vw, 40px); }
 .contatti > div { border-top: 2px solid var(--nero); padding-top: 18px; display: grid; gap: 8px; align-content: start; }
 .contatti h3 { font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bordeaux); }
 .contatti p { font-weight: 600; line-height: 1.45; }
+.contatti p.contatti__nota { font-weight: 400; font-size: 1rem; color: var(--grigio); }
 .contatti__email { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 6px; }
 .contatti__email a { font-size: 1.3rem; text-decoration-thickness: 1px; text-underline-offset: 4px; overflow-wrap: anywhere; }
 .contatti__email a:hover { color: var(--bordeaux); }
