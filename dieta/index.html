@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Piano alimentare settimanale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: una colonna da telefono (max 560px), quattro viste in alto, righe "alimento a sinistra, grammi a destra" come sul foglio del dietista. */
+  --bg: #F5F3F6;
+  --surface: #FFFFFF;
+  --ink: #231B29;
+  --muted: #675E6E;
+  --line: #E0DAE4;
+  --accent: #5C2B70;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #EEE4F2;
+  --good: #1F7446;
+  --good-soft: #DDF0E4;
+  --bad: #B23A25;
+  --bad-soft: #F8E1DB;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17131A;
+    --surface: #211B26;
+    --ink: #F1ECF4;
+    --muted: #AFA5B7;
+    --line: #3A3141;
+    --accent: #CDA8DF;
+    --accent-ink: #1F1326;
+    --accent-soft: #33263B;
+    --good: #6CCB93;
+    --good-soft: #1D3528;
+    --bad: #F0907A;
+    --bad-soft: #40221B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17131A;
+  --surface: #211B26;
+  --ink: #F1ECF4;
+  --muted: #AFA5B7;
+  --line: #3A3141;
+  --accent: #CDA8DF;
+  --accent-ink: #1F1326;
+  --accent-soft: #33263B;
+  --good: #6CCB93;
+  --good-soft: #1D3528;
+  --bad: #F0907A;
+  --bad-soft: #40221B;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+}
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; line-height: 1.15; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+strong { font-weight: 700; }
+button, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+/* Intestazione e viste */
+.top { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top__row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 0 6px; }
+.top h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+.sync { font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.sync::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.sync[data-kind="cloud"]::before { background: var(--good); }
+.sync[data-kind="saving"]::before { background: var(--accent); }
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); }
+.tabs a {
+  display: flex; align-items: center; justify-content: center; min-height: 44px;
+  color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px;
+  border-bottom: 3px solid transparent;
+}
+.tabs a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
+.warn { padding: 7px 0 8px; font-size: 12px; line-height: 1.35; color: var(--bad); }
+
+main.wrap { padding: 18px 16px 48px; }
+.view { display: flex; flex-direction: column; gap: 14px; }
+.lead { color: var(--muted); font-size: 15px; max-width: 65ch; }
+.link { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 600; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Oggi */
+/* Striscia della settimana: un tocco per cambiare giorno, con la barretta dei pasti segnati. */
+.week { display: grid; grid-template-columns: 28px minmax(0, 1fr) 28px; gap: 2px; align-items: stretch; }
+.week__nav { padding: 0; border: 0; border-radius: 8px; background: none; color: var(--muted); font-size: 22px; line-height: 1; }
+.week__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+.wd { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 7px 0; border: 1px solid transparent; border-radius: 12px; background: none; }
+.wd__i { font-size: 12px; color: var(--muted); }
+.wd__n { font-family: var(--font-display); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wd__bar { display: flex; width: 22px; height: 4px; margin-top: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.wd__bar i { display: block; height: 100%; }
+.wd__bar .g { background: var(--good); }
+.wd__bar .r { background: var(--bad); }
+.wd.is-today { border-color: var(--line); background: var(--surface); }
+.wd.is-sel { border-color: var(--accent); background: var(--accent); }
+.wd.is-sel .wd__i, .wd.is-sel .wd__n { color: var(--accent-ink); }
+.wd.is-sel .wd__bar { background: var(--accent-soft); }
+
+.dayhead h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.015em; }
+.dayhead p { display: flex; gap: 10px; align-items: center; min-height: 22px; margin-top: 2px; color: var(--muted); font-size: 14px; }
+
+/* Tre numeri del giorno in un'unica riga. */
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.stat { min-width: 0; padding: 10px 10px 11px; }
+.stat + .stat { border-left: 1px solid var(--line); }
+.stat dt { font-size: 12px; color: var(--muted); }
+.stat dd { margin: 2px 0 0; font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat dd small { font-family: var(--font-body); font-size: 12px; line-height: 1.3; }
+.stat--warn dd { color: var(--bad); }
+.tally__bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 7px; }
+.seg { height: 5px; border-radius: 3px; background: var(--line); }
+.seg--ok { background: var(--good); }
+.seg--no { background: var(--bad); }
+.seg--lib { background: var(--accent); }
+.macro, .free { font-size: 14px; color: var(--muted); max-width: 65ch; }
+.free strong { color: var(--ink); }
+.free--over strong { color: var(--bad); }
+
+/* I cinque pasti in un unico foglio: uno aperto, gli altri in una riga. */
+.meals { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.mi + .mi { border-top: 1px solid var(--line); }
+.mi__h { margin: 0; }
+.mi__btn { width: 100%; min-height: 58px; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 11px 14px; border: 0; background: none; text-align: left; }
+.mi__btn:focus-visible, .mark:focus-visible { outline-offset: -3px; }
+.mi__t { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.mi__n { font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; }
+.mi__s { font-family: var(--font-body); font-size: 14px; font-weight: 400; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mi__k { font-family: var(--font-body); font-size: 13px; font-weight: 400; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.mi.is-open { box-shadow: inset 3px 0 0 var(--accent); }
+.mi.is-open .mi__n { font-size: 21px; }
+.mi__body { display: flex; flex-direction: column; gap: 12px; padding: 0 14px 14px; }
+.st { display: block; width: 16px; height: 16px; border: 1.5px solid var(--muted); border-radius: 4px; }
+.st--ok { border-color: var(--good); background: var(--good); }
+.st--no { border-color: var(--bad); border-radius: 50%; background: var(--bad); }
+.st--lib { border-color: var(--accent); border-radius: 2px; background: var(--accent); transform: rotate(45deg) scale(0.8); }
+.tag { display: inline-block; vertical-align: middle; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-family: var(--font-body); font-size: 12px; font-weight: 600; }
+.notice { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); font-size: 14px; }
+.rows li { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 9px 0; border-top: 1px solid var(--line); }
+.rows li:first-child { border-top: 0; padding-top: 0; }
+.food { min-width: 0; }
+.g { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+/* Valori del pasto, impaginati come una piccola etichetta nutrizionale. */
+.nl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.nl div { min-width: 0; padding: 6px 0 7px; }
+.nl div + div { padding-left: 10px; border-left: 1px solid var(--line); }
+.nl dt { font-size: 12px; color: var(--muted); }
+.nl dd { margin: 0; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.nl__note { font-size: 12px; color: var(--muted); }
+.extras { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); font-size: 14px; font-weight: 500; }
+.pill[aria-pressed="true"] { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); font-weight: 600; }
+.outp { padding: 12px; border-radius: 10px; background: var(--accent-soft); display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+/* Segnare il pasto è l'azione principale: un solo controllo a segmenti. */
+.marks { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); overflow: hidden; }
+.marks--3 { grid-template-columns: repeat(3, 1fr); }
+.mark { min-height: 48px; padding: 0 4px; border: 0; background: none; font-size: 15px; font-weight: 600; }
+.mark + .mark { border-left: 1px solid var(--line); }
+.marks--3 .mark { font-size: 14px; }
+.mark--ok[aria-pressed="true"] { background: var(--good); color: var(--surface); }
+.mark--ok[aria-pressed="true"]::before { content: "✓ "; }
+.mark--no[aria-pressed="true"] { background: var(--bad); color: var(--surface); }
+.mark--no[aria-pressed="true"]::before { content: "✕ "; }
+.mark--lib[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.mark--lib[aria-pressed="true"]::before { content: "◆ "; }
+.why { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.why__t { font-size: 13px; color: var(--muted); width: 100%; }
+.why__hint { font-size: 14px; color: var(--muted); }
+.swap { padding: 12px; border-radius: 10px; background: var(--accent-soft); display: flex; flex-direction: column; gap: 10px; }
+.swap__t { font-size: 14px; }
+.swap select { background: var(--surface); }
+.swap__links { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.next { border: 1px dashed var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+.next h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.next strong { display: inline-block; min-width: 60px; }
+
+.hist { margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
+.hist h3 { font-size: 18px; font-weight: 700; }
+.grid { display: grid; grid-template-columns: 78px repeat(14, minmax(0, 1fr)); gap: 4px; align-items: center; max-width: 440px; }
+.grid__lab { font-size: 13px; color: var(--muted); }
+.grid__d { font-size: 11px; color: var(--muted); text-align: center; }
+.grid__d--today { color: var(--accent); font-weight: 700; }
+.cell { display: block; aspect-ratio: 1; border-radius: 4px; border: 1.5px solid var(--line); }
+.cell--ok { background: var(--good); border-color: var(--good); }
+.cell--no { background: var(--bad); border-color: var(--bad); border-radius: 50%; }
+.cell--lib { background: var(--accent); border-color: var(--accent); border-radius: 2px; transform: rotate(45deg) scale(0.74); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend .cell { width: 12px; height: 12px; }
+.hist__sum, .hist__tip { font-size: 15px; max-width: 65ch; }
+.hist__sum { color: var(--muted); }
+.hist__sum strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+.hist__tip { background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; }
+
+/* Settimana */
+.day { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.day summary { list-style: none; cursor: pointer; padding: 13px 40px 13px 14px; position: relative; border-radius: 14px; }
+.day summary::-webkit-details-marker { display: none; }
+.day summary::after {
+  content: ""; position: absolute; right: 18px; top: 22px; width: 9px; height: 9px;
+  border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg);
+}
+.day[open] summary::after { transform: rotate(-135deg); top: 26px; }
+.day__n { display: block; font-family: var(--font-display); font-weight: 700; font-size: 18px; }
+.day__s { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
+.day__body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 14px; }
+.slotset { border: 0; border-top: 1px solid var(--line); margin: 0; padding: 12px 0 0; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.slotset legend { padding: 0; font-weight: 700; font-size: 15px; float: left; width: 100%; margin-bottom: 2px; }
+.slotset legend + * { clear: both; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label { font-size: 13px; color: var(--muted); }
+select {
+  width: 100%; min-width: 0; min-height: 44px; padding: 8px 10px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg); font-size: 16px;
+}
+.fixed { font-size: 14px; color: var(--muted); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: 15px; }
+.btn--main { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn--wide { width: 100%; }
+.riserva { background: var(--surface); border: 1px solid var(--accent); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.riserva h3 { font-size: 18px; font-weight: 700; }
+.bal { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.bal h3 { font-size: 18px; font-weight: 700; }
+.bal__t { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.bal__t th, .bal__t td { padding: 8px 0; border-top: 1px solid var(--line); text-align: left; font-weight: 500; }
+.bal__t thead th { border-top: 0; padding-top: 0; font-size: 13px; color: var(--muted); }
+.bal__t td, .bal__t thead th + th { text-align: right; width: 88px; white-space: nowrap; }
+.bal__t .bal--ok { color: var(--good); font-weight: 700; }
+.bal__t .bal--ok::after { content: " ✓"; }
+.bal__t .bal--over, .bal__t .bal--under { color: var(--bad); font-weight: 700; }
+.bal__t .bal--over::after { content: " ▲"; }
+.bal__t .bal--under::after { content: " ▼"; }
+.bal__t .bal--x { color: var(--muted); }
+.map { display: grid; grid-template-columns: 52px repeat(7, minmax(0, 1fr)); gap: 6px; align-items: center; }
+.map__d { font-size: 12px; color: var(--muted); text-align: center; }
+.map__lab { font-size: 13px; color: var(--muted); }
+.cat { min-height: 40px; padding: 0; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); font-size: 15px; font-weight: 700; }
+.cat--off { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+.bal .legend b { color: var(--ink); }
+.bal__fix { display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+.bal__how { font-size: 15px; background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; }
+.bal__s { font-size: 15px; font-weight: 600; }
+.bal__s--ok { color: var(--good); }
+.bal__s--off { color: var(--bad); }
+
+/* Spesa */
+.shopbar { position: sticky; top: var(--top-h, 104px); z-index: 4; background: var(--bg); display: flex; align-items: center; gap: 12px; padding: 10px 0; margin: -10px 0 -4px; }
+.bar { flex: 1; height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
+.bar span { display: block; height: 100%; border-radius: 5px; background: var(--good); }
+.shopbar__t { font-size: 14px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.shopbar__t strong { color: var(--ink); }
+.period { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.period summary { list-style: none; position: relative; cursor: pointer; padding: 11px 40px 11px 14px; border-radius: 12px; font-size: 15px; }
+.period summary::-webkit-details-marker { display: none; }
+.period summary::after { content: ""; position: absolute; right: 18px; top: 15px; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); }
+.period[open] summary::after { top: 19px; transform: rotate(-135deg); }
+.period__b { display: flex; flex-direction: column; gap: 8px; padding: 0 14px 14px; }
+.period__t { font-size: 13px; color: var(--muted); }
+.presets, .opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill--opt[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.pill--opt[aria-pressed="true"]::before { content: "✓ "; }
+.chips { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.chip { min-height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 600; color: var(--muted); padding: 0; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.rep { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px 2px; }
+.rep--done { border-color: var(--good); }
+.rep__h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 10px; }
+.rep__h h3 { font-size: 17px; font-weight: 700; }
+.rep__c { font-size: 13px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rep--done .rep__c { color: var(--good); font-weight: 600; }
+.buy li { display: flex; align-items: stretch; border-top: 1px solid var(--line); }
+.buyrow { flex: 1; min-width: 0; display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 54px; padding: 9px 0; cursor: pointer; }
+.buyrow input { width: 26px; height: 26px; margin: 0; accent-color: var(--accent); }
+.buyrow__n { min-width: 0; font-weight: 600; }
+.buyrow__q { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.buyrow__q small { text-align: right; }
+.is-done .buyrow__n, .is-done .buyrow__q { color: var(--muted); font-weight: 500; text-decoration: line-through; }
+.is-done small { display: inline-block; width: 100%; text-decoration: none; }
+.del { flex: none; width: 44px; border: 0; background: none; color: var(--muted); font-size: 16px; }
+.quick { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 10px 0 12px; border-top: 1px solid var(--line); }
+.quick__t { width: 100%; font-size: 13px; color: var(--muted); }
+.add { display: flex; gap: 8px; padding: 0 0 12px; }
+.add input { flex: 1; min-width: 0; min-height: 44px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); font: inherit; font-size: 16px; color: var(--ink); }
+.buy + .add { padding-top: 10px; border-top: 1px solid var(--line); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.toast { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9; max-width: 528px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--ink); color: var(--bg); font-size: 15px; }
+.toast .link { color: var(--bg); flex: none; font-size: 15px; }
+#copy-fallback { display: flex; flex-direction: column; gap: 6px; }
+#copy-fallback label { font-size: 13px; color: var(--muted); }
+textarea { width: 100%; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); padding: 10px; font-size: 14px; }
+
+/* Regole */
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.note summary { list-style: none; position: relative; cursor: pointer; padding: 14px 40px 14px 14px; border-radius: 14px; font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.2; text-wrap: balance; }
+.note summary::-webkit-details-marker { display: none; }
+.note summary::after { content: ""; position: absolute; right: 18px; top: 19px; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); }
+.note[open] summary::after { top: 23px; transform: rotate(-135deg); }
+.note__b { display: flex; flex-direction: column; gap: 10px; padding: 0 14px 14px; }
+.note li { position: relative; padding-left: 16px; max-width: 65ch; }
+.note li + li { margin-top: 8px; }
+.note ul li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.note ol { counter-reset: n; }
+.note ol li { counter-increment: n; padding-left: 26px; }
+.note ol li::before { content: counter(n); position: absolute; left: 0; top: 0; font-family: var(--font-display); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.source { font-size: 13px; color: var(--muted); max-width: 65ch; }
+
+@media (max-width: 380px) {
+  .dayhead h2 { font-size: 22px; }
+  .stat { padding: 9px 9px 10px; }
+  .stat dd { font-size: 16px; }
+  .grid { grid-template-columns: 66px repeat(14, minmax(0, 1fr)); gap: 3px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mark, .chip, .btn, .seg, .pill, .wd { transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="top__row">
+      <h1>Piano alimentare</h1>
+      <span class="sync" id="sync" data-kind="wait" role="status">Collegamento…</span>
+    </div>
+    <nav class="tabs" aria-label="Viste">
+      <a href="#oggi" id="tab-oggi">Oggi</a>
+      <a href="#settimana" id="tab-settimana">Settimana</a>
+      <a href="#spesa" id="tab-spesa">Spesa</a>
+      <a href="#regole" id="tab-regole">Regole</a>
+    </nav>
+    <p class="warn" id="warn" role="status" hidden></p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="view" id="v-oggi" aria-label="Oggi"></section>
+  <section class="view" id="v-settimana" aria-label="Settimana" hidden></section>
+  <section class="view" id="v-spesa" aria-label="Spesa" hidden></section>
+
+  <section class="view" id="v-regole" aria-label="Regole" hidden>
+    <details class="note" open>
+      <summary>Come usare la pagina</summary>
+      <div class="note__b">
+      <ol>
+        <li>La domenica apri Settimana, cambia quello che non ti va tenendo in regola l'equilibrio della settimana, poi fai la spesa dalla vista Spesa.</li>
+        <li>Ogni giorno apri Oggi e mangia quello che trovi scritto, senza scegliere al momento.</li>
+        <li>Se un pasto non ti va o manca un ingrediente, tocca Cambia e scegli un'altra alternativa del piano per quel giorno. Resta nel piano.</li>
+        <li>Se mangi fuori, tocca Mangio fuori sul pranzo o sulla cena: vedi quanto vale il pasto che sostituisci e la regola del piano per i pasti fuori casa.</li>
+        <li>Se a cena non c'è niente di pronto, usa la cena di riserva: due alimenti del piano che non vanno cucinati e stanno in dispensa.</li>
+        <li>Dopo ogni pasto segna Seguito, Libero o Fuori piano. Se è fuori piano segna anche il motivo: dopo due settimane la pagina mostra quale pasto salta e perché.</li>
+      </ol>
+      </div>
+    </details>
+
+    <details class="note">
+      <summary>Regole generali del dietista</summary>
+      <div class="note__b">
+      <p class="lead">Dal piano precedente. Confermate da te il 22/11/2026: valgono ancora.</p>
+      <ul>
+        <li>Tutti i pesi sono a crudo e al netto degli scarti.</li>
+        <li>Almeno 5 pasti al giorno: 3 principali e 2 spuntini. Non saltare i pasti e riposare bene.</li>
+        <li>Non far passare più di 3-4 ore tra un pasto e l'altro. Nel piano è scritto 3/4 h.</li>
+        <li>Acqua: almeno mezzo litro a ogni pasto, regola che hai aggiunto tu il 23/11/2026. Il piano chiede almeno 2 litri al giorno e indica una bottiglietta da mezzo litro a metà mattina e a merenda, due a pranzo e due a cena.</li>
+        <li>Evitare l'alcol.</li>
+        <li>Pasto libero: una volta a settimana può sostituire il pranzo o la cena. La pagina conta la settimana da lunedì a domenica.</li>
+        <li>Se pranzo o cena sono fuori casa più di 2 volte su 7, evitare i primi e preferire pane, un secondo ai ferri e un contorno di verdure.</li>
+        <li>Fonti proteiche, su 7 pranzi e 7 cene: carne bianca 3 e 3, pesce 2 e 2, carne rossa 1 e 1, uova o formaggi 1 e 1.</li>
+        <li>Olio extravergine a crudo, misurato con i cucchiaini. Cotture semplici: vapore, griglia, forno, cartoccio, bollitura.</li>
+        <li>Sale con moderazione, solo in cottura e mai a tavola. Spezie, limone e aceto sono liberi.</li>
+      </ul>
+      </div>
+    </details>
+
+    <details class="note" id="nut-note"></details>
+
+    <details class="note">
+      <summary>Note del dietista</summary>
+      <div class="note__b">
+      <ul>
+        <li>Yogurt: 125 g sono un vasetto standard. Deve essere 0% o al massimo 0,01% di grassi, gusto a piacere.</li>
+        <li>Fette biscottate: 27 g sono circa 3 fette. La marmellata è ammessa solo se 100% frutta.</li>
+        <li>Gallette: 16 g sono circa 2 gallette.</li>
+        <li>Pane: sempre tostato.</li>
+        <li>Tonno sott'olio: 110 g sono due scatolette ben sgocciolate.</li>
+        <li>Olio: 15 g sono 3 cucchiaini per tutto il pasto, da usare dove preferisci. Per la cena il piano precisa a crudo.</li>
+        <li>Verdure: a piacere per qualità e quantità, anche più porzioni a pasto.</li>
+        <li>Parmigiano: 20 g sono uno snack Parmareggio.</li>
+      </ul>
+      </div>
+    </details>
+
+    <details class="note">
+      <summary>Da chiarire con il dietista</summary>
+      <div class="note__b">
+      <p class="lead">Sono punti che i due piani non scrivono. Qui non sono stati decisi al posto suo.</p>
+      <ul>
+        <li>Vitello, maiale, bresaola e prosciutto crudo a pranzo o a cena: in quale frequenza contano? La regola nomina solo carne bianca, carne rossa, pesce, uova o formaggi.</li>
+        <li>Quanta marmellata sulle fette biscottate.</li>
+      </ul>
+      </div>
+    </details>
+
+    <p class="source">Fonti: Piano alimentare personalizzato del 21/11/2026 e piano precedente, del dietista. Alternative e grammi sono quelli del piano del 21/11/2026. Regole generali e frequenze sono quelle del piano precedente. Il menu della settimana e la cena di riserva sono proposte costruite scegliendo tra quelle alternative.</p>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" hidden><span id="toast-t"></span><button type="button" class="link" data-act="undo">Annulla</button></div>
+
+<script>
+/* Dati del piano alimentare del 21/11/2026 (del dietista).
+   Ogni alternativa e ogni grammatura sono copiate dal PDF del piano.
+   Il menu settimanale (DEFAULT_MENU) è una proposta costruita scegliendo tra quelle alternative
+   e rispettando le frequenze delle fonti proteiche. c = categoria della fonte proteica. */
+const PIANO = (function () {
+  // r = reparto; u = unità di acquisto ricavata dalle note del piano; h = nota breve
+  const FOODS = {
+    // Latticini e uova
+    latte: { n: 'Latte parzialmente scremato', r: 'lat' },
+    yogurt: { n: 'Yogurt 0% grassi', r: 'lat', u: { g: 125, s: 'vasetto', p: 'vasetti' }, h: '1 vasetto, 0% o massimo 0,01% di grassi' },
+    parmigiano: { n: 'Parmigiano', r: 'lat', u: { g: 20, s: 'porzione da 20 g', p: 'porzioni da 20 g', sub: true }, h: '1 snack Parmareggio' },
+    ricotta: { n: 'Ricotta di vacca', r: 'lat', c: 'U', q: true },
+    mozzarella: { n: 'Mozzarella light Galbani', r: 'lat', c: 'U', q: true },
+    fiocchi_latte: { n: 'Fiocchi di formaggio magro', r: 'lat', c: 'U', q: true },
+    uova: { n: 'Uova', r: 'lat', c: 'U', u: { g: 60, s: 'uovo', p: 'uova' }, h: 'due uova' },
+
+    // Colazione
+    biscotti_int: { n: 'Biscotti integrali', r: 'dis' },
+    oro_saiwa: { n: 'Oro Saiwa', r: 'dis' },
+    riso_soffiato: { n: 'Riso soffiato da colazione', r: 'dis' },
+    muesli: { n: 'Muesli', r: 'dis' },
+    avena: { n: "Fiocchi d'avena", r: 'dis' },
+    cornflakes: { n: 'Cornflakes', r: 'dis' },
+    biscotti_secchi: { n: 'Biscotti secchi', r: 'dis' },
+    fette_bisc: { n: 'Fette biscottate', r: 'dis', u: { g: 9, s: 'fetta', p: 'fette' }, h: 'circa 3 fette, con marmellata 100% frutta se vuoi' },
+    orzo: { n: 'Orzo perlato', r: 'dis' },
+    mandorle: { n: 'Mandorle', r: 'dis' },
+    noci: { n: 'Noci', r: 'dis' },
+
+    // Spuntino del mattino
+    fesa: { n: 'Fesa di tacchino', r: 'car', c: 'B' },
+    bresaola: { n: 'Bresaola', r: 'car', c: 'X', q: true },
+    crudo: { n: 'Prosciutto crudo di Parma magro, senza grasso visibile', r: 'car', c: 'X', q: true },
+    salmone_aff: { n: 'Salmone affumicato', r: 'pes' },
+    arrosto_pollo: { n: 'Arrosto di pollo Arena', r: 'car' },
+    gallette_riso: { n: 'Gallette di riso', r: 'dis', u: { g: 8, s: 'galletta', p: 'gallette' }, h: 'circa 2 gallette' },
+    gallette_farro: { n: 'Gallette di farro', r: 'dis', u: { g: 8, s: 'galletta', p: 'gallette' }, h: 'circa 2 gallette' },
+    gallette_kamut: { n: 'Gallette di kamut', r: 'dis', u: { g: 8, s: 'galletta', p: 'gallette' }, h: 'circa 2 gallette' },
+    crackers_riso: { n: 'Crackers di riso', r: 'dis' },
+    crackers_int: { n: 'Crackers integrali', r: 'dis' },
+    pane_int: { n: 'Pane integrale', r: 'pan', q: true, h: 'tostato' },
+    pane_segale: { n: 'Pane di segale', r: 'pan', q: true, h: 'tostato' },
+    wasa: { n: 'Fette Wasa', r: 'dis' },
+
+    // Cereali, legumi, patate
+    pasta: { n: 'Pasta di semola', r: 'dis' },
+    borlotti_scat: { n: 'Fagioli borlotti in scatola, scolati', r: 'dis', q: true },
+    ceci_scat: { n: 'Ceci in scatola, scolati', r: 'dis', q: true },
+    lenticchie_scat: { n: 'Lenticchie in scatola, scolate', r: 'dis', q: true },
+    farro: { n: 'Farro', r: 'dis' },
+    riso_parb: { n: 'Riso parboiled', r: 'dis' },
+    riso_int: { n: 'Riso integrale', r: 'dis' },
+    mais: { n: 'Mais dolce in scatola, sgocciolato', r: 'dis', q: true },
+    lenticchie_sec: { n: 'Lenticchie secche', r: 'dis' },
+    borlotti_sec: { n: 'Fagioli borlotti secchi', r: 'dis' },
+    ceci_sec: { n: 'Ceci secchi', r: 'dis' },
+    couscous: { n: 'Cous cous', r: 'dis' },
+    quinoa: { n: 'Quinoa', r: 'dis' },
+    patate: { n: 'Patate', r: 'ort' },
+
+    // Carne
+    pollo: { n: 'Petto di pollo', r: 'car', c: 'B' },
+    vitello: { n: 'Vitello, filetto', r: 'car', c: 'X' },
+    tacchino_intero: { n: 'Tacchino intero, senza pelle', r: 'car', c: 'B' },
+    tacchino_petto: { n: 'Petto di tacchino', r: 'car', c: 'B' },
+    maiale_bistecca: { n: 'Maiale leggero, bistecca', r: 'car', c: 'X' },
+    maiale_lombo: { n: 'Maiale leggero, lombo', r: 'car', c: 'X' },
+    manzo: { n: 'Manzo magro', r: 'car', c: 'R' },
+    bovino_filetto: { n: 'Bovino adulto o vitellone, filetto senza grasso visibile', r: 'car', c: 'R' },
+
+    // Pesce
+    halibut: { n: 'Halibut', r: 'pes', c: 'P' },
+    merluzzo: { n: 'Merluzzo o nasello', r: 'pes', c: 'P' },
+    merluzzo_surg: { n: 'Merluzzo o nasello surgelato', r: 'pes', c: 'P' },
+    sgombro: { n: 'Sgombro', r: 'pes', c: 'P' },
+    seppia: { n: 'Seppia', r: 'pes', c: 'P' },
+    tonno_olio: { n: "Tonno sott'olio, sgocciolato", r: 'dis', c: 'P', q: true, u: { g: 55, s: 'scatoletta', p: 'scatolette' }, h: '2 scatolette ben sgocciolate' },
+    sogliola: { n: 'Sogliola', r: 'pes', c: 'P' },
+    spigola: { n: 'Spigola', r: 'pes', c: 'P' },
+    spada: { n: 'Pesce spada', r: 'pes', c: 'P' },
+    trota: { n: 'Trota', r: 'pes', c: 'P' },
+    tonno: { n: 'Tonno', r: 'pes', c: 'P' },
+    salmone: { n: 'Salmone fresco', r: 'pes', c: 'P' },
+    polpo: { n: 'Polpo', r: 'pes', c: 'P' },
+    calamaro: { n: 'Calamaro', r: 'pes', c: 'P' },
+    calamaro_surg: { n: 'Calamaro surgelato', r: 'pes', c: 'P' },
+    platessa: { n: 'Platessa', r: 'pes', c: 'P' },
+    rombo: { n: 'Rombo', r: 'pes', c: 'P' },
+    dentice: { n: 'Dentice', r: 'pes', c: 'P' },
+    orata: { n: 'Orata', r: 'pes', c: 'P' },
+    orata_filetti: { n: 'Orata fresca, filetti', r: 'pes', c: 'P' },
+    cernia: { n: 'Cernia', r: 'pes', c: 'P' },
+
+    // Voci fisse
+    frutta: { n: 'Frutta fresca', r: 'ort' },
+    verdure: { n: 'Verdure', r: 'ort', h: 'a piacere, anche più porzioni' },
+    olio: { n: 'Olio extravergine di oliva', r: 'dis', h: '3 cucchiaini, a crudo' }
+  };
+
+  const REPARTI = [
+    { id: 'ort', n: 'Frutta e verdura' },
+    { id: 'car', n: 'Carne e affettati' },
+    { id: 'pes', n: 'Pesce' },
+    { id: 'lat', n: 'Latticini e uova' },
+    { id: 'pan', n: 'Pane' },
+    { id: 'dis', n: 'Dispensa' }
+  ];
+
+  // Per ogni scelta: [alimento, grammi]. La prima è quella della colonna "Alimento", le altre della colonna "Oppure".
+  const MEALS = [
+    {
+      id: 'col', n: 'Colazione', b: 'Colazione',
+      slots: [
+        { id: 'c1', n: 'Latte o yogurt', opts: [['latte', 200], ['yogurt', 125]] },
+        { id: 'c2', n: 'Biscotti o cereali', opts: [['biscotti_int', 40], ['oro_saiwa', 40], ['riso_soffiato', 50], ['muesli', 40], ['avena', 50], ['cornflakes', 30], ['biscotti_secchi', 40], ['fette_bisc', 27], ['orzo', 50]] },
+        { id: 'c3', n: 'Frutta secca', opts: [['mandorle', 15], ['noci', 15]] }
+      ]
+    },
+    {
+      id: 'spm', n: 'Spuntino del mattino', b: 'Spuntino',
+      slots: [
+        { id: 'm1', n: 'Affettato o salmone', opts: [['fesa', 40], ['bresaola', 30], ['crudo', 30], ['salmone_aff', 30], ['arrosto_pollo', 40]] },
+        { id: 'm2', n: 'Gallette, crackers o pane', opts: [['gallette_riso', 16], ['gallette_farro', 16], ['gallette_kamut', 16], ['crackers_riso', 20], ['crackers_int', 20], ['pane_int', 40], ['pane_segale', 40], ['wasa', 20]] }
+      ]
+    },
+    {
+      id: 'pra', n: 'Pranzo', b: 'Pranzo', free: true,
+      slots: [
+        { id: 'p1', n: 'Pasta, cereali, legumi o pane', opts: [['pasta', 80], ['borlotti_scat', 150], ['ceci_scat', 150], ['lenticchie_scat', 200], ['farro', 80], ['riso_parb', 80], ['riso_int', 80], ['orzo', 80], ['mais', 180], ['pane_int', 120], ['lenticchie_sec', 100], ['borlotti_sec', 80], ['ceci_sec', 80], ['couscous', 80]] },
+        { id: 'p2', n: 'Carne, pesce, uova o formaggio', opts: [['pollo', 150], ['fesa', 150], ['vitello', 150], ['bresaola', 100], ['crudo', 120], ['tacchino_intero', 150], ['halibut', 150], ['merluzzo', 200], ['sgombro', 120], ['seppia', 200], ['tonno_olio', 110], ['sogliola', 220], ['spigola', 220], ['merluzzo_surg', 200], ['spada', 150], ['uova', 120], ['ricotta', 120], ['trota', 200], ['tonno', 150], ['salmone', 150], ['maiale_bistecca', 150], ['mozzarella', 150], ['tacchino_petto', 150], ['fiocchi_latte', 120], ['polpo', 250], ['calamaro_surg', 200], ['platessa', 150], ['manzo', 170], ['rombo', 200], ['dentice', 160], ['bovino_filetto', 150], ['orata_filetti', 150]] }
+      ],
+      post: [['verdure', null], ['olio', 15]]
+    },
+    {
+      id: 'spp', n: 'Spuntino del pomeriggio', b: 'Merenda',
+      pre: [['frutta', 200]],
+      slots: [
+        { id: 's1', n: 'Parmigiano, frutta secca o yogurt', opts: [['parmigiano', 20], ['noci', 15], ['mandorle', 15], ['yogurt', 125]] }
+      ]
+    },
+    {
+      id: 'cen', n: 'Cena', b: 'Cena', free: true,
+      slots: [
+        { id: 'd1', n: 'Pane, patate, cereali o legumi', opts: [['pane_int', 80], ['borlotti_scat', 180], ['ceci_scat', 180], ['patate', 220], ['lenticchie_scat', 200], ['farro', 50], ['orzo', 50], ['lenticchie_sec', 80], ['ceci_sec', 60], ['borlotti_sec', 60], ['couscous', 60], ['quinoa', 60], ['mais', 200]] },
+        { id: 'd2', n: 'Pesce, carne, uova o formaggio', opts: [['merluzzo', 200], ['pollo', 150], ['sogliola', 200], ['spada', 150], ['tacchino_petto', 150], ['fiocchi_latte', 100], ['ricotta', 120], ['seppia', 200], ['calamaro', 200], ['tonno_olio', 110], ['tonno', 150], ['spigola', 200], ['sgombro', 120], ['salmone', 150], ['halibut', 150], ['crudo', 120], ['bresaola', 100], ['fesa', 130], ['tacchino_intero', 150], ['vitello', 150], ['bovino_filetto', 150], ['manzo', 150], ['platessa', 150], ['uova', 120], ['rombo', 200], ['dentice', 150], ['maiale_bistecca', 150], ['mozzarella', 150], ['orata', 150], ['cernia', 150], ['polpo', 250], ['orata_filetti', 150], ['maiale_lombo', 150]] }
+      ],
+      post: [['verdure', null], ['olio', 15]]
+    }
+  ];
+
+  const DAYS = [
+    { n: 'Lunedì', s: 'lun', i: 'L' }, { n: 'Martedì', s: 'mar', i: 'M' }, { n: 'Mercoledì', s: 'mer', i: 'M' },
+    { n: 'Giovedì', s: 'gio', i: 'G' }, { n: 'Venerdì', s: 'ven', i: 'V' }, { n: 'Sabato', s: 'sab', i: 'S' }, { n: 'Domenica', s: 'dom', i: 'D' }
+  ];
+
+  // Menu proposto: una scelta per ogni casella, da lunedì a domenica.
+  const DEFAULT_MENU = [
+    { c1: 'yogurt', c2: 'avena', c3: 'mandorle', m1: 'fesa', m2: 'gallette_riso', p1: 'riso_parb', p2: 'pollo', s1: 'parmigiano', d1: 'pane_int', d2: 'merluzzo' },
+    { c1: 'latte', c2: 'fette_bisc', c3: 'noci', m1: 'fesa', m2: 'gallette_riso', p1: 'pasta', p2: 'tonno_olio', s1: 'yogurt', d1: 'patate', d2: 'tacchino_petto' },
+    { c1: 'yogurt', c2: 'avena', c3: 'mandorle', m1: 'fesa', m2: 'gallette_riso', p1: 'farro', p2: 'pollo', s1: 'parmigiano', d1: 'pane_int', d2: 'mozzarella' },
+    { c1: 'latte', c2: 'fette_bisc', c3: 'noci', m1: 'bresaola', m2: 'gallette_riso', p1: 'ceci_scat', p2: 'uova', s1: 'yogurt', d1: 'patate', d2: 'merluzzo' },
+    { c1: 'yogurt', c2: 'avena', c3: 'mandorle', m1: 'fesa', m2: 'gallette_riso', p1: 'riso_parb', p2: 'tacchino_petto', s1: 'parmigiano', d1: 'pane_int', d2: 'manzo' },
+    { c1: 'latte', c2: 'fette_bisc', c3: 'noci', m1: 'bresaola', m2: 'gallette_riso', p1: 'pasta', p2: 'salmone', s1: 'yogurt', d1: 'lenticchie_scat', d2: 'tacchino_petto' },
+    { c1: 'yogurt', c2: 'avena', c3: 'mandorle', m1: 'bresaola', m2: 'gallette_riso', p1: 'pasta', p2: 'manzo', s1: 'parmigiano', d1: 'pane_int', d2: 'pollo' }
+  ];
+
+  // Il primo menu pubblicato differiva da quello attuale in queste due caselle (prima dell'allineamento alle frequenze).
+  // Serve a riconoscere le copie del menu salvate sul dispositivo con la prima versione.
+  const OLD_DEFAULT_DIFF = { 4: { d2: 'bresaola' }, 5: { d2: 'uova' } };
+
+
+  // Valori nutrizionali per 100 g di alimento crudo: [kcal, proteine g, grassi g, carboidrati disponibili g, fibra g].
+  // s = codice della pagina CREA (alimentinutrizione.it/tabelle-nutrizionali/<codice>), letta il 22/11/2026.
+  // a = nota quando la voce CREA non coincide con quella del piano, o quando la fonte non è CREA.
+  const NUT = {
+    latte: { v: [46, 3.5, 1.5, 5.0, 0], s: '135020' },
+    yogurt: { v: [36, 3.3, 0.9, 4.0, 0], s: '152000', a: 'Yogurt: voce CREA "yogurt da latte scremato". Uno yogurt 0% alla frutta può avere valori diversi: guarda l\'etichetta.' },
+    parmigiano: { v: [397, 32.4, 29.7, 0, 0], s: '166000' },
+    ricotta: { v: [146, 8.8, 10.9, 3.5, 0], s: '166820' },
+    fiocchi_latte: { v: [115, 9.7, 7.1, 3.2, 0], s: '170010' },
+    uova: { v: [128, 12.4, 8.7, 0, 0], s: '181100' },
+    biscotti_int: { v: [419, 7.8, 12.3, 70.8, 6], s: '000910' },
+    riso_soffiato: { v: [354, 6.0, 1.0, 85.1, 1], s: '003050' },
+    muesli: { v: [374, 9.7, 6.0, 71.7, 6.4], s: '003040' },
+    avena: { v: [367, 8.0, 7.5, 66.8, 8.3], s: '003030' },
+    cornflakes: { v: [367, 6.6, 0.8, 87.4, 2.8], s: '003020' },
+    biscotti_secchi: { v: [404, 6.6, 7.9, 80.4, 2.6], s: '000950' },
+    fette_bisc: { v: [387, 11.3, 6, 75.0, 3.5], s: '001500' },
+    orzo: { v: [346, 9.4, 1.5, 73.7, 9.2], s: '000090' },
+    mandorle: { v: [628, 22.0, 55.3, 4.6, 12.7], s: '008540' },
+    noci: { v: [702, 14.3, 68.1, 5.1, 6.2], s: '008570' },
+    fesa: { v: [107, 24.0, 1.2, 0, 0], s: '106850' },
+    bresaola: { v: [152, 33.1, 2.0, 0.4, 0], s: '110020' },
+    crudo: { v: [176, 29.1, 6.4, 0.4, 0], s: '110511' },
+    salmone_aff: { v: [147, 25.4, 4.5, 1.2, 0], s: '122410' },
+    crackers_int: { v: [402, 12.0, 11.4, 61.7, 10.0], s: '001030' },
+    pane_int: { v: [224, 8.5, 1.3, 44.1, 6.5], s: '000550' },
+    pane_segale: { v: [228, 8.3, 1.7, 45.4, 4.6], s: '000510' },
+    pasta: { v: [341, 13.5, 1.2, 72.7, 1.7], s: '000800' },
+    borlotti_scat: { v: [102, 6.7, 0.5, 15.9, 5.5], s: '004130' },
+    ceci_scat: { v: [111, 6.7, 2.3, 13.9, 5.7], s: '004010' },
+    lenticchie_scat: { v: [91, 5.0, 0.5, 15.4, 4.2], s: '004510' },
+    farro: { v: [353, 14.6, 2.4, 69.3, 6.5], s: '000020' },
+    riso_parb: { v: [338, 7.4, 0.3, 81.3, 0.5], s: '000120' },
+    riso_int: { v: [341, 7.5, 1.9, 77.4, 1.9], s: '000110' },
+    mais: { v: [105, 3.4, 1.3, 20.5, 1.4], s: '000070' },
+    lenticchie_sec: { v: [319, 22.7, 1, 51.1, 13.8], s: '004500' },
+    borlotti_sec: { v: [312, 20.2, 2.0, 47.7, 17.3], s: '004120' },
+    ceci_sec: { v: [343, 20.9, 6.3, 46.9, 13.6], s: '004000' },
+    couscous: { v: [361, 13.7, 1.1, 76.5, 4.5], s: '000045' },
+    quinoa: { v: [376, 15.4, 8.1, 57.8, 12.2], s: '000096' },
+    patate: { v: [72, 2.0, 0.1, 16.0, 1.8], s: '006500' },
+    pollo: { v: [100, 23.3, 0.8, 0, 0], s: '106500' },
+    vitello: { v: [107, 20.7, 2.7, 0, 0], s: '101520' },
+    tacchino_intero: { v: [109, 21.9, 2.4, 0, 0], s: '106710' },
+    tacchino_petto: { v: [107, 24.0, 1.2, 0, 0], s: '106850', a: 'Petto di tacchino: CREA non ha questa voce, uso la fesa di tacchino cruda.' },
+    maiale_bistecca: { v: [157, 21.3, 8.0, 0, 0], s: '105230', a: 'Maiale leggero, bistecca: uso la voce CREA "maiale, bistecca, crudo".' },
+    maiale_lombo: { v: [146, 20.7, 7.0, 0, 0], s: '105210', a: 'Maiale leggero, lombo: uso la voce CREA "maiale, lombo, crudo".' },
+    manzo: { v: [117, 21.5, 3.4, 0, 0], s: '101130', a: 'Manzo magro: CREA non ha questa voce, uso "bovino adulto o vitellone, tagli posteriori, crudo".' },
+    bovino_filetto: { v: [127, 20.5, 5.0, 0, 0], s: '101170' },
+    halibut: { v: [114, 20.6, 3.5, 0, 0], s: '121010' },
+    merluzzo: { v: [71, 17.0, 0.3, 0, 0], s: '121410' },
+    merluzzo_surg: { v: [75, 17.3, 0.6, 0, 0], s: '121420' },
+    sgombro: { v: [170, 17.0, 11.1, 0.5, 0], s: '123000' },
+    seppia: { v: [72, 14.0, 1.5, 0.7, 0], s: '127160' },
+    tonno_olio: { v: [192, 25.2, 10.1, 0, 0], s: '123610' },
+    sogliola: { v: [83, 16.9, 1.4, 0.8, 0], s: '123100' },
+    spigola: { v: [82, 16.5, 1.5, 0.6, 0], s: '123200' },
+    trota: { v: [86, 14.7, 3, 0, 0], s: '124000' },
+    tonno: { v: [159, 21.5, 8.1, 0.1, 0], s: '123500' },
+    salmone: { v: [185, 18.4, 12, 1, 0], s: '122400' },
+    polpo: { v: [57, 10.6, 1.0, 1.4, 0], s: '127150' },
+    calamaro: { v: [68, 12.6, 1.7, 0.6, 0], s: '127100' },
+    calamaro_surg: { v: [68, 13.1, 1.5, 0.6, 0], s: '127110' },
+    rombo: { v: [81, 16.3, 1.3, 1.2, 0], s: '122300' },
+    dentice: { v: [101, 16.7, 3.5, 0.7, 0], s: '120910' },
+    orata: { v: [121, 20.7, 3.8, 1, 0], s: '121720', a: 'Orata: uso la voce CREA "orata, filetti".' },
+    orata_filetti: { v: [121, 20.7, 3.8, 1, 0], s: '121720' },
+    cernia: { v: [88, 17.0, 2.0, 0.5, 0], s: '120610', a: 'Cernia: CREA ha solo la cernia surgelata.' },
+    frutta: { v: [44, 0.2, 0, 10.0, 2.6], s: '007120', a: 'Frutta fresca: il piano non dice quale, la calcolo come mela con buccia.' },
+    olio: { v: [899, 0, 99.9, 0, 0], s: '009210' },
+    // Non presenti nelle tabelle CREA: valori di etichetta ripresi da FatSecret (banca dati compilata dagli utenti), non dal produttore.
+    mozzarella: { v: [165, 19, 9, 2, 0], s: 'ext', a: 'Mozzarella light Galbani: valore di etichetta ripreso da FatSecret, non dal sito del produttore.' },
+    gallette_riso: { v: [381, 7.8, 1.6, 83, 0], s: 'ext', a: 'Gallette di riso Scotti: valore di etichetta ripreso da FatSecret, non dal sito del produttore. Fibra non indicata.' }
+  };
+
+  // Acqua: regola di Matteo del 23/11/2026, almeno mezzo litro a ogni pasto.
+  // Il piano precedente indica una bottiglietta da 0,5 l a metà mattina e a merenda, due a pranzo e due a cena.
+  const WATER = {
+    min: '0,5 l',
+    hint: { col: 'almeno mezzo litro', spm: 'almeno mezzo litro', pra: 'almeno mezzo litro, il piano ne indica un litro', spp: 'almeno mezzo litro', cen: 'almeno mezzo litro, il piano ne indica un litro' }
+  };
+
+  // Cena di riserva proposta: due alimenti della cena del piano che non vanno cucinati e stanno in dispensa.
+  const RISERVA = { d1: 'ceci_scat', d2: 'tonno_olio' };
+
+  // Frequenze delle fonti proteiche (piano precedente, confermate da Matteo il 22/11/2026):
+  // su 7 pranzi e 7 cene, 3 e 3 di carne bianca, 2 e 2 di pesce, 1 e 1 di carne rossa, 1 e 1 di uova o formaggi.
+  // La regola non nomina vitello, maiale, bresaola e prosciutto crudo: categoria X, da chiarire.
+  const FREQ = [
+    { id: 'B', n: 'Carne bianca', pr: 3, ce: 3 },
+    { id: 'P', n: 'Pesce', pr: 2, ce: 2 },
+    { id: 'R', n: 'Carne rossa', pr: 1, ce: 1 },
+    { id: 'U', n: 'Uova o formaggi', pr: 1, ce: 1 }
+  ];
+
+  // Motivi da segnare quando un pasto è fuori piano.
+  const REASONS = [
+    { id: 'pronto', n: 'Niente di pronto' },
+    { id: 'tempo', n: 'Poco tempo' },
+    { id: 'fuori', n: 'Ero fuori casa' },
+    { id: 'voglia', n: "Voglia d'altro" },
+    { id: 'saltato', n: 'Pasto saltato' },
+    { id: 'altro', n: 'Altro' }
+  ];
+
+  return { FOODS: FOODS, REPARTI: REPARTI, MEALS: MEALS, DAYS: DAYS, DEFAULT_MENU: DEFAULT_MENU, RISERVA: RISERVA, REASONS: REASONS, FREQ: FREQ, OLD_DEFAULT_DIFF: OLD_DEFAULT_DIFF, NUT: NUT, WATER: WATER };
+})();
+
+/* Funzioni pure: righe di un pasto, lista della spesa, formati. */
+const LOGICA = (function () {
+  function slotIndex(P) {
+    const idx = {};
+    P.MEALS.forEach(function (m) {
+      m.slots.forEach(function (s) {
+        const grams = {};
+        s.opts.forEach(function (o) { grams[o[0]] = o[1]; });
+        idx[s.id] = { meal: m, slot: s, grams: grams };
+      });
+    });
+    return idx;
+  }
+
+  // Tiene solo scelte che esistono nel piano; il resto torna al menu proposto.
+  function validMenu(P, idx, menu) {
+    const out = [];
+    for (let d = 0; d < 7; d++) {
+      const day = (Array.isArray(menu) && menu[d]) || {};
+      const row = {};
+      Object.keys(idx).forEach(function (id) {
+        const k = day[id];
+        row[id] = (typeof k === 'string' && idx[id].grams[k] != null) ? k : P.DEFAULT_MENU[d][id];
+      });
+      out.push(row);
+    }
+    return out;
+  }
+
+  // Modifiche dell'utente al menu proposto: { giorno: { casella: alimento } }, senza le voci uguali al menu proposto.
+  function validOver(P, idx, over) {
+    const out = {};
+    if (!over || typeof over !== 'object') return out;
+    for (let d = 0; d < 7; d++) {
+      const day = over[d];
+      if (!day || typeof day !== 'object') continue;
+      Object.keys(idx).forEach(function (id) {
+        const k = day[id];
+        if (typeof k === 'string' && idx[id].grams[k] != null && k !== P.DEFAULT_MENU[d][id]) {
+          (out[d] || (out[d] = {}))[id] = k;
+        }
+      });
+    }
+    return out;
+  }
+  // Vecchio formato (menu intero): è una modifica solo ciò che differiva dal menu proposto di allora.
+  function overFromDays(P, idx, days) {
+    const over = {};
+    if (!Array.isArray(days)) return over;
+    for (let d = 0; d < 7; d++) {
+      const day = days[d];
+      if (!day || typeof day !== 'object') continue;
+      Object.keys(idx).forEach(function (id) {
+        const was = (P.OLD_DEFAULT_DIFF[d] && P.OLD_DEFAULT_DIFF[d][id]) || P.DEFAULT_MENU[d][id];
+        if (typeof day[id] === 'string' && day[id] !== was) (over[d] || (over[d] = {}))[id] = day[id];
+      });
+    }
+    return validOver(P, idx, over);
+  }
+  function menuFrom(P, over) {
+    return P.DEFAULT_MENU.map(function (day, d) {
+      const row = {};
+      Object.keys(day).forEach(function (id) { row[id] = (over[d] && over[d][id]) || day[id]; });
+      return row;
+    });
+  }
+
+  // Cambi validi per un solo giorno: casella -> alimento ammesso in quella casella.
+  function validSwap(idx, swap) {
+    const out = {};
+    if (!swap || typeof swap !== 'object') return out;
+    Object.keys(idx).forEach(function (id) {
+      const k = swap[id];
+      if (typeof k === 'string' && idx[id].grams[k] != null) out[id] = k;
+    });
+    return out;
+  }
+  function withSwap(dayMenu, swap) {
+    const out = {};
+    Object.keys(dayMenu).forEach(function (id) { out[id] = (swap && swap[id]) || dayMenu[id]; });
+    return out;
+  }
+
+  function mealRows(idx, dayMenu, meal) {
+    const rows = [];
+    (meal.pre || []).forEach(function (o) { rows.push({ k: o[0], g: o[1] }); });
+    meal.slots.forEach(function (s) {
+      const k = dayMenu[s.id];
+      rows.push({ k: k, g: idx[s.id].grams[k], slot: s.id });
+    });
+    (meal.post || []).forEach(function (o) { rows.push({ k: o[0], g: o[1] }); });
+    return rows;
+  }
+
+  // Somma i grammi per alimento sui giorni scelti (mask: 7 booleani).
+  function shopping(P, idx, menu, mask) {
+    const tot = {};
+    menu.forEach(function (day, d) {
+      if (!mask[d]) return;
+      P.MEALS.forEach(function (m) {
+        mealRows(idx, day, m).forEach(function (r) {
+          const t = tot[r.k] || (tot[r.k] = { k: r.k, g: 0, n: 0, uses: [] });
+          if (r.g != null) t.g += r.g;
+          t.n += 1;
+          t.uses.push({ d: d, m: m.id });
+        });
+      });
+    });
+    return tot;
+  }
+
+  // Conta le fonti proteiche del menu settimanale, separando pranzi e cene.
+  function balance(P, menu) {
+    const out = { X: { pr: 0, ce: 0 } };
+    P.FREQ.forEach(function (f) { out[f.id] = { pr: 0, ce: 0 }; });
+    menu.forEach(function (day) {
+      [['p2', 'pr'], ['d2', 'ce']].forEach(function (x) {
+        const c = P.FOODS[day[x[0]]].c || 'X';
+        out[c][x[1]] += 1;
+      });
+    });
+    return out;
+  }
+
+  // Totale nutrizionale di un pasto: somma dei grammi del piano per i valori per 100 g.
+  // Le verdure non hanno una quantità nel piano e restano fuori; gli alimenti senza dato finiscono in "missing".
+  function mealNut(P, idx, dayMenu, meal) {
+    const t = [0, 0, 0, 0, 0], missing = [];
+    mealRows(idx, dayMenu, meal).forEach(function (r) {
+      if (r.g == null) return;
+      const n = P.NUT[r.k];
+      if (!n) { missing.push(r.k); return; }
+      for (let i = 0; i < 5; i++) t[i] += n.v[i] * r.g / 100;
+    });
+    return { t: t, missing: missing };
+  }
+  function dayNut(P, idx, dayMenu) {
+    const t = [0, 0, 0, 0, 0];
+    let missing = [];
+    P.MEALS.forEach(function (m) {
+      const x = mealNut(P, idx, dayMenu, m);
+      for (let i = 0; i < 5; i++) t[i] += x.t[i];
+      missing = missing.concat(x.missing);
+    });
+    return { t: t, missing: missing };
+  }
+  // Calorie minime e massime di un pasto al variare delle alternative che hanno un dato.
+  function mealRange(P, meal) {
+    let lo = 0, hi = 0;
+    (meal.pre || []).concat(meal.post || []).forEach(function (o) {
+      if (o[1] != null && P.NUT[o[0]]) { const k = P.NUT[o[0]].v[0] * o[1] / 100; lo += k; hi += k; }
+    });
+    meal.slots.forEach(function (s) {
+      const ks = s.opts.filter(function (o) { return P.NUT[o[0]]; }).map(function (o) { return P.NUT[o[0]].v[0] * o[1] / 100; });
+      lo += Math.min.apply(null, ks); hi += Math.max.apply(null, ks);
+    });
+    return [lo, hi];
+  }
+
+  function fmtG(g) {
+    if (g >= 1000) {
+      return (Math.round(g / 10) / 100).toLocaleString('it-IT', { maximumFractionDigits: 2 }) + ' kg';
+    }
+    return g + ' g';
+  }
+
+  // Quantità da comprare: unità del piano quando esiste (vasetti, gallette, scatolette), altrimenti grammi.
+  function fmtBuy(food, g) {
+    if (food.u) {
+      const c = g / food.u.g;
+      if (Math.abs(c - Math.round(c)) < 1e-9) {
+        const n = Math.round(c);
+        const units = n + ' ' + (n === 1 ? food.u.s : food.u.p);
+        return food.u.sub ? { main: fmtG(g), sub: units } : { main: units, sub: fmtG(g) };
+      }
+    }
+    return { main: fmtG(g), sub: '' };
+  }
+
+  function usesText(P, uses, nDays) {
+    const byMeal = {};
+    const order = [];
+    uses.forEach(function (u) {
+      if (!byMeal[u.m]) { byMeal[u.m] = []; order.push(u.m); }
+      if (byMeal[u.m].indexOf(u.d) < 0) byMeal[u.m].push(u.d);
+    });
+    return order.map(function (mid) {
+      const meal = P.MEALS.filter(function (m) { return m.id === mid; })[0];
+      const days = byMeal[mid];
+      if (days.length === nDays && nDays >= 3) return meal.b + ' tutti i giorni';
+      return meal.b + ' ' + days.map(function (d) { return P.DAYS[d].s; }).join(', ');
+    }).join(' · ');
+  }
+
+  return { slotIndex: slotIndex, validMenu: validMenu, validOver: validOver, overFromDays: overFromDays, menuFrom: menuFrom, validSwap: validSwap, withSwap: withSwap, mealRows: mealRows, shopping: shopping, balance: balance, mealNut: mealNut, dayNut: dayNut, mealRange: mealRange, fmtG: fmtG, fmtBuy: fmtBuy, usesText: usesText };
+})();
+
+(function () {
+  'use strict';
+  var P = PIANO, L = LOGICA;
+  var idx = L.slotIndex(P);
+  var MEAL_IDS = P.MEALS.map(function (m) { return m.id; });
+  var REASON_IDS = P.REASONS.map(function (r) { return r.id; });
+  var MAIN_SLOTS = ['p1', 'p2', 'd1', 'd2'];
+  var VIEWS = ['oggi', 'settimana', 'spesa', 'regole'];
+  var NAMES = ['menu', 'log', 'spesa'];
+  var CACHE_KEY = 'piano-alimentare-v1';
+  var DOC = { menu: 'app/menu', log: 'app/log', spesa: 'app/spesa' };
+  var KEEP_DAYS = 180;
+  var STANDALONE = true;   // true nella copia pubblicata fuori da Claude: i dati restano nel browser, senza account
+
+  var state = {
+    over: {},
+    menu: clone(P.DEFAULT_MENU),
+    riserva: clone(P.RISERVA),
+    log: {},
+    spesa: { ticked: {}, giorni: [true, true, true, true, true, true, true], extra: [] },
+    unsynced: { menu: false, log: false, spesa: false }
+  };
+  var ui = { view: 'oggi', date: today(), openDays: {}, editMeal: null, openMeal: undefined, periodOpen: false, resetArmed: false, resetTimer: null, undo: null, undoTimer: null };
+  var prefs = { hide: false, pasti: false };
+  ui.openDays[dow(ui.date)] = true;
+
+  /* ---------- utilità ---------- */
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function $(id) { return document.getElementById(id); }
+  function ymd(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function today() { return ymd(new Date()); }
+  function parseYmd(s) { var p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  function addDays(s, n) { var d = parseYmd(s); d.setDate(d.getDate() + n); return ymd(d); }
+  function dow(s) { return (parseYmd(s).getDay() + 6) % 7; }
+  function longDate(s) {
+    var t = parseYmd(s).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+  function short(k) { return P.FOODS[k].n.split(',')[0]; }
+  function mealById(id) { return P.MEALS.filter(function (m) { return m.id === id; })[0]; }
+
+  /* ---------- dati: lettura sicura ---------- */
+  function cleanLog(days) {
+    var out = {};
+    if (!days || typeof days !== 'object') return out;
+    var limit = addDays(today(), -KEEP_DAYS);
+    Object.keys(days).forEach(function (d) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || d < limit) return;
+      var e = days[d], row = {};
+      if (!e || typeof e !== 'object') return;
+      P.MEALS.forEach(function (m) {
+        var v = e[m.id];
+        if (v === 'ok' || v === 'no' || (v === 'lib' && m.free)) row[m.id] = v;
+      });
+      if (e.why && typeof e.why === 'object') {
+        var why = {};
+        MEAL_IDS.forEach(function (m) { if (row[m] === 'no' && REASON_IDS.indexOf(e.why[m]) >= 0) why[m] = e.why[m]; });
+        if (Object.keys(why).length) row.why = why;
+      }
+      var sw = L.validSwap(idx, e.swap);
+      if (Object.keys(sw).length) row.swap = sw;
+      if (e.out && typeof e.out === 'object') {
+        var fuori = {};
+        P.MEALS.forEach(function (m) { if (m.free && e.out[m.id] === true) fuori[m.id] = true; });
+        if (Object.keys(fuori).length) row.out = fuori;
+      }
+      if (Object.keys(row).length) out[d] = row;
+    });
+    return out;
+  }
+  function cleanRiserva(r) {
+    var out = clone(P.RISERVA);
+    if (r && typeof r === 'object') {
+      ['d1', 'd2'].forEach(function (s) { if (typeof r[s] === 'string' && idx[s].grams[r[s]] != null) out[s] = r[s]; });
+    }
+    return out;
+  }
+  function cleanSpesa(s) {
+    var out = { ticked: {}, giorni: [true, true, true, true, true, true, true], extra: [] };
+    if (!s || typeof s !== 'object') return out;
+    if (Array.isArray(s.extra)) {
+      s.extra.slice(0, 60).forEach(function (x) {
+        if (x && typeof x.n === 'string' && x.n.trim() && typeof x.id === 'string' && /^[a-z0-9]{1,24}$/.test(x.id)) {
+          out.extra.push({ id: x.id, n: x.n.trim().slice(0, 60), r: x.r === 'ort' ? 'ort' : 'alt', done: x.done === true });
+        }
+      });
+    }
+    if (s.ticked && typeof s.ticked === 'object') {
+      Object.keys(s.ticked).forEach(function (k) {
+        if (s.ticked[k] === true && (P.FOODS[k] || k === 'marmellata' || k === 'ris_d1' || k === 'ris_d2')) out.ticked[k] = true;
+      });
+    }
+    if (Array.isArray(s.giorni) && s.giorni.length === 7 && s.giorni.some(Boolean)) {
+      out.giorni = s.giorni.map(Boolean);
+    }
+    return out;
+  }
+  function applyData(name, data) {
+    if (name === 'menu') {
+      // Si salvano solo le modifiche rispetto al menu proposto: se il menu proposto cambia, il resto lo segue.
+      state.over = data && data.over ? L.validOver(P, idx, data.over) : L.overFromDays(P, idx, data && data.days);
+      state.menu = L.menuFrom(P, state.over);
+      state.riserva = cleanRiserva(data && data.riserva);
+    }
+    else if (name === 'log') state.log = cleanLog(data && data.days);
+    else state.spesa = cleanSpesa(data);
+  }
+  function payload(name) {
+    if (name === 'menu') return { v: 3, over: clone(state.over), riserva: clone(state.riserva) };
+    if (name === 'log') return { v: 2, days: cleanLog(state.log) };
+    return { v: 2, ticked: clone(state.spesa.ticked), giorni: state.spesa.giorni.slice(), extra: clone(state.spesa.extra) };
+  }
+
+  /* ---------- copia sul dispositivo ---------- */
+  function cacheRead() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return;
+      var c = JSON.parse(raw);
+      applyData('menu', c.over ? { over: c.over, riserva: c.riserva } : { days: c.menu, riserva: c.riserva });
+      applyData('log', { days: c.log });
+      applyData('spesa', c.spesa);
+      if (c.unsynced && typeof c.unsynced === 'object') {
+        NAMES.forEach(function (n) { state.unsynced[n] = c.unsynced[n] === true; });
+      }
+      if (c.prefs && typeof c.prefs === 'object') { prefs.hide = c.prefs.hide === true; prefs.pasti = c.prefs.pasti === true; }
+    } catch (e) { /* senza memoria locale la pagina funziona lo stesso */ }
+  }
+  function cacheWrite() {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ over: state.over, riserva: state.riserva, log: state.log, spesa: state.spesa, unsynced: state.unsynced, prefs: prefs }));
+    } catch (e) { /* idem */ }
+  }
+
+  /* ---------- salvataggio sull'account ---------- */
+  var sync = { db: null, timers: {}, writing: {}, again: {}, lastPull: 0, tries: 0, nulls: 0 };
+  function pending() { return NAMES.some(function (n) { return sync.timers[n] || sync.writing[n]; }); }
+  function anyUnsynced() { return NAMES.some(function (n) { return state.unsynced[n]; }); }
+  function setChip(kind) {
+    var el = $('sync');
+    if (!el) return;
+    el.dataset.kind = kind;
+    el.textContent = kind === 'cloud' ? 'Sincronizzato'
+      : kind === 'saving' ? 'Salvataggio…'
+        : kind === 'wait' ? 'Collegamento…'
+          : STANDALONE ? 'Salvato in questo browser' : 'Non collegato all\'account';
+    var w = $('warn');
+    if (w) {
+      w.hidden = kind !== 'local' || (STANDALONE && storageOk);
+      w.textContent = STANDALONE ? 'In questo browser i dati non vengono salvati: la memoria del sito è disattivata, per esempio in navigazione privata.' : storageOk
+        ? 'I dati restano solo in questo browser, non sul tuo account. Se alla riapertura li trovi azzerati, questa vista non li conserva: apri la pagina da Safari o Chrome.'
+        : 'In questa vista i dati non vengono salvati. Apri la pagina da Safari o Chrome.';
+    }
+    measure();
+  }
+  // La memoria del browser funziona in questa vista?
+  var storageOk = (function () {
+    try { localStorage.setItem(CACHE_KEY + '-prova', '1'); localStorage.removeItem(CACHE_KEY + '-prova'); return true; } catch (e) { return false; }
+  })();
+  // Altezza dell'intestazione fissa: serve alla barra della spesa che resta in vista sotto di lei.
+  function measure() {
+    var t = document.querySelector('.top');
+    if (t) document.documentElement.style.setProperty('--top-h', t.offsetHeight + 'px');
+  }
+  function settleChip() { if (!pending()) setChip(sync.db && !anyUnsynced() ? 'cloud' : 'local'); }
+
+  function persist(name) {
+    state.unsynced[name] = true;
+    cacheWrite();
+    if (!sync.db) { if ($('sync').dataset.kind !== 'wait') setChip('local'); return; }   // durante il collegamento resta "Collegamento…"
+    setChip('saving');
+    if (sync.timers[name]) clearTimeout(sync.timers[name]);
+    sync.timers[name] = setTimeout(function () { sync.timers[name] = null; flush(name, false); }, 700);
+  }
+  function flush(name, isRetry) {
+    if (!sync.db) return Promise.resolve();
+    if (sync.writing[name]) { sync.again[name] = true; return Promise.resolve(); }
+    sync.writing[name] = true;
+    var p;
+    try { p = sync.db.doc(DOC[name]).set(payload(name)); } catch (e) { p = Promise.reject(e); }
+    // Se la scrittura non risponde entro 15 secondi la considero fallita, così le successive non restano bloccate.
+    p = Promise.race([Promise.resolve(p), new Promise(function (_, rej) { setTimeout(function () { rej({ code: 'timeout' }); }, 15000); })]);
+    return p.then(function () {
+      sync.writing[name] = false;
+      if (sync.again[name]) { sync.again[name] = false; return flush(name, false); }
+      state.unsynced[name] = false;
+      cacheWrite();
+      settleChip();
+    }, function (err) {
+      sync.writing[name] = false;
+      if (err && err.code === 'unavailable' && !isRetry) {
+        return new Promise(function (r) { setTimeout(r, 800 + Math.random() * 800); }).then(function () { return flush(name, true); });
+      }
+      sync.again[name] = false;
+      settleChip();
+    });
+  }
+  // Scrive subito quello che è in attesa: serve quando la pagina viene chiusa o messa in secondo piano.
+  function flushNow() {
+    NAMES.forEach(function (name) {
+      if (sync.timers[name]) { clearTimeout(sync.timers[name]); sync.timers[name] = null; flush(name, false); }
+    });
+  }
+  function pull() {
+    if (!sync.db || pending()) return;
+    sync.lastPull = Date.now();
+    Promise.all(NAMES.map(function (name) {
+      if (state.unsynced[name] && name !== 'log') return flush(name, false);
+      var ref;
+      try { ref = sync.db.doc(DOC[name]); } catch (e) { return Promise.reject(e); }
+      return ref.get().then(function (snap) {
+        var d = snap && snap.exists ? snap.data() : null;
+        if (state.unsynced[name]) {
+          // Diario con modifiche locali non ancora salvate: prima lo unisco a quello sull'account,
+          // giorno per giorno, così non si perde lo storico; poi salvo il risultato.
+          if (d && d.days) {
+            var remote = cleanLog(clone(d).days);
+            Object.keys(remote).forEach(function (day) { state.log[day] = Object.assign({}, remote[day], state.log[day] || {}); });
+          }
+          return flush(name, false);
+        }
+        if (d) applyData(name, clone(d));
+      });
+    })).then(function () {
+      cacheWrite();
+      renderAll();
+      settleChip();
+    }, function () { setChip('local'); });
+  }
+  // Collegamento all'account: la pagina aspetta fino a 20 secondi che l'ambiente sia pronto e, se la prima
+  // risposta è negativa, riprova altre due volte prima di dichiararsi non collegata.
+  function connect() {
+    var c = window.claude;
+    if (c && typeof c.use === 'function') {
+      var fail = function () {
+        if (sync.db) return;
+        if (sync.nulls++ < 2) setTimeout(connect, 5000); else setChip('local');
+      };
+      var p;
+      try { p = Promise.resolve(c.use('db')); } catch (e) { p = Promise.reject(e); }
+      p.then(function (db) {
+        if (sync.db) return;
+        if (db) { sync.db = db; pull(); } else fail();
+      }, fail);
+      return;
+    }
+    if (sync.tries++ < 33) setTimeout(connect, 600); else setChip('local');
+  }
+
+  /* ---------- giorno: menu effettivo, cambi, pasto libero ---------- */
+  function effDay(d) { return L.withSwap(state.menu[dow(d)], (state.log[d] || {}).swap); }
+  function entryFor(d) { return state.log[d] || (state.log[d] = {}); }
+  function tidy(d) {
+    var e = state.log[d];
+    if (!e) return;
+    if (e.why && !Object.keys(e.why).length) delete e.why;
+    if (e.swap && !Object.keys(e.swap).length) delete e.swap;
+    if (e.out && !Object.keys(e.out).length) delete e.out;
+    if (!Object.keys(e).length) delete state.log[d];
+  }
+  function setSwap(d, slot, k) {
+    var e = entryFor(d);
+    if (k === state.menu[dow(d)][slot]) { if (e.swap) delete e.swap[slot]; }
+    else { (e.swap || (e.swap = {}))[slot] = k; }
+    tidy(d);
+  }
+  function mealSwapped(d, meal) {
+    var sw = (state.log[d] || {}).swap;
+    return !!sw && meal.slots.some(function (s) { return sw[s.id]; });
+  }
+  function freeMealsOfWeek(d) {
+    var start = addDays(d, -dow(d)), out = [];
+    for (var i = 0; i < 7; i++) {
+      var day = addDays(start, i), e = state.log[day] || {};
+      P.MEALS.forEach(function (m) { if (e[m.id] === 'lib') out.push({ d: i, meal: m }); });
+    }
+    return out;
+  }
+  function outMealsOfWeek(d) {
+    var start = addDays(d, -dow(d)), n = 0;
+    for (var i = 0; i < 7; i++) {
+      var e = state.log[addDays(start, i)] || {};
+      if (e.out) n += Object.keys(e.out).length;
+    }
+    return n;
+  }
+  function kcalTxt(v) { return 'circa ' + (Math.round(v / 10) * 10).toLocaleString('it-IT') + ' kcal'; }
+  function kcal10(v) { return Math.round(v / 10) * 10; }
+  function macroTxt(t) { return 'proteine ' + Math.round(t[1]) + ' g, carboidrati ' + Math.round(t[3]) + ' g, grassi ' + Math.round(t[2]) + ' g'; }
+  function missingTxt(keys) {
+    var seen = {}, names = [];
+    keys.forEach(function (k) { if (!seen[k]) { seen[k] = true; names.push(short(k)); } });
+    return names.length ? 'Senza dato, non contati: ' + names.join(', ') + '.' : '';
+  }
+  function riservaText() {
+    return short(state.riserva.d1) + ' ' + idx.d1.grams[state.riserva.d1] + ' g + ' + short(state.riserva.d2) + ' ' + idx.d2.grams[state.riserva.d2] + ' g';
+  }
+  function optionsHtml(slot, selected) {
+    function opt(o) { return '<option value="' + o[0] + '"' + (selected === o[0] ? ' selected' : '') + '>' + esc(P.FOODS[o[0]].n) + ' · ' + o[1] + ' g</option>'; }
+    if (MAIN_SLOTS.indexOf(slot.id) < 0) return slot.opts.map(opt).join('');
+    var quick = slot.opts.filter(function (o) { return P.FOODS[o[0]].q; });
+    var cook = slot.opts.filter(function (o) { return !P.FOODS[o[0]].q; });
+    return '<optgroup label="Pronti, senza cottura">' + quick.map(opt).join('') + '</optgroup><optgroup label="Da cuocere">' + cook.map(opt).join('') + '</optgroup>';
+  }
+
+  var CAT_LETTER = { B: 'B', P: 'P', R: 'R', U: 'U', X: '?' };
+  function catOf(k) { return P.FOODS[k].c || 'X'; }
+  function optionsByCat(slot, selected, type, bal) {
+    function opt(o) {
+      return '<option value="' + o[0] + '"' + (selected === o[0] ? ' selected' : '') + '>' + esc(P.FOODS[o[0]].n) + ' · ' + o[1] + ' g' + (P.FOODS[o[0]].q ? ' · pronto' : '') + '</option>';
+    }
+    var html = '';
+    P.FREQ.forEach(function (f) {
+      var n = bal[f.id][type], t = f[type];
+      var st = n < t ? (t - n === 1 ? 'ne manca 1' : 'ne mancano ' + (t - n)) : n > t ? (n - t) + ' di troppo' : 'al completo';
+      html += '<optgroup label="' + esc(f.n + ' · ' + st) + '">' + slot.opts.filter(function (o) { return catOf(o[0]) === f.id; }).map(opt).join('') + '</optgroup>';
+    });
+    html += '<optgroup label="Da chiarire con il dietista">' + slot.opts.filter(function (o) { return catOf(o[0]) === 'X'; }).map(opt).join('') + '</optgroup>';
+    return html;
+  }
+
+  /* ---------- vista Oggi ---------- */
+  function countMarks(fromDate, nDays) {
+    var res = { ok: 0, no: 0, lib: 0, none: 0, byMeal: {} };
+    MEAL_IDS.forEach(function (m) { res.byMeal[m] = { ok: 0, no: 0, lib: 0, why: {} }; });
+    for (var i = 0; i < nDays; i++) {
+      var e = state.log[addDays(fromDate, -i)] || {};
+      MEAL_IDS.forEach(function (m) {
+        var v = e[m];
+        if (v === 'ok' || v === 'no' || v === 'lib') {
+          res[v]++; res.byMeal[m][v]++;
+          if (v === 'no' && e.why && e.why[m]) res.byMeal[m].why[e.why[m]] = (res.byMeal[m].why[e.why[m]] || 0) + 1;
+        } else res.none++;
+      });
+    }
+    return res;
+  }
+
+  function renderHistory(t) {
+    var N = 14, html = '';
+    html += '<section class="hist" aria-labelledby="hist-h"><h3 id="hist-h">Ultimi 14 giorni</h3>';
+    html += '<div class="grid" role="img" aria-label="Griglia dei pasti degli ultimi 14 giorni: quadrato pieno seguito, rombo pasto libero, cerchio fuori piano, quadrato vuoto non segnato">';
+    html += '<span class="grid__lab"></span>';
+    for (var i = N - 1; i >= 0; i--) {
+      var d = addDays(t, -i);
+      html += '<span class="grid__d' + (i === 0 ? ' grid__d--today' : '') + '">' + P.DAYS[dow(d)].i + '</span>';
+    }
+    P.MEALS.forEach(function (m) {
+      html += '<span class="grid__lab">' + esc(m.b) + '</span>';
+      for (var j = N - 1; j >= 0; j--) {
+        var e = state.log[addDays(t, -j)] || {};
+        html += '<span class="cell cell--' + (e[m.id] || 'none') + '"></span>';
+      }
+    });
+    html += '</div>';
+    html += '<p class="legend"><span><i class="cell cell--ok"></i>Seguito</span><span><i class="cell cell--lib"></i>Pasto libero</span><span><i class="cell cell--no"></i>Fuori piano</span><span><i class="cell cell--none"></i>Non segnato</span></p>';
+
+    var w = countMarks(t, 7), all = countMarks(t, 28);
+    if (all.ok + all.no + all.lib === 0) {
+      html += '<p class="hist__sum">Nessun pasto segnato finora. Segna ogni pasto: dopo due settimane qui vedi quale salta più spesso e perché.</p>';
+    } else {
+      html += '<p class="hist__sum">Ultimi 7 giorni, su 35 pasti: seguiti <strong>' + w.ok + '</strong>, pasto libero <strong>' + w.lib + '</strong>, fuori piano <strong>' + w.no + '</strong>, non segnati ' + w.none + '.</p>';
+      var worst = null;
+      P.MEALS.forEach(function (m) {
+        var c = all.byMeal[m.id];
+        if (c.no > 0 && (!worst || c.no > worst.no)) worst = { n: m.n, no: c.no, tot: c.no + c.ok + c.lib, why: c.why };
+      });
+      if (worst) {
+        var tip = 'Negli ultimi 28 giorni il pasto più spesso fuori piano è <strong>' + esc(worst.n) + '</strong>: ' + worst.no + (worst.no === 1 ? ' volta' : ' volte') + ' su ' + worst.tot + (worst.tot === 1 ? ' segnata' : ' segnate') + '.';
+        var top = null;
+        P.REASONS.forEach(function (r) { var n = worst.why[r.id] || 0; if (n > 0 && (!top || n > top.n)) top = { n: n, label: r.n }; });
+        if (top) tip += ' Motivo segnato più spesso: ' + esc(top.label.toLowerCase()) + ' (' + top.n + (top.n === 1 ? ' volta' : ' volte') + ').';
+        html += '<p class="hist__tip">' + tip + '</p>';
+      }
+    }
+    return html + '</section>';
+  }
+
+  function renderEditor(d, m, w) {
+    var day = effDay(d), html = '<div class="swap" id="swap-' + m.id + '">';
+    html += '<p class="swap__t">Vale solo per questo giorno. Ogni alternativa del piano conta come Seguito.</p>';
+    m.slots.forEach(function (s) {
+      var id = 'day-' + s.id;
+      html += '<div class="field"><label for="' + id + '">' + esc(s.n) + '</label>';
+      html += '<select id="' + id + '" data-day-slot="' + s.id + '">' + optionsHtml(s, day[s.id]) + '</select></div>';
+    });
+    html += '<div class="swap__links"><a class="link" href="#settimana" data-act="edit" data-day="' + w + '">Cambia per tutte le settimane</a></div></div>';
+    return html;
+  }
+
+  var ST_LABEL = { ok: 'seguito', lib: 'pasto libero', no: 'fuori piano', none: 'non segnato' };
+  // Pasto aperto: quello scelto dall'utente; altrimenti il primo non ancora segnato (solo oggi e giorni passati).
+  function autoOpenMeal(d) {
+    if (d > today()) return null;
+    var e = state.log[d] || {};
+    for (var i = 0; i < P.MEALS.length; i++) if (!e[P.MEALS[i].id]) return P.MEALS[i].id;
+    return null;
+  }
+  function openMealId(d) { return ui.openMeal === undefined ? autoOpenMeal(d) : ui.openMeal; }
+
+  function renderWeek(d, t) {
+    var start = addDays(d, -dow(d));
+    var html = '<div class="week"><button type="button" class="week__nav" data-act="week" data-step="-7" aria-label="Settimana precedente">‹</button><div class="week__days">';
+    for (var i = 0; i < 7; i++) {
+      var day = addDays(start, i), e = state.log[day] || {}, good = 0, bad = 0;
+      MEAL_IDS.forEach(function (m) { if (e[m] === 'ok' || e[m] === 'lib') good++; else if (e[m] === 'no') bad++; });
+      html += '<button type="button" class="wd' + (day === d ? ' is-sel' : '') + (day === t ? ' is-today' : '') + '" data-act="goto" data-date="' + day + '"' + (day === d ? ' aria-current="date"' : '') + ' aria-label="' + esc(longDate(day) + (day === t ? ', oggi' : '') + ': ' + good + ' pasti nel piano, ' + bad + ' fuori piano') + '">';
+      html += '<span class="wd__i">' + P.DAYS[i].i + '</span><span class="wd__n">' + parseYmd(day).getDate() + '</span>';
+      html += '<span class="wd__bar"><i class="g" style="width:' + (good * 20) + '%"></i><i class="r" style="width:' + (bad * 20) + '%"></i></span></button>';
+    }
+    return html + '</div><button type="button" class="week__nav" data-act="week" data-step="7" aria-label="Settimana successiva">›</button></div>';
+  }
+
+  function renderMealBody(d, m, w, day, entry, st, mn, isFuture) {
+    var swapped = mealSwapped(d, m), editing = ui.editMeal === m.id, isOut = !!(entry.out && entry.out[m.id]);
+    var isRis = m.id === 'cen' && swapped && day.d1 === state.riserva.d1 && day.d2 === state.riserva.d2;
+    var html = '<div class="mi__body">';
+
+    if (swapped) {
+      html += '<p class="notice"><span>' + (isRis ? 'Stai usando la cena di riserva.' : 'Cambiato solo per questo giorno.') + '</span>';
+      html += '<button type="button" class="link" id="undo-' + m.id + '" data-act="swap-reset" data-meal="' + m.id + '">' + (isRis ? 'Torna alla cena del menu' : 'Annulla il cambio') + '</button></p>';
+    }
+
+    html += '<ul class="rows">';
+    L.mealRows(idx, day, m).forEach(function (r) {
+      var f = P.FOODS[r.k];
+      html += '<li><span class="food">' + esc(f.n) + (f.h ? '<small>' + esc(f.h) + '</small>' : '') + '</span>';
+      html += '<span class="g">' + (r.g == null ? 'q.b.' : r.g + ' g') + '</span></li>';
+    });
+    html += '<li><span class="food">Acqua<small>' + esc(P.WATER.hint[m.id]) + '</small></span><span class="g">' + P.WATER.min + '</span></li>';
+    html += '</ul>';
+
+    html += '<dl class="nl" aria-label="Valori stimati del pasto, senza verdure">';
+    html += '<div><dt>kcal</dt><dd>' + kcal10(mn.t[0]) + '</dd></div><div><dt>proteine</dt><dd>' + Math.round(mn.t[1]) + ' g</dd></div>';
+    html += '<div><dt>carboidrati</dt><dd>' + Math.round(mn.t[3]) + ' g</dd></div><div><dt>grassi</dt><dd>' + Math.round(mn.t[2]) + ' g</dd></div></dl>';
+    if (mn.missing.length) html += '<p class="nl__note">' + esc(missingTxt(mn.missing)) + '</p>';
+
+    if (editing) html += renderEditor(d, m, w);
+
+    html += '<div class="extras">';
+    html += '<button type="button" class="pill" id="edit-' + m.id + '" data-act="edit-day" data-meal="' + m.id + '" aria-expanded="' + editing + '">' + (editing ? 'Chiudi il cambio' : 'Cambia alimenti') + '</button>';
+    if (m.free) html += '<button type="button" class="pill pill--opt" id="out-' + m.id + '" data-act="out" data-meal="' + m.id + '" aria-pressed="' + isOut + '">Mangio fuori</button>';
+    if (m.id === 'cen' && !isRis && !isOut) html += '<button type="button" class="pill" data-act="backup" aria-label="Usa la cena di riserva: ' + esc(riservaText()) + '">Cena di riserva</button>';
+    html += '</div>';
+
+    if (isOut) {
+      var rg = L.mealRange(P, m);
+      html += '<div class="outp">';
+      html += '<p><strong>Riferimento:</strong> il pasto del piano che sostituisci vale ' + kcalTxt(mn.t[0]) + ', con ' + macroTxt(mn.t) + '. Senza le verdure.</p>';
+      html += '<p>Secondo le alternative, ' + (m.id === 'cen' ? 'una cena' : 'un pranzo') + ' del piano va da ' + kcalTxt(rg[0]) + ' a ' + kcalTxt(rg[1]) + '.</p>';
+      html += '<p><strong>Regola del piano:</strong> se pranzo o cena sono fuori casa più di 2 volte su 7, evita i primi e scegli pane, un secondo ai ferri e un contorno di verdure.</p>';
+      html += '<p class="fixed">Poi segna il pasto qui sotto. Se è il pasto libero della settimana, usa Libero.</p>';
+      html += '</div>';
+    }
+
+    if (!isFuture) {
+      html += '<div class="marks' + (m.free ? ' marks--3' : '') + '" role="group" aria-label="Com\'è andato il pasto">';
+      html += '<button type="button" class="mark mark--ok" data-act="mark" data-meal="' + m.id + '" data-val="ok" aria-pressed="' + (st === 'ok') + '">Seguito</button>';
+      if (m.free) html += '<button type="button" class="mark mark--lib" data-act="mark" data-meal="' + m.id + '" data-val="lib" aria-pressed="' + (st === 'lib') + '" aria-label="Pasto libero">Libero</button>';
+      html += '<button type="button" class="mark mark--no" data-act="mark" data-meal="' + m.id + '" data-val="no" aria-pressed="' + (st === 'no') + '">Fuori piano</button>';
+      html += '</div>';
+      if (st === 'no') {
+        var cur = (entry.why || {})[m.id];
+        html += '<div class="why" role="group" aria-label="Motivo"><span class="why__t">Perché?</span>';
+        P.REASONS.forEach(function (r) {
+          html += '<button type="button" class="pill" data-act="why" data-meal="' + m.id + '" data-why="' + r.id + '" aria-pressed="' + (cur === r.id) + '">' + esc(r.n) + '</button>';
+        });
+        html += '</div>';
+        if (cur === 'fuori' && m.free) html += '<p class="why__hint">Fuori casa il piano consiglia pane, un secondo ai ferri e un contorno di verdure, senza primo.</p>';
+      }
+    }
+    return html + '</div>';
+  }
+
+  function renderOggi() {
+    var t = today(), d = ui.date, w = dow(d), day = effDay(d);
+    var entry = state.log[d] || {}, isFuture = d > t, openId = openMealId(d);
+    var rel = d === t ? 'Oggi' : d === addDays(t, -1) ? 'Ieri' : d === addDays(t, 1) ? 'Domani' : '';
+    var inPlan = MEAL_IDS.filter(function (m) { return entry[m] === 'ok' || entry[m] === 'lib'; }).length;
+    var html = renderWeek(d, t);
+
+    html += '<div class="dayhead"><h2>' + esc(longDate(d)) + '</h2><p>' + (rel ? '<span>' + rel + '</span>' : '');
+    if (d !== t) html += '<button type="button" class="link" data-act="today">Torna a oggi</button>';
+    html += '</p></div>';
+
+    // Tre numeri del giorno: pasti nel piano, pasto libero della settimana, calorie stimate.
+    var free = freeMealsOfWeek(d), outN = outMealsOfWeek(d), dn = L.dayNut(P, idx, day);
+    html += '<dl class="stats"><div class="stat"><dt>Pasti nel piano</dt><dd>' + (isFuture ? '–' : inPlan + ' di 5') + '</dd>';
+    html += '<div class="tally__bar" aria-hidden="true">';
+    MEAL_IDS.forEach(function (m) { html += '<span class="seg seg--' + (entry[m] || 'none') + '"></span>'; });
+    html += '</div></div>';
+    html += '<div class="stat' + (free.length > 1 ? ' stat--warn' : '') + '"><dt>Pasto libero</dt><dd>';
+    if (!free.length) html += 'disponibile<small>uno a settimana</small>';
+    else if (free.length === 1) html += 'usato<small>' + P.DAYS[free[0].d].n.toLowerCase() + ', ' + free[0].meal.n.toLowerCase() + '</small>';
+    else html += free.length + ' usati<small>la regola è uno</small>';
+    html += '</dd></div>';
+    html += '<div class="stat"><dt>Giornata</dt><dd>' + kcal10(dn.t[0]) + '<small>kcal, stima</small></dd></div></dl>';
+
+    html += '<p class="macro">' + macroTxt(dn.t).replace(/^p/, 'P') + ', fibre ' + Math.round(dn.t[4]) + ' g. Stima dalle tabelle CREA, senza verdure e marmellata.' + (dn.missing.length ? ' ' + esc(missingTxt(dn.missing)) : '') + '</p>';
+    html += '<p class="macro">Acqua: almeno mezzo litro a ogni pasto, 2,5 litri nel giorno.</p>';
+    if (outN) {
+      html += '<p class="free' + (outN > 2 ? ' free--over' : '') + '">Pasti fuori casa questa settimana: <strong>' + outN + '</strong>.' + (outN > 2 ? ' Oltre 2 su 7 il piano consiglia di evitare i primi e scegliere pane, un secondo ai ferri e verdure.' : '') + '</p>';
+    }
+
+    // I cinque pasti in un unico foglio: uno aperto, gli altri in una riga.
+    html += '<div class="meals">';
+    P.MEALS.forEach(function (m) {
+      var st = entry[m.id] || 'none', isOpen = openId === m.id;
+      var mn = L.mealNut(P, idx, day, m), isOut = !!(entry.out && entry.out[m.id]);
+      var summary = L.mealRows(idx, day, m).filter(function (r) { return r.k !== 'verdure' && r.k !== 'olio'; }).map(function (r) { return short(r.k); }).join(', ');
+      html += '<section class="mi mi--' + st + (isOpen ? ' is-open' : '') + '">';
+      html += '<h3 class="mi__h"><button type="button" class="mi__btn" id="mi-' + m.id + '" data-act="open-meal" data-meal="' + m.id + '" aria-expanded="' + isOpen + '">';
+      html += '<span class="st st--' + st + '" role="img" aria-label="' + ST_LABEL[st] + '"></span>';
+      html += '<span class="mi__t"><span class="mi__n">' + esc(m.n) + (mealSwapped(d, m) ? ' <span class="tag">solo oggi</span>' : '') + (isOut ? ' <span class="tag">fuori casa</span>' : '') + '</span>';
+      if (!isOpen) html += '<span class="mi__s">' + esc(summary) + '</span>';
+      html += '</span><span class="mi__k">' + kcal10(mn.t[0]) + ' kcal</span></button></h3>';
+      if (isOpen) html += renderMealBody(d, m, w, day, entry, st, mn, isFuture);
+      html += '</section>';
+    });
+    html += '</div>';
+
+    if (d === t) {
+      var tm = addDays(t, 1), nd = effDay(tm);
+      html += '<section class="next"><h3>Domani, ' + P.DAYS[dow(tm)].n.toLowerCase() + '</h3>';
+      html += '<p><strong>Pranzo</strong> ' + esc(short(nd.p1) + ' ' + idx.p1.grams[nd.p1] + ' g + ' + short(nd.p2) + ' ' + idx.p2.grams[nd.p2] + ' g') + '</p>';
+      html += '<p><strong>Cena</strong> ' + esc(short(nd.d1) + ' ' + idx.d1.grams[nd.d1] + ' g + ' + short(nd.d2) + ' ' + idx.d2.grams[nd.d2] + ' g') + '</p></section>';
+      html += renderHistory(t);
+    }
+    $('v-oggi').innerHTML = html;
+  }
+
+  /* ---------- vista Settimana ---------- */
+  function daySummary(d) {
+    var m = state.menu[d];
+    return 'Pranzo: ' + short(m.p1) + ' + ' + short(m.p2) + '. Cena: ' + short(m.d1) + ' + ' + short(m.d2) + '. Giornata: ' + kcalTxt(L.dayNut(P, idx, m).t[0]) + '.';
+  }
+  function fixedText(list) {
+    return list.map(function (o) { return P.FOODS[o[0]].n + (o[1] == null ? ' a piacere' : ' ' + o[1] + ' g'); }).join(' · ');
+  }
+  function resetLabel() { return ui.resetArmed ? 'Conferma: torna al menu proposto' : 'Torna al menu proposto'; }
+
+  function balanceHtml(b) {
+    var html = '<h3 id="bal-h">Equilibrio della settimana</h3>';
+    var types = [{ id: 'pr', slot: 'p2', n: 'Pranzo' }, { id: 'ce', slot: 'd2', n: 'Cena' }];
+    var fixes = [];
+
+    // Mappa: una casella per ogni pranzo e ogni cena. Evidenziate quelle da cui partire per sistemare.
+    html += '<div class="map" role="group" aria-label="Fonti proteiche giorno per giorno"><span></span>';
+    P.DAYS.forEach(function (D) { html += '<span class="map__d">' + D.i + '</span>'; });
+    types.forEach(function (T) {
+      html += '<span class="map__lab">' + T.n + '</span>';
+      var over = [], under = [], missing = 0;
+      P.FREQ.forEach(function (f) {
+        var n = b[f.id][T.id], t = f[T.id];
+        if (n > t) {
+          var days = [];
+          state.menu.forEach(function (m, d) { if (catOf(m[T.slot]) === f.id) days.push(P.DAYS[d].n.toLowerCase()); });
+          over.push((n - t) + ' di troppo tra ' + f.n.toLowerCase() + ' (' + days.join(', ') + ')');
+        }
+        if (n < t) { under.push((t - n) + ' ' + f.n.toLowerCase()); missing += t - n; }
+      });
+      state.menu.forEach(function (m, d) {
+        var k = m[T.slot], c = catOf(k), f = P.FREQ.filter(function (x) { return x.id === c; })[0];
+        var off = c === 'X' || (f && b[c][T.id] > f[T.id]);
+        if (c === 'X') over.push(P.DAYS[d].n.toLowerCase() + ' ' + short(k).toLowerCase() + ', che la regola non nomina');
+        html += '<button type="button" class="cat' + (off ? ' cat--off' : '') + '" data-act="open-slot" data-day="' + d + '" data-slot="' + T.slot + '" aria-label="' + esc(P.DAYS[d].n + ' ' + T.n.toLowerCase() + ': ' + P.FOODS[k].n + (f ? ', ' + f.n.toLowerCase() : ', da chiarire')) + '">' + CAT_LETTER[c] + '</button>';
+      });
+      if (over.length || under.length) {
+        fixes.push('<li><strong>' + T.n + ':</strong> ' + (over.length ? esc(over.join('; ')) + '. ' : '') + (under.length ? (missing === 1 ? 'Manca ' : 'Mancano ') + esc(under.join(' e ')) + '.' : '') + '</li>');
+      }
+    });
+    html += '</div>';
+    html += '<p class="legend"><span><b>B</b> carne bianca</span><span><b>P</b> pesce</span><span><b>R</b> carne rossa</span><span><b>U</b> uova o formaggi</span><span><b>?</b> da chiarire</span></p>';
+
+    if (fixes.length) html += '<table class="bal__t"><thead><tr><th scope="col">Fonte proteica</th><th scope="col">Pranzi</th><th scope="col">Cene</th></tr></thead><tbody>';
+    function cell(n, target) {
+      var st = n === target ? 'ok' : n > target ? 'over' : 'under';
+      return '<td class="bal--' + st + '">' + n + ' di ' + target + '</td>';
+    }
+    if (fixes.length) {
+      P.FREQ.forEach(function (f) {
+        html += '<tr><th scope="row">' + esc(f.n) + '</th>' + cell(b[f.id].pr, f.pr) + cell(b[f.id].ce, f.ce) + '</tr>';
+      });
+      if (b.X.pr + b.X.ce) html += '<tr><th scope="row">Da chiarire</th><td class="bal--x">' + b.X.pr + '</td><td class="bal--x">' + b.X.ce + '</td></tr>';
+      html += '</tbody></table>';
+    }
+
+    if (!fixes.length) {
+      html += '<p class="bal__s bal__s--ok">Il menu rispetta le frequenze del piano: a pranzo e a cena 3 carne bianca, 2 pesce, 1 carne rossa, 1 uova o formaggi.</p>';
+      html += '<p class="fixed">Per cambiare un pasto tocca la sua casella. Nel menu che si apre, restando nello stesso gruppo l\'equilibrio non cambia.</p>';
+    } else {
+      html += '<p class="bal__s bal__s--off">Il menu non rispetta le frequenze.</p><ul class="bal__fix">' + fixes.join('') + '</ul>';
+      html += '<p class="bal__how"><strong>Come sistemare:</strong> tocca una casella evidenziata e, nel menu che si apre, scegli un alimento da un gruppo con scritto «ne manca». Ripeti finché la tabella è tutta verde.</p>';
+    }
+    html += '<p class="fixed">Regola del dietista su 7 pranzi e 7 cene. Conta il menu della settimana, non i cambi di un solo giorno.</p>';
+    return html;
+  }
+
+  function renderSettimana() {
+    var html = '<p class="lead">In ogni casella trovi solo le alternative del piano, con i grammi a crudo di quel pasto. La lista della spesa si aggiorna da sola.</p>';
+    var bal = L.balance(P, state.menu);
+    html += '<section class="bal" id="balance" aria-labelledby="bal-h">' + balanceHtml(bal) + '</section>';
+    P.DAYS.forEach(function (D, d) {
+      html += '<details class="day" data-day="' + d + '"' + (ui.openDays[d] ? ' open' : '') + '>';
+      html += '<summary><span class="day__n">' + D.n + '</span><span class="day__s" id="sum-' + d + '">' + esc(daySummary(d)) + '</span></summary>';
+      html += '<div class="day__body">';
+      P.MEALS.forEach(function (m) {
+        html += '<fieldset class="slotset"><legend>' + esc(m.n) + '</legend>';
+        if (m.pre) html += '<p class="fixed">' + esc(fixedText(m.pre)) + '</p>';
+        m.slots.forEach(function (s) {
+          var id = 'sel-' + d + '-' + s.id;
+          html += '<div class="field"><label for="' + id + '">' + esc(s.n) + '</label>';
+          var opts = s.id === 'p2' ? optionsByCat(s, state.menu[d][s.id], 'pr', bal) : s.id === 'd2' ? optionsByCat(s, state.menu[d][s.id], 'ce', bal) : optionsHtml(s, state.menu[d][s.id]);
+          html += '<select id="' + id + '" data-day="' + d + '" data-slot="' + s.id + '">' + opts + '</select></div>';
+        });
+        html += '<p class="fixed">' + esc((m.post ? fixedText(m.post) + ' · ' : '') + 'Acqua almeno ' + P.WATER.min) + '</p>';
+        html += '</fieldset>';
+      });
+      html += '</div></details>';
+    });
+
+    html += '<section class="riserva"><h3>Cena di riserva</h3>';
+    html += '<p class="lead">Due alimenti della cena del piano che non vanno cucinati. Se li tieni sempre in casa, quando a cena non c\'è niente di pronto li usi al posto del menu del giorno e il pasto resta nel piano.</p>';
+    ['d1', 'd2'].forEach(function (sid) {
+      var s = idx[sid].slot, id = 'ris-' + sid;
+      html += '<div class="field"><label for="' + id + '">' + esc(s.n) + '</label>';
+      html += '<select id="' + id + '" data-ris="' + sid + '">' + optionsHtml(s, state.riserva[sid]) + '</select></div>';
+    });
+    html += '<p class="fixed">Verdure a piacere · Olio extravergine di oliva 15 g</p></section>';
+
+    html += '<div class="actions"><button type="button" class="btn" id="reset-menu" data-act="reset">' + resetLabel() + '</button></div>';
+    $('v-settimana').innerHTML = html;
+  }
+
+  /* ---------- vista Spesa ---------- */
+  var REPARTI = P.REPARTI.concat([{ id: 'sco', n: 'Scorta per la cena di riserva' }, { id: 'alt', n: 'Altro' }]);
+  var VEG_IDEAS = ['Broccoli', 'Cavolfiore', 'Finocchi', 'Spinaci', 'Radicchio', 'Insalata'];
+
+  function buyItems() {
+    var mask = state.spesa.giorni;
+    var nDays = mask.filter(Boolean).length;
+    var tot = L.shopping(P, idx, state.menu, mask);
+    var items = Object.keys(tot).map(function (k) {
+      var t = tot[k], f = P.FOODS[k];
+      var q = t.g ? L.fmtBuy(f, t.g) : { main: 'a piacere', sub: '' };
+      var it = { k: k, n: f.n, r: f.r, main: q.main, sub: q.sub, note: L.usesText(P, t.uses, nDays), info: '' };
+      if (k === 'verdure') { it.sub = t.n + ' pasti'; it.note = ''; it.info = 'Il piano non fissa tipo né peso: scegli tu.'; }
+      if (k === 'olio') it.sub = '3 cucchiaini a pasto';
+      return it;
+    });
+    if (tot.fette_bisc) {
+      items.push({ k: 'marmellata', n: 'Marmellata 100% frutta', r: 'dis', main: '1 vasetto', sub: '', note: '', info: 'Facoltativa, sulle fette biscottate.' });
+    }
+    ['d1', 'd2'].forEach(function (sid) {
+      var k = state.riserva[sid], f = P.FOODS[k], q = L.fmtBuy(f, idx[sid].grams[k]);
+      items.push({ k: 'ris_' + sid, n: f.n, r: 'sco', main: q.main, sub: q.sub, note: '', info: 'In più rispetto al menu, da tenere sempre in casa.' });
+    });
+    items.forEach(function (it) { it.done = !!state.spesa.ticked[it.k]; });
+    state.spesa.extra.forEach(function (x) {
+      items.push({ k: 'x:' + x.id, n: x.n, r: x.r, main: '', sub: '', note: '', info: '', extra: true, done: !!x.done });
+    });
+    return items;
+  }
+  function daysLabel() {
+    var on = [];
+    state.spesa.giorni.forEach(function (v, d) { if (v) on.push(P.DAYS[d].s); });
+    return on.length === 7 ? 'da lunedì a domenica' : on.join(', ');
+  }
+  function presets() {
+    var t = dow(today()), all = [true, true, true, true, true, true, true];
+    function from(start) { return start > 6 || start <= 0 ? all : all.map(function (_, d) { return d >= start; }); }
+    var list = [{ n: 'Tutta la settimana', m: all }, { n: 'Da oggi', m: from(t) }, { n: 'Da domani', m: from(t + 1) }];
+    var seen = {};
+    return list.filter(function (x) { var key = x.m.join(); if (seen[key]) return false; seen[key] = true; return true; });
+  }
+  function rowHtml(it) {
+    var id = 'chk-' + it.k.replace(':', '-');
+    var h = '<li class="' + (it.done ? 'is-done' : '') + '"><label class="buyrow" for="' + id + '"><input type="checkbox" id="' + id + '" data-key="' + esc(it.k) + '"' + (it.done ? ' checked' : '') + '>';
+    h += '<span class="buyrow__n">' + esc(it.n) + (it.info ? '<small>' + esc(it.info) + '</small>' : '') + (prefs.pasti && it.note ? '<small>' + esc(it.note) + '</small>' : '') + '</span>';
+    h += '<span class="buyrow__q">' + esc(it.main) + (it.sub ? '<small>' + esc(it.sub) + '</small>' : '') + '</span></label>';
+    if (it.extra) h += '<button type="button" class="del" data-act="del-extra" data-id="' + esc(it.k.slice(2)) + '" aria-label="Togli ' + esc(it.n) + '">✕</button>';
+    return h + '</li>';
+  }
+
+  function renderSpesa() {
+    var items = buyItems(), total = items.length;
+    var taken = items.filter(function (it) { return it.done; }).length;
+    var pct = total ? Math.round(taken / total * 100) : 0;
+    var html = '';
+
+    html += '<div class="shopbar"><div class="bar" role="progressbar" aria-label="Prodotti presi" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + taken + '"><span style="width:' + pct + '%"></span></div>';
+    html += '<p class="shopbar__t"><strong>' + taken + ' di ' + total + '</strong> presi</p></div>';
+
+    html += '<details class="period"' + (ui.periodOpen ? ' open' : '') + '><summary>Giorni: <strong>' + esc(daysLabel()) + '</strong></summary><div class="period__b"><div class="presets">';
+    presets().forEach(function (x) {
+      html += '<button type="button" class="pill pill--opt" data-act="preset" data-mask="' + x.m.map(function (v) { return v ? 1 : 0; }).join('') + '" aria-pressed="' + (x.m.join() === state.spesa.giorni.join()) + '">' + x.n + '</button>';
+    });
+    html += '</div><div class="chips" role="group" aria-label="Giorni da coprire">';
+    P.DAYS.forEach(function (D, d) {
+      html += '<button type="button" class="chip" data-act="toggle-day" data-day="' + d + '" aria-pressed="' + (!!state.spesa.giorni[d]) + '">' + D.s + '</button>';
+    });
+    html += '</div><p class="period__t">Quantità a crudo per una persona, sommate dal menu della settimana.</p></div></details>';
+
+    html += '<div class="opts">';
+    html += '<button type="button" class="pill pill--opt" id="opt-hide" data-act="pref" data-pref="hide" aria-pressed="' + prefs.hide + '">Nascondi i presi</button>';
+    html += '<button type="button" class="pill pill--opt" id="opt-pasti" data-act="pref" data-pref="pasti" aria-pressed="' + prefs.pasti + '">Mostra i pasti</button>';
+    html += '<button type="button" class="pill" id="copy-list" data-act="copy">Copia la lista</button>';
+    html += '</div>';
+    html += '<div id="copy-fallback" hidden><label for="copy-area">Copia a mano da qui</label><textarea id="copy-area" rows="8" readonly></textarea></div>';
+
+    REPARTI.forEach(function (r) {
+      var list = items.filter(function (it) { return it.r === r.id; });
+      if (!list.length && r.id !== 'alt') return;
+      var done = list.filter(function (it) { return it.done; }).length;
+      var allDone = list.length > 0 && done === list.length;
+      var visible = prefs.hide ? list.filter(function (it) { return !it.done; }) : list;
+      html += '<section class="rep' + (allDone ? ' rep--done' : '') + '"><header class="rep__h"><h3>' + esc(r.n) + '</h3>';
+      if (list.length) html += '<span class="rep__c">' + (allDone ? '✓ tutto preso' : done + ' di ' + list.length) + '</span>';
+      html += '</header>';
+      if (visible.length) html += '<ul class="buy">' + visible.map(rowHtml).join('') + '</ul>';
+      if (r.id === 'ort') {
+        var have = state.spesa.extra.map(function (x) { return x.n.toLowerCase(); });
+        var ideas = VEG_IDEAS.filter(function (v) { return have.indexOf(v.toLowerCase()) < 0; });
+        if (ideas.length) {
+          html += '<div class="quick"><span class="quick__t">Verdure: aggiungi quelle che vuoi comprare.</span>';
+          ideas.forEach(function (v) { html += '<button type="button" class="pill" data-act="add-veg" data-n="' + v + '">+ ' + v + '</button>'; });
+          html += '</div>';
+        }
+      }
+      if (r.id === 'alt') {
+        html += '<form class="add" data-form="add-extra"><label class="sr" for="add-n">Aggiungi un prodotto</label>';
+        html += '<input type="text" id="add-n" maxlength="60" placeholder="Aggiungi un prodotto" autocomplete="off" enterkeyhint="done"><button type="submit" class="btn">Aggiungi</button></form>';
+      }
+      html += '</section>';
+    });
+
+    html += '<div class="actions"><button type="button" class="btn" data-act="clear-ticks">Azzera le spunte</button></div>';
+    $('v-spesa').innerHTML = html;
+  }
+  function listText() {
+    var items = buyItems().filter(function (it) { return !it.done; });
+    var out = ['Spesa ' + daysLabel()];
+    REPARTI.forEach(function (r) {
+      var list = items.filter(function (it) { return it.r === r.id; });
+      if (!list.length) return;
+      out.push('', r.n);
+      list.forEach(function (it) { out.push('- ' + it.n + (it.main ? ': ' + it.main + (it.sub && it.k !== 'olio' ? ' (' + it.sub + ')' : '') : '')); });
+    });
+    return out.join('\n');
+  }
+  function addExtra(name, reparto) {
+    var n = String(name || '').trim().slice(0, 60);
+    if (!n || state.spesa.extra.length >= 60) return false;
+    if (state.spesa.extra.some(function (x) { return x.n.toLowerCase() === n.toLowerCase(); })) return false;
+    state.spesa.extra.push({ id: 'x' + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36), n: n, r: reparto, done: false });
+    persist('spesa');
+    return true;
+  }
+  function setDone(key, done) {
+    if (key.indexOf('x:') === 0) {
+      state.spesa.extra.forEach(function (x) { if (x.id === key.slice(2)) x.done = done; });
+    } else if (done) state.spesa.ticked[key] = true; else delete state.spesa.ticked[key];
+    persist('spesa');
+  }
+  function hideToast() { clearTimeout(ui.undoTimer); ui.undo = null; var t = $('toast'); if (t) t.hidden = true; }
+  function showUndo(key, label) {
+    var t = $('toast');
+    if (!t) return;
+    ui.undo = key;
+    $('toast-t').textContent = 'Preso: ' + label;
+    t.hidden = false;
+    clearTimeout(ui.undoTimer);
+    ui.undoTimer = setTimeout(hideToast, 5000);
+  }
+
+  /* ---------- Regole: come sono calcolati calorie e macronutrienti ---------- */
+  function renderNutNote() {
+    var el = $('nut-note');
+    if (!el) return;
+    var approx = [], senza = [];
+    Object.keys(P.FOODS).forEach(function (k) {
+      if (k === 'verdure') return;
+      if (!P.NUT[k]) senza.push(P.FOODS[k].n); else if (P.NUT[k].a) approx.push(P.NUT[k].a);
+    });
+    var html = '<summary>Calorie e macronutrienti: come sono calcolati</summary><div class="note__b"><ul>';
+    html += '<li>È una stima indipendente. Il valore ufficiale del piano è quello calcolato dal dietista con il suo programma.</li>';
+    html += '<li>Fonte: tabelle di composizione degli alimenti del CREA (alimentinutrizione.it), valori per 100 g a crudo moltiplicati per i grammi del piano. Le calorie sono arrotondate alla decina.</li>';
+    html += '<li>Fuori dal conto: le verdure, che il piano lascia a piacere, e la marmellata, di cui il piano non indica la quantità.</li>';
+    approx.forEach(function (a) { html += '<li>' + esc(a) + '</li>'; });
+    html += '<li>Senza dato, non contati nei totali: ' + esc(senza.join(', ')) + '.</li>';
+    el.innerHTML = html + '</ul></div>';
+  }
+
+  /* ---------- navigazione ---------- */
+  function setView() {
+    var h = (location.hash || '').replace('#', '');
+    ui.view = VIEWS.indexOf(h) >= 0 ? h : 'oggi';
+    VIEWS.forEach(function (v) {
+      $('v-' + v).hidden = v !== ui.view;
+      var tab = $('tab-' + v);
+      if (v === ui.view) tab.setAttribute('aria-current', 'page'); else tab.removeAttribute('aria-current');
+    });
+  }
+  function renderAll() { renderOggi(); renderSettimana(); renderSpesa(); setView(); }
+  function refocus(sel) { var el = document.querySelector(sel); if (el) el.focus({ preventScroll: true }); }
+
+  /* ---------- azioni ---------- */
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-act]');
+    if (!el) return;
+    var act = el.dataset.act, d = ui.date, meal = el.dataset.meal;
+
+    if (meal && act !== 'open-meal') ui.openMeal = meal;   // il pasto su cui si sta agendo resta aperto
+    if (act === 'week') { ui.date = addDays(ui.date, Number(el.dataset.step)); ui.editMeal = null; ui.openMeal = undefined; renderOggi(); refocus('.wd.is-sel'); }
+    else if (act === 'goto') { ui.date = el.dataset.date; ui.editMeal = null; ui.openMeal = undefined; renderOggi(); refocus('.wd.is-sel'); }
+    else if (act === 'today') { ui.date = today(); ui.editMeal = null; ui.openMeal = undefined; renderOggi(); refocus('.wd.is-sel'); }
+    else if (act === 'open-meal') {
+      ui.openMeal = openMealId(d) === meal ? null : meal;
+      ui.editMeal = null;
+      renderOggi();
+      refocus('#mi-' + meal);
+    }
+    else if (act === 'mark') {
+      if (d > today()) return;
+      var e = entryFor(d), val = el.dataset.val;
+      if (e[meal] === val) delete e[meal]; else e[meal] = val;
+      if (e[meal] !== 'no' && e.why) delete e.why[meal];
+      if (e[meal] === 'no' && e.out && e.out[meal] && !(e.why && e.why[meal])) (e.why || (e.why = {}))[meal] = 'fuori';
+      tidy(d);
+      persist('log');
+      renderOggi();
+      refocus('[data-act="mark"][data-meal="' + meal + '"][data-val="' + val + '"]');
+    }
+    else if (act === 'why') {
+      var e2 = entryFor(d), why = e2.why || (e2.why = {});
+      if (why[meal] === el.dataset.why) delete why[meal]; else why[meal] = el.dataset.why;
+      tidy(d);
+      persist('log');
+      renderOggi();
+      refocus('[data-act="why"][data-meal="' + meal + '"][data-why="' + el.dataset.why + '"]');
+    }
+    else if (act === 'out') {
+      var eo = entryFor(d), o = eo.out || (eo.out = {});
+      if (o[meal]) delete o[meal]; else o[meal] = true;
+      tidy(d);
+      persist('log');
+      renderOggi();
+      refocus('#out-' + meal);
+    }
+    else if (act === 'edit-day') {
+      ui.editMeal = ui.editMeal === meal ? null : meal;
+      renderOggi();
+      refocus(ui.editMeal ? '#swap-' + meal + ' select' : '#edit-' + meal);
+    }
+    else if (act === 'swap-reset') {
+      mealById(meal).slots.forEach(function (s) { setSwap(d, s.id, state.menu[dow(d)][s.id]); });
+      persist('log');
+      renderOggi();
+      refocus('#edit-' + meal);
+    }
+    else if (act === 'backup') {
+      setSwap(d, 'd1', state.riserva.d1);
+      setSwap(d, 'd2', state.riserva.d2);
+      ui.openMeal = 'cen';
+      ui.editMeal = null;
+      persist('log');
+      renderOggi();
+      refocus('#undo-cen');
+    }
+    else if (act === 'edit') {
+      ui.openDays = {};
+      ui.openDays[Number(el.dataset.day)] = true;
+      ui.editMeal = null;
+      renderSettimana();
+    }
+    else if (act === 'open-slot') {
+      var sd = Number(el.dataset.day);
+      ui.openDays[sd] = true;
+      renderSettimana();
+      var target = $('sel-' + sd + '-' + el.dataset.slot);
+      if (target) { target.scrollIntoView({ block: 'center' }); target.focus({ preventScroll: true }); }
+    }
+    else if (act === 'reset') {
+      if (!ui.resetArmed) {
+        ui.resetArmed = true;
+        el.textContent = resetLabel();
+        clearTimeout(ui.resetTimer);
+        ui.resetTimer = setTimeout(function () { ui.resetArmed = false; var b = $('reset-menu'); if (b) b.textContent = resetLabel(); }, 5000);
+      } else {
+        clearTimeout(ui.resetTimer);
+        ui.resetArmed = false;
+        state.over = {};
+        state.menu = L.menuFrom(P, state.over);
+        state.riserva = clone(P.RISERVA);
+        persist('menu');
+        renderAll();
+      }
+    }
+    else if (act === 'toggle-day') {
+      var di = Number(el.dataset.day), g = state.spesa.giorni.slice();
+      g[di] = !g[di];
+      if (!g.some(Boolean)) return;
+      state.spesa.giorni = g;
+      persist('spesa');
+      renderSpesa();
+      refocus('.chip[data-day="' + di + '"]');
+    }
+    else if (act === 'clear-ticks') {
+      state.spesa.ticked = {};
+      state.spesa.extra.forEach(function (x) { x.done = false; });
+      hideToast();
+      persist('spesa');
+      renderSpesa();
+    }
+    else if (act === 'preset') {
+      state.spesa.giorni = el.dataset.mask.split('').map(function (c) { return c === '1'; });
+      persist('spesa');
+      renderSpesa();
+      refocus('[data-act="preset"][data-mask="' + el.dataset.mask + '"]');
+    }
+    else if (act === 'pref') {
+      prefs[el.dataset.pref] = !prefs[el.dataset.pref];
+      cacheWrite();
+      hideToast();
+      renderSpesa();
+      refocus('#opt-' + el.dataset.pref);
+    }
+    else if (act === 'add-veg') {
+      if (addExtra(el.dataset.n, 'ort')) renderSpesa();
+    }
+    else if (act === 'del-extra') {
+      state.spesa.extra = state.spesa.extra.filter(function (x) { return x.id !== el.dataset.id; });
+      persist('spesa');
+      renderSpesa();
+    }
+    else if (act === 'undo') {
+      if (ui.undo) { setDone(ui.undo, false); hideToast(); renderSpesa(); }
+    }
+    else if (act === 'copy') {
+      var text = listText();
+      var done = function () { el.textContent = 'Lista copiata'; setTimeout(function () { var b = $('copy-list'); if (b) b.textContent = 'Copia la lista'; }, 2000); };
+      var fail = function () {
+        var box = $('copy-fallback'), area = $('copy-area');
+        area.value = text; box.hidden = false; area.focus(); area.select();
+      };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fail); else fail();
+      } catch (err) { fail(); }
+    }
+  });
+
+  document.addEventListener('change', function (ev) {
+    var el = ev.target;
+    if (el.matches('select[data-slot]')) {
+      var d = Number(el.dataset.day), slot = el.dataset.slot;
+      if (idx[slot] && idx[slot].grams[el.value] != null) {
+        var od = state.over[d] || (state.over[d] = {});
+        if (el.value === P.DEFAULT_MENU[d][slot]) delete od[slot]; else od[slot] = el.value;
+        if (!Object.keys(od).length) delete state.over[d];
+        state.menu = L.menuFrom(P, state.over);
+        persist('menu');
+        renderSettimana();
+        renderOggi();
+        renderSpesa();
+        refocus('#' + el.id);
+      }
+    } else if (el.matches('select[data-day-slot]')) {
+      var s = el.dataset.daySlot;
+      if (idx[s] && idx[s].grams[el.value] != null) {
+        setSwap(ui.date, s, el.value);
+        persist('log');
+        renderOggi();
+        refocus('#day-' + s);
+      }
+    } else if (el.matches('select[data-ris]')) {
+      var rs = el.dataset.ris;
+      if (idx[rs] && idx[rs].grams[el.value] != null) {
+        state.riserva[rs] = el.value;
+        persist('menu');
+        renderOggi();
+        renderSpesa();
+      }
+    } else if (el.matches('input[data-key]')) {
+      var key = el.dataset.key, label = el.closest('label').querySelector('.buyrow__n').firstChild.textContent;
+      setDone(key, el.checked);
+      if (prefs.hide && el.checked) showUndo(key, label); else hideToast();
+      renderSpesa();
+      refocus('#' + el.id);
+    }
+  });
+
+  document.addEventListener('submit', function (ev) {
+    var f = ev.target;
+    if (!f.matches || !f.matches('form[data-form="add-extra"]')) return;
+    ev.preventDefault();
+    if (addExtra($('add-n').value, 'alt')) { renderSpesa(); refocus('#add-n'); }
+  });
+
+  // "toggle" non risale: lo ascolto in cattura per ricordare i giorni aperti.
+  document.addEventListener('toggle', function (ev) {
+    var el = ev.target;
+    if (el && el.matches && el.matches('details.day')) ui.openDays[Number(el.dataset.day)] = el.open;
+    if (el && el.matches && el.matches('details.period')) ui.periodOpen = el.open;
+  }, true);
+
+  window.addEventListener('hashchange', function () { setView(); hideToast(); window.scrollTo(0, 0); });
+  window.addEventListener('resize', measure);
+  window.addEventListener('pagehide', flushNow);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') { flushNow(); return; }
+    if (!ui.editMeal) renderOggi();
+    if (sync.db && Date.now() - sync.lastPull > 60000) pull();
+  });
+
+  /* ---------- avvio ---------- */
+  cacheRead();
+  renderNutNote();
+  renderAll();
+  setChip(STANDALONE ? 'local' : 'wait');
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  if (!STANDALONE) connect();
+})();
+
+</script>
+</body>
+</html>
