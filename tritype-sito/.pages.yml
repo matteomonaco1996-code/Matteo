@@ -1,0 +1,249 @@
+# Configurazione del pannello Pages CMS (https://pagescms.org)
+# Deve stare nella radice del repository. Qui si decide COSA può modificare il cliente:
+# solo testi e foto, mai struttura e grafica.
+
+media:
+  input: src/assets/immagini
+  output: /src/assets/immagini
+  extensions: [jpg, jpeg, png, webp]
+  rename: safe
+
+components:
+  foto:
+    type: image
+    label: Foto
+    description: "Formati: JPG, PNG o WEBP. Va bene anche la foto originale del telefono: il sito la ridimensiona da solo. Le foto di iPhone in formato HEIC vanno prima convertite in JPG."
+
+content:
+  - name: home
+    label: Pagina principale
+    type: file
+    path: src/contenuti/home.yml
+    format: yaml
+    fields:
+      - name: hero
+        label: Apertura (parte alta della pagina)
+        type: object
+        fields:
+          - name: occhiello
+            label: Riga piccola sopra il titolo
+            type: string
+            options: { maxlength: 60 }
+          - name: titolo
+            label: Titolo principale
+            type: string
+            required: true
+            options: { maxlength: 70 }
+          - name: sottotitolo
+            label: Testo sotto il titolo
+            type: text
+            options: { maxlength: 220 }
+          - name: pulsante
+            label: Testo del pulsante
+            type: string
+            options: { maxlength: 30 }
+          - name: immagine
+            label: Immagine di apertura (facoltativa)
+            component: foto
+
+      - name: servizi
+        label: Servizi
+        type: object
+        fields:
+          - name: titolo
+            label: Titolo della sezione
+            type: string
+            options: { maxlength: 40 }
+          - name: introduzione
+            label: Introduzione
+            type: text
+            options: { maxlength: 160 }
+          - name: elenco
+            label: Elenco servizi
+            type: object
+            list:
+              min: 1
+              max: 6
+              collapsible:
+                collapsed: true
+                summary: "{titolo}"
+            fields:
+              - name: titolo
+                label: Nome del servizio
+                type: string
+                required: true
+                options: { maxlength: 40 }
+              - name: testo
+                label: Descrizione
+                type: text
+                options: { maxlength: 220 }
+              - name: immagine
+                label: Foto (facoltativa)
+                component: foto
+
+      - name: chi_siamo
+        label: Chi siamo
+        type: object
+        fields:
+          - name: titolo
+            label: Titolo della sezione
+            type: string
+            options: { maxlength: 40 }
+          - name: testo
+            label: Testo
+            description: Lascia una riga vuota per andare a capo con un nuovo paragrafo.
+            type: text
+            options: { maxlength: 1200 }
+          - name: immagine
+            label: Foto (facoltativa)
+            component: foto
+
+      - name: team
+        label: Team
+        type: object
+        fields:
+          - name: titolo
+            label: Titolo della sezione
+            type: string
+            options: { maxlength: 40 }
+          - name: elenco
+            label: Persone
+            description: Pubblica nomi e foto solo con il consenso delle persone.
+            type: object
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{nome}"
+            fields:
+              - name: nome
+                label: Nome e cognome
+                type: string
+                required: true
+                options: { maxlength: 50 }
+              - name: ruolo
+                label: Ruolo
+                type: string
+                options: { maxlength: 60 }
+              - name: foto
+                label: Foto (facoltativa)
+                component: foto
+
+      - name: marchi
+        label: I nostri marchi
+        type: object
+        fields:
+          - name: titolo
+            label: Titolo della sezione
+            type: string
+            options: { maxlength: 40 }
+          - name: introduzione
+            label: Introduzione
+            type: text
+            options: { maxlength: 200 }
+          - name: elenco
+            label: Marchi
+            type: object
+            list:
+              max: 4
+              collapsible:
+                collapsed: true
+                summary: "{nome}"
+            fields:
+              - name: nome
+                label: Nome
+                type: string
+                required: true
+                options: { maxlength: 50 }
+              - name: testo
+                label: Descrizione
+                type: text
+                options: { maxlength: 400 }
+              - name: logo
+                label: Logo (facoltativo)
+                component: foto
+              - name: link
+                label: Link al sito (facoltativo)
+                type: string
+                pattern:
+                  regex: "^(https?://.*)?$"
+                  message: "Il link deve iniziare con https://"
+
+      - name: contatti
+        label: Contatti
+        type: object
+        fields:
+          - name: titolo
+            label: Titolo della sezione
+            type: string
+            options: { maxlength: 40 }
+          - name: testo
+            label: Testo
+            type: text
+            options: { maxlength: 200 }
+
+  - name: sito
+    label: Dati aziendali e contatti
+    type: file
+    path: src/contenuti/sito.yml
+    format: yaml
+    fields:
+      - name: ragione_sociale
+        label: Ragione sociale
+        type: string
+        required: true
+      - name: descrizione
+        label: Descrizione per Google
+        description: Il testo che compare sotto il nome del sito nei risultati di ricerca. Massimo 160 caratteri.
+        type: text
+        options: { maxlength: 160 }
+      - name: logo
+        label: Logo
+        description: Usa il file ufficiale del logo, non ricrearlo.
+        component: foto
+      - name: email
+        label: Email
+        type: string
+      - name: telefono
+        label: Telefono
+        type: string
+      - name: indirizzo
+        label: Indirizzo
+        type: string
+      - name: partita_iva
+        label: Partita IVA
+        description: Obbligatoria sul sito per le aziende.
+        type: string
+        required: true
+      - name: social
+        label: Social (lascia vuoto quelli che non usi)
+        type: object
+        fields:
+          - name: instagram
+            label: Link Instagram
+            type: string
+            pattern: { regex: "^(https://.*)?$", message: "Il link deve iniziare con https://" }
+          - name: facebook
+            label: Link Facebook
+            type: string
+            pattern: { regex: "^(https://.*)?$", message: "Il link deve iniziare con https://" }
+          - name: linkedin
+            label: Link LinkedIn
+            type: string
+            pattern: { regex: "^(https://.*)?$", message: "Il link deve iniziare con https://" }
+
+  - name: privacy
+    label: Privacy policy
+    type: file
+    path: src/contenuti/privacy.yml
+    format: yaml
+    fields:
+      - name: titolo
+        label: Titolo
+        type: string
+      - name: testo
+        label: Testo
+        type: rich-text
+        options:
+          format: markdown
+          media: false

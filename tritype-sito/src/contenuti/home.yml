@@ -1,0 +1,60 @@
+hero:
+  occhiello: Editoria · Pubblicità · Grafica — Roma
+  titolo: Campagne, grafica ed editoria per le aziende.
+  sottotitolo: Progettiamo campagne pubblicitarie, curiamo la grafica e realizziamo prodotti editoriali. Un solo interlocutore, dall'idea al file pronto.
+  pulsante: Parliamo del tuo progetto
+  immagine: ""
+
+servizi:
+  titolo: Cosa facciamo
+  introduzione: Tre servizi, un unico gruppo di lavoro.
+  elenco:
+    - titolo: Campagne pubblicitarie B2B
+      testo: Pianifichiamo e realizziamo campagne per aziende che si rivolgono ad altre aziende. Messaggio, formati, uscite.
+      immagine: ""
+    - titolo: Grafica
+      testo: Identità visiva, materiali stampati, grafiche per web e social. File pronti per la tipografia e per la pubblicazione.
+      immagine: ""
+    - titolo: Servizi editoriali
+      testo: Testi, impaginazione e cura di pubblicazioni aziendali. Cataloghi, brochure, riviste, volumi.
+      immagine: ""
+
+chi_siamo:
+  titolo: Chi siamo
+  testo: |-
+    Tritype è un centro servizi di editoria, pubblicità e grafica con sede a Roma.
+
+    Lavoriamo per le aziende, pubblichiamo il freepress XL Giornale e curiamo i volumi di Libera Editrice Tiburtina.
+
+    [DA INSERIRE: anno di fondazione, storia, tipo di clienti seguiti]
+  immagine: ""
+
+team:
+  titolo: Il team
+  elenco:
+    - nome: Piergiorgio Monaco
+      ruolo: "[DA INSERIRE: ruolo]"
+      foto: ""
+    - nome: Claudio Iannilli
+      ruolo: "[DA INSERIRE: ruolo]"
+      foto: ""
+    - nome: Igor Bennati
+      ruolo: "[DA INSERIRE: ruolo]"
+      foto: ""
+
+marchi:
+  titolo: I nostri marchi
+  introduzione: Oltre al lavoro per le aziende, Tritype pubblica con due marchi propri.
+  elenco:
+    - nome: XL Giornale
+      testo: Freepress locale gratuito della zona di Tivoli e Guidonia. Lo trovi nei dispenser di piazza Santa Croce a Tivoli, al centro commerciale DEM di Villa Adriana e in via Empolitana a Tivoli (Annalisa Oro).
+      logo: ""
+      link: ""
+    - nome: Libera Editrice Tiburtina
+      testo: "Il marchio editoriale di Tritype per i volumi. [DA INSERIRE: genere dei titoli pubblicati, titoli principali]"
+      logo: ""
+      link: ""
+
+contatti:
+  titolo: Contatti
+  testo: Raccontaci di cosa hai bisogno. Ti rispondiamo con una proposta concreta.

@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import { leggi, segnaposto, paragrafi } from '../lib/contenuti';
+
+const h = leggi('home');
+const sito = leggi('sito');
+const { hero, servizi, chi_siamo, team, marchi, contatti } = h;
+const iniziali = (nome = '') => nome.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase();
+const telefonoLink = (t = '') => 'tel:' + t.replace(/[^\d+]/g, '');
+const mappaLink = (i = '') => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(i);
+// Motivo grafico: righe di testo stilizzate (blu e azzurro, come la barra del logo)
+const righe = [92, 70, 84, 46, 0, 78, 88, 60, 0, 40];
+---
+<Base>
+  <!-- APERTURA -->
+  <section class="hero">
+    <div class="contenitore hero__griglia">
+      <div class="hero__testo">
+        {hero.occhiello && <p class="occhiello">{hero.occhiello}</p>}
+        <h1>{hero.titolo}</h1>
+        {hero.sottotitolo && <p class="hero__sottotitolo">{hero.sottotitolo}</p>}
+        <div class="hero__azioni">
+          {hero.pulsante && <a class="pulsante" href="#contatti">{hero.pulsante}</a>}
+          <a class="collegamento" href="#servizi">Vedi i servizi →</a>
+        </div>
+      </div>
+      <div class="hero__visivo">
+        <Foto src={hero.immagine} alt="" sizes="(min-width: 900px) 45vw, 100vw" class="hero__foto" loading="eager">
+          <div class="righe" aria-hidden="true">
+            {righe.map((l, i) => l === 0 ? <span class="righe__spazio"></span> : <span class={i % 4 === 0 ? 'righe__riga righe__riga--blu' : 'righe__riga'} style={`--l:${l}%`}></span>)}
+          </div>
+        </Foto>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section id="servizi" class="sezione">
+    <div class="contenitore">
+      <header class="sezione__testa">
+        <h2>{servizi.titolo}</h2>
+        {servizi.introduzione && <p>{servizi.introduzione}</p>}
+      </header>
+      <ol class="servizi">
+        {(servizi.elenco ?? []).map((s: any, i: number) => (
+          <li class="servizio">
+            <Foto src={s.immagine} alt={s.titolo} sizes="(min-width: 900px) 30vw, 100vw" widths={[480, 800]} class="servizio__foto" />
+            <span class="servizio__numero" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.titolo}</h3>
+            {s.testo && <p>{s.testo}</p>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- CHI SIAMO -->
+  <section id="chi-siamo" class="sezione sezione--tenue">
+    <div class="contenitore due-colonne">
+      <div>
+        <h2>{chi_siamo.titolo}</h2>
+        <div class="prosa">{paragrafi(chi_siamo.testo).map((p) => <p>{p}</p>)}</div>
+      </div>
+      <Foto src={chi_siamo.immagine} alt={chi_siamo.titolo} sizes="(min-width: 900px) 45vw, 100vw" class="chi-siamo__foto">
+        <div class="cornice-vuota" aria-hidden="true"><span></span><span></span><span></span></div>
+      </Foto>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  {team?.elenco?.length > 0 && (
+    <section class="sezione">
+      <div class="contenitore">
+        <header class="sezione__testa"><h2>{team.titolo}</h2></header>
+        <ul class="team">
+          {team.elenco.map((p: any) => (
+            <li class="persona">
+              <Foto src={p.foto} alt={p.nome} widths={[240, 480]} sizes="120px" class="persona__foto">
+                <span class="persona__iniziali" aria-hidden="true">{iniziali(p.nome)}</span>
+              </Foto>
+              <div>
+                <h3>{p.nome}</h3>
+                {p.ruolo && <p>{p.ruolo}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- MARCHI -->
+  {marchi?.elenco?.length > 0 && (
+    <section id="marchi" class="sezione sezione--tenue">
+      <div class="contenitore">
+        <header class="sezione__testa">
+          <h2>{marchi.titolo}</h2>
+          {marchi.introduzione && <p>{marchi.introduzione}</p>}
+        </header>
+        <ul class="marchi">
+          {marchi.elenco.map((m: any) => (
+            <li class="scheda-marchio">
+              <Foto src={m.logo} alt={m.nome} widths={[240, 480]} sizes="160px" class="scheda-marchio__logo" />
+              <h3>{m.nome}</h3>
+              {m.testo && <p>{m.testo}</p>}
+              {m.link?.startsWith('http') && <a class="collegamento" href={m.link} rel="noopener">Visita il sito →</a>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- CONTATTI -->
+  <section id="contatti" class="sezione sezione--blu">
+    <div class="contenitore due-colonne">
+      <div>
+        <h2>{contatti.titolo}</h2>
+        {contatti.testo && <p class="contatti__testo">{contatti.testo}</p>}
+        {!segnaposto(sito.email) && <a class="pulsante pulsante--chiaro" href={`mailto:${sito.email}`}>Scrivici una email</a>}
+      </div>
+      <dl class="contatti">
+        {sito.email && <div><dt>Email</dt><dd>{segnaposto(sito.email) ? sito.email : <a href={`mailto:${sito.email}`}>{sito.email}</a>}</dd></div>}
+        {sito.telefono && <div><dt>Telefono</dt><dd>{segnaposto(sito.telefono) ? sito.telefono : <a href={telefonoLink(sito.telefono)}>{sito.telefono}</a>}</dd></div>}
+        {sito.indirizzo && <div><dt>Sede</dt><dd>{segnaposto(sito.indirizzo) ? sito.indirizzo : <a href={mappaLink(sito.indirizzo)} rel="noopener">{sito.indirizzo}</a>}</dd></div>}
+      </dl>
+    </div>
+  </section>
+</Base>

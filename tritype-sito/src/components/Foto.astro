@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import { immagine } from '../lib/immagini';
+
+interface Props {
+  src?: string | null;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+const { src, alt, widths = [480, 800, 1200, 1600], sizes = '100vw', class: cls, loading = 'lazy' } = Astro.props;
+const img = immagine(src);
+const larghezze = img ? (widths.filter((w) => w <= img.width).length ? widths.filter((w) => w <= img.width) : [img.width]) : [];
+---
+{img ? (
+  <Image src={img} alt={alt} widths={larghezze} sizes={sizes} class={cls} loading={loading} format="webp" quality={78} />
+) : (
+  <slot />
+)}

@@ -1,0 +1,81 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Foto from '../components/Foto.astro';
+import { leggi } from '../lib/contenuti';
+
+interface Props { titolo?: string; descrizione?: string }
+const sito = leggi('sito');
+const { titolo, descrizione = sito.descrizione } = Astro.props;
+const titoloPagina = titolo ? `${titolo} — ${sito.ragione_sociale}` : sito.ragione_sociale;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const social = Object.entries(sito.social ?? {}).filter(([, v]) => typeof v === 'string' && v.startsWith('https://'));
+const nomiSocial: Record<string, string> = { instagram: 'Instagram', facebook: 'Facebook', linkedin: 'LinkedIn' };
+const anno = new Date().getFullYear();
+const voci = [
+  { testo: 'Servizi', href: `${base}/#servizi` },
+  { testo: 'Chi siamo', href: `${base}/#chi-siamo` },
+  { testo: 'Marchi', href: `${base}/#marchi` },
+];
+---
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titoloPagina}</title>
+    {descrizione && <meta name="description" content={descrizione} />}
+    <meta property="og:title" content={titoloPagina} />
+    {descrizione && <meta property="og:description" content={descrizione} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="theme-color" content="#19549E" />
+  </head>
+  <body>
+    <a class="salta" href="#contenuto">Vai al contenuto</a>
+    <header class="testata">
+      <div class="contenitore testata__riga">
+        <a class="marchio" href={`${base}/`} aria-label={`${sito.ragione_sociale} — home`}>
+          <Foto src={sito.logo} alt={sito.ragione_sociale} widths={[200, 400]} sizes="200px" class="marchio__logo" loading="eager">
+            <span class="marchio__testo">{sito.ragione_sociale}</span>
+          </Foto>
+        </a>
+        <nav aria-label="Principale" class="nav-desktop">
+          <ul class="voci">
+            {voci.map((v) => <li><a href={v.href}>{v.testo}</a></li>)}
+            <li><a class="pulsante pulsante--piccolo" href={`${base}/#contatti`}>Contatti</a></li>
+          </ul>
+        </nav>
+        <details class="menu">
+          <summary aria-label="Menu"><span></span><span></span><span></span></summary>
+          <nav aria-label="Principale (mobile)">
+            <ul class="voci">
+              {voci.map((v) => <li><a href={v.href}>{v.testo}</a></li>)}
+              <li><a class="pulsante pulsante--piccolo" href={`${base}/#contatti`}>Contatti</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="contenuto">
+      <slot />
+    </main>
+
+    <footer class="piede">
+      <div class="contenitore piede__riga">
+        <p>© {anno} {sito.ragione_sociale}{sito.partita_iva && <> · P.IVA {sito.partita_iva}</>}</p>
+        <ul>
+          {social.map(([k, v]) => <li><a href={v as string} rel="noopener">{nomiSocial[k] ?? k}</a></li>)}
+          <li><a href={`${base}/privacy/`}>Privacy policy</a></li>
+        </ul>
+      </div>
+    </footer>
+    <script>
+      // Chiude il menu mobile dopo aver toccato una voce
+      document.querySelectorAll('.menu a').forEach((a) =>
+        a.addEventListener('click', () => a.closest('details')?.removeAttribute('open')),
+      );
+    </script>
+  </body>
+</html>
